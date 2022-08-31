@@ -1,17 +1,33 @@
 {
   "name": "vue-cmdk-palette",
-  "private": true,
-  "version": "0.0.0",
+  "version": "0.0.1",
   "type": "module",
+  "author": {
+    "name": "xiaoluoboding",
+    "email": "xiaoluoboding@gmail.com"
+  },
   "scripts": {
     "dev": "vite",
+    "build:types": "vue-tsc --declaration --emitDeclarationOnly",
     "build": "vue-tsc --noEmit && vite build",
     "preview": "vite preview"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "./lib/vue-cmdk-palette.umd.cjs",
+  "module": "./lib/vue-cmdk-palette.js",
+  "exports": {
+    ".": {
+      "import": "./lib/vue-cmdk-palette.js",
+      "require": "./lib/vue-cmdk-palette.umd.cjs"
+    }
   },
   "dependencies": {
     "vue": "^3.2.37"
   },
   "devDependencies": {
+    "@types/node": "^18.7.14",
     "@vitejs/plugin-vue": "^3.0.3",
     "typescript": "^4.6.4",
     "vite": "^3.0.7",
