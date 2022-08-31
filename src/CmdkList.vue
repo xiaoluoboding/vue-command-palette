@@ -7,9 +7,9 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Cmdk.List'
-}
-</script>
+import { defineComponent } from 'vue'
 
-<script lang="ts" setup></script>
+export default defineComponent({
+  name: 'Cmdk.List'
+})
+</script>
