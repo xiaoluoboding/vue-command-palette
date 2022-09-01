@@ -1,39 +1,54 @@
-import { defineComponent, h } from 'vue'
-import Empty from './CmdkEmpty.vue'
+import { defineComponent, h, provide } from 'vue'
 import Dialog from './CmdkDialog.vue'
-import Input from './CmdkInput.vue'
-import List from './CmdkList.vue'
 import Group from './CmdkGroup.vue'
+import Input from './CmdkInput.vue'
 import Item from './CmdkItem.vue'
+import List from './CmdkList.vue'
 
 /**
  * Cmdk Root Node
  */
 const Cmdk = defineComponent({
   name: 'Cmdk',
+  props: {
+    theme: {
+      type: String,
+      default: 'default'
+    }
+  },
   setup(props, { attrs, slots }) {
+    provide('theme', props.theme || 'default')
+
     return () =>
       h(
         'div',
         {
-          'cmdk-root': ''
+          'cmdk-root': '',
+          class: props.theme || 'default'
         },
         slots
       )
   }
 })
 
-const Separator = defineComponent({
-  name: 'Cmdk.Separator',
+/**
+ * Cmdk Empty Node
+ */
+const Empty = defineComponent({
+  name: 'Cmdk.Empty',
   setup(props, { attrs, slots }) {
     return () =>
       h('div', {
-        'cmdk-separator': '',
-        role: 'separator'
+        'cmdk-empty': '',
+        role: 'presentation',
+        ...attrs
       })
   }
 })
 
+/**
+ * Cmdk Loading Node
+ */
 const Loading = defineComponent({
   name: 'Cmdk.Loading',
   setup(props, { attrs, slots }) {
@@ -41,7 +56,6 @@ const Loading = defineComponent({
       h(
         'div',
         {
-          class: 'w-full',
           'cmdk-loading': '',
           role: 'progressbar',
           ...attrs
@@ -51,16 +65,31 @@ const Loading = defineComponent({
   }
 })
 
+/**
+ * Cmdk Separator Node
+ */
+const Separator = defineComponent({
+  name: 'Cmdk.Separator',
+  setup(props, { attrs, slots }) {
+    return () =>
+      h('div', {
+        'cmdk-separator': '',
+        role: 'separator',
+        ...attrs
+      })
+  }
+})
+
 const pkg = Object.assign(Cmdk, {
-  Root: Cmdk,
+  Dialog,
   Empty,
+  Group,
+  Input,
+  Item,
+  List,
   Loading,
   Separator,
-  Dialog,
-  Input,
-  List,
-  Group,
-  Item
+  Root: Cmdk
 })
 
 export { pkg as Cmdk }

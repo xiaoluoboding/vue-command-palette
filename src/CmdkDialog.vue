@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div class="linear">
+      <div :class="theme">
         <div cmdk-root>
           <div cmdk-dialog--mask v-if="visible">
             <div cmdk-dialog--wrapper>
@@ -29,7 +29,11 @@ export default {
 </script>
 
 <script lang="ts" setup>
-const props = defineProps<{
+import { inject } from 'vue'
+
+defineProps<{
   visible: Boolean
 }>()
+
+const theme = inject('theme')
 </script>
