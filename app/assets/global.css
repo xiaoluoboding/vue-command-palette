@@ -156,3 +156,12 @@ ul li {
   --blue11: hsl(210, 100%, 66.1%);
   --blue12: hsl(206, 98%, 95.8%);
 }
+
+@keyframes shown {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,140 +1,61 @@
 <template>
-  <Cmdk>
-    <Cmdk.Dialog :visible="true">
-      <Cmdk.Loading> Hang on... </Cmdk.Loading>
-      <template #header>
-        <Cmdk.Input placeholder="Type a command or search..." />
-      </template>
-      <template #body>
-        <Cmdk.List>
-          <!-- <Cmdk.Empty /> -->
-          <Cmdk.Item v-for="item in items">
-            <div>{{ item.label }}</div>
-            <div cmdk-linear-shortcuts>
-              <kbd v-for="key in item.shortcut" key="key">{{ key }}</kbd>
-            </div>
-          </Cmdk.Item>
-          <Cmdk.Group heading="Web Dev Tools">
-            <Cmdk.Item>GitHub</Cmdk.Item>
-            <Cmdk.Separator />
-            <Cmdk.Item>Vite</Cmdk.Item>
-            <Cmdk.Item>Vue</Cmdk.Item>
-          </Cmdk.Group>
-        </Cmdk.List>
-      </template>
-      <template #footer>
-        <ul class="cmdk-palette--footer-right">
-          <li>
-            <kbd class="cmdk-palette--key">
-              <svg width="15" height="15" aria-label="Enter key" role="img">
-                <g
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.2"
-                >
-                  <path
-                    d="M12 3.53088v3c0 1-1 2-2 2H4M7 11.53088l-3-3 3-3"
-                  ></path>
-                </g>
-              </svg>
-            </kbd>
-            <span class="cmdk-palette--label">to select</span>
-          </li>
-          <li>
-            <kbd class="cmdk-palette--key">
-              <svg width="15" height="15" aria-label="Arrow down" role="img">
-                <g
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.2"
-                >
-                  <path d="M7.5 3.5v8M10.5 8.5l-3 3-3-3"></path>
-                </g>
-              </svg>
-            </kbd>
-            <kbd class="cmdk-palette--key">
-              <svg width="15" height="15" aria-label="Arrow up" role="img">
-                <g
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.2"
-                >
-                  <path d="M7.5 11.5v-8M10.5 6.5l-3-3-3 3"></path>
-                </g>
-              </svg>
-            </kbd>
-            <span class="cmdk-palette--label">to navigate</span>
-          </li>
-          <li>
-            <kbd class="cmdk-palette--key">
-              <svg width="15" height="15" aria-label="Escape key" role="img">
-                <g
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="1.2"
-                >
-                  <path
-                    d="M13.6167 8.936c-.1065.3583-.6883.962-1.4875.962-.7993 0-1.653-.9165-1.653-2.1258v-.5678c0-1.2548.7896-2.1016 1.653-2.1016.8634 0 1.3601.4778 1.4875 1.0724M9 6c-.1352-.4735-.7506-.9219-1.46-.8972-.7092.0246-1.344.57-1.344 1.2166s.4198.8812 1.3445.9805C8.465 7.3992 8.968 7.9337 9 8.5c.032.5663-.454 1.398-1.4595 1.398C6.6593 9.898 6 9 5.963 8.4851m-1.4748.5368c-.2635.5941-.8099.876-1.5443.876s-1.7073-.6248-1.7073-2.204v-.4603c0-1.0416.721-2.131 1.7073-2.131.9864 0 1.6425 1.031 1.5443 2.2492h-2.956"
-                  ></path>
-                </g>
-              </svg>
-            </kbd>
-            <span class="cmdk-palette--label">to close</span>
-          </li>
-        </ul>
-        <div class="cmdk-palette-footer-left">Linear</div>
-      </template>
-    </Cmdk.Dialog>
-  </Cmdk>
+  <div class="w-screen h-full flex-center">
+    <div class="container mx-auto">
+      <div class="w-full max-w-3xl">
+        <Linear v-if="isOpenDialog" ref="target" />
+        <CmdkPlaceholder v-else />
+      </div>
+      <div class="w-full max-w-3xl mt-32">
+        <button
+          class="text-black dark:text-white px-8 py-4 border rounded-full cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800"
+          @click="(e) => toggleDarkMode()"
+        >
+          Toggle Dark Mode
+        </button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script lang="ts" setup>
-import { Cmdk } from '../src/index'
-import './assets/linear.css'
+import { ref, watch } from 'vue'
+import { useMagicKeys, onClickOutside, useDark, useToggle } from '@vueuse/core'
 
-const items = [
-  {
-    label: 'Assign to...',
-    shortcut: ['A']
-  },
-  {
-    label: 'Assign to me',
-    shortcut: ['I']
-  },
-  {
-    label: 'Change status...',
-    shortcut: ['S']
-  },
-  {
-    label: 'Change priority...',
-    shortcut: ['P']
-  },
-  {
-    label: 'Change labels...',
-    shortcut: ['L']
-  },
-  {
-    label: 'Remove label...',
-    shortcut: ['⇧', 'L']
-  },
-  {
-    label: 'Set due date...',
-    shortcut: ['⇧', 'D']
+import Linear from '~/components/cmdk/Linear.vue'
+import CmdkPlaceholder from '~/components/common/CmdkPlaceholder.vue'
+
+const isOpenDialog = ref(false)
+const target = ref(null)
+
+const isDark = useDark()
+const keys = useMagicKeys()
+const CmdK = keys['Meta+K']
+const Escape = keys['Escape']
+
+const toggleDarkMode = useToggle(isDark)
+
+watch(CmdK, (v) => {
+  if (v) {
+    console.log('Meta + K has been pressed')
+    isOpenDialog.value = true
   }
-]
+})
+watch(Escape, (v) => {
+  if (v) {
+    console.log('Escape has been pressed')
+    isOpenDialog.value = false
+  }
+})
+onClickOutside(target, (event) => {
+  console.log('Clicked the outside element of Command K Palette')
+  isOpenDialog.value = false
+})
 </script>
 
 <style>
 html,
-body {
+body,
+#app {
   height: 100%;
 }
 body {
@@ -145,12 +66,5 @@ body {
 ul {
   margin: 0;
   padding: 0;
-}
-</style>
-
-<style>
-div[cmdk-empty] {
-  background: #eee;
-  height: 200px;
 }
 </style>
