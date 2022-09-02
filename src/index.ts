@@ -1,35 +1,10 @@
 import { defineComponent, h, provide } from 'vue'
+import Cmdk from './Cmdk.vue'
 import Dialog from './CmdkDialog.vue'
 import Group from './CmdkGroup.vue'
 import Input from './CmdkInput.vue'
 import Item from './CmdkItem.vue'
 import List from './CmdkList.vue'
-
-/**
- * Cmdk Root Node
- */
-const Cmdk = defineComponent({
-  name: 'Cmdk',
-  props: {
-    theme: {
-      type: String,
-      default: 'default'
-    }
-  },
-  setup(props, { attrs, slots }) {
-    provide('theme', props.theme || 'default')
-
-    return () =>
-      h(
-        'div',
-        {
-          'cmdk-root': '',
-          class: props.theme || 'default'
-        },
-        slots
-      )
-  }
-})
 
 /**
  * Cmdk Empty Node

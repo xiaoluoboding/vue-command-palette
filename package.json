@@ -26,6 +26,7 @@
   },
   "types": "./lib/index.d.ts",
   "dependencies": {
+    "nanoid": "^4.0.0",
     "vue": "^3.2.37"
   },
   "devDependencies": {

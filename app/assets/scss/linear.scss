@@ -124,6 +124,7 @@
       background: var(--gray4);
     }
 
+    &:first-child,
     & + [cmdk-item] {
       margin-top: 4px;
     }
@@ -148,7 +149,7 @@
     margin-top: 8px;
   }
 
-  [cmdk-group--heading] {
+  [cmdk-group-heading] {
     user-select: none;
     font-size: 12px;
     color: var(--gray11);
@@ -174,7 +175,7 @@
     margin: 4px 0;
   }
 
-  [cmdk-dialog--mask] {
+  [cmdk-dialog-mask] {
     background-color: rgba(0, 0, 0, 0.3);
     height: 100vh;
     left: 0;
@@ -186,7 +187,7 @@
       shown;
   }
 
-  [cmdk-dialog--wrapper] {
+  [cmdk-dialog-wrapper] {
     position: relative;
     background: var(--gray2);
     border-radius: 6px;
@@ -198,7 +199,7 @@
       shown;
   }
 
-  [cmdk-dialog--footer] {
+  [cmdk-dialog-footer] {
     border-top: 1px solid var(--gray6);
     align-items: center;
     background: var(--gray4);
@@ -218,13 +219,13 @@
     font-size: 12px;
   }
 
-  [cmdk-dialog--footer] ul,
-  [cmdk-dialog--footer] ul li {
+  [cmdk-dialog-footer] ul,
+  [cmdk-dialog-footer] ul li {
     display: flex;
     align-items: center;
   }
 
-  [cmdk-dialog--footer] ul li {
+  [cmdk-dialog-footer] ul li {
     gap: 4px;
     margin-left: 4px;
     margin-right: 4px;

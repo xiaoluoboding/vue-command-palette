@@ -1,23 +1,23 @@
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div :class="theme">
-        <div cmdk-root>
-          <div cmdk-dialog--mask v-if="visible">
-            <div cmdk-dialog--wrapper>
-              <div cmdk-dialog--header>
+      <Cmdk :theme="theme">
+        <div v-if="visible" cmdk-dialog>
+          <div cmdk-dialog-mask>
+            <div cmdk-dialog-wrapper>
+              <div cmdk-dialog-header>
                 <slot name="header" />
               </div>
-              <div cmdk-dialog--body>
+              <div cmdk-dialog-body>
                 <slot name="body" />
               </div>
-              <div cmdk-dialog--footer>
+              <div cmdk-dialog-footer>
                 <slot name="footer" />
               </div>
             </div>
           </div>
         </div>
-      </div>
+      </Cmdk>
     </Transition>
   </Teleport>
 </template>
@@ -29,11 +29,10 @@ export default {
 </script>
 
 <script lang="ts" setup>
-import { inject } from 'vue'
+import Cmdk from './Cmdk.vue'
 
 defineProps<{
-  visible: Boolean
+  visible: boolean
+  theme: string
 }>()
-
-const theme = inject('theme')
 </script>

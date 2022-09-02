@@ -46,10 +46,10 @@ watch(Escape, (v) => {
     isOpenDialog.value = false
   }
 })
-onClickOutside(target, (event) => {
-  console.log('Clicked the outside element of Command K Palette')
-  isOpenDialog.value = false
-})
+// onClickOutside(target, (event) => {
+//   console.log('Clicked the outside element of Command K Palette')
+//   isOpenDialog.value = false
+// })
 </script>
 
 <style>
