@@ -124,8 +124,7 @@
       background: var(--gray4);
     }
 
-    &:first-child,
-    & + [cmdk-item] {
+    &:first-child {
       margin-top: 4px;
     }
 

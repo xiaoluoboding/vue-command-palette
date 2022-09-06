@@ -93,7 +93,7 @@ const getSelectedItem = () => {
   return cmdkRef.value?.querySelector(SELECTED_ITEM_SELECTOR)
 }
 
-const getValidItems = (rootNode: HTMLElement | undefined) => {
+const getValidItems = (rootNode: HTMLElement | undefined = cmdkRef.value) => {
   const allItemEl = rootNode?.querySelectorAll(
     VALID_ITEM_SELECTOR
   ) as NodeListOf<HTMLElement>
@@ -106,7 +106,7 @@ const getValidGroups = () => {
 }
 
 const selectedFirstItem = () => {
-  const [firstItem] = getValidItems(cmdkRef.value)
+  const [firstItem] = getValidItems()
   if (firstItem.getAttribute(ITEM_KEY_SELECTOR)) {
     selectedNode.value = firstItem.getAttribute(ITEM_KEY_SELECTOR) || ''
   }
@@ -127,7 +127,7 @@ const updateSelectedToIndex = (index: number) => {
 
 const updateSelectedByChange = (change: 1 | -1) => {
   const selected = getSelectedItem()
-  const items = getValidItems(cmdkRef.value)
+  const items = getValidItems()
   const index = items.findIndex((item) => item === selected)
 
   // Get item at this index
@@ -164,7 +164,7 @@ const updateSelectedToGroup = (change: 1 | -1) => {
 }
 
 const first = () => updateSelectedToIndex(0)
-const last = () => updateSelectedToIndex(getValidItems(cmdkRef.value).length - 1)
+const last = () => updateSelectedToIndex(getValidItems().length - 1)
 
 const next = (e: KeyboardEvent) => {
   e.preventDefault()
@@ -280,7 +280,7 @@ const filterItems = () => {
 }
 
 const initStore = () => {
-  const items = getValidItems(cmdkRef.value)
+  const items = getValidItems()
   const groups = getValidGroups()
 
   for (const item of items) {
@@ -293,7 +293,6 @@ const initStore = () => {
 
   // map the items in group
   for(const group of groups) {
-    console.log(group)
     const itemsInGroup = getValidItems(group)
     const groupId = group.getAttribute(GROUP_KEY_SELECTOR) || ''
     const itemIds = new Set('')

@@ -7,15 +7,13 @@
       <!-- <Cmdk.Loading> Hang on... </Cmdk.Loading> -->
       <Cmdk.List>
         <Cmdk.Empty>No results found.</Cmdk.Empty>
-        <Cmdk.Group heading="Suggestions">
-          <Cmdk.Item v-for="item in items" :data-value="item.label">
-            <component :is="item.icon" />
-            <div>{{ item.label }}</div>
-            <div cmdk-linear-shortcuts>
-              <kbd v-for="key in item.shortcut" key="key">{{ key }}</kbd>
-            </div>
-          </Cmdk.Item>
-        </Cmdk.Group>
+        <Cmdk.Item v-for="item in items" :data-value="item.label">
+          <component :is="item.icon" />
+          <div>{{ item.label }}</div>
+          <div cmdk-linear-shortcuts>
+            <kbd v-for="key in item.shortcut" key="key">{{ key }}</kbd>
+          </div>
+        </Cmdk.Item>
         <Cmdk.Group heading="Web Dev Tools">
           <Cmdk.Item data-value="GitHub">
             <div>GitHub</div>
