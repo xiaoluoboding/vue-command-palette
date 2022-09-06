@@ -4,6 +4,7 @@ specifiers:
   '@types/node': ^18.7.14
   '@vitejs/plugin-vue': ^3.0.3
   '@vueuse/core': ^9.1.1
+  fuse.js: ^6.6.2
   nanoid: ^4.0.0
   sass: ^1.54.8
   typescript: ^4.6.4
@@ -14,6 +15,7 @@ specifiers:
   vue-tsc: ^0.39.5
 
 dependencies:
+  fuse.js: 6.6.2
   nanoid: 4.0.0
   vue: 3.2.38
 
@@ -1011,6 +1013,11 @@ packages:
   /function-bind/1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==}
     dev: true
+
+  /fuse.js/6.6.2:
+    resolution: {integrity: sha512-cJaJkxCCxC8qIIcPBF9yGxY0W/tVZS3uEISDxhYIdtk8OL93pe+6Zj7LjCqVV4dzbqcriOZ+kQ/NE4RXZHsIGA==}
+    engines: {node: '>=10'}
+    dev: false
 
   /get-stream/6.0.1:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}

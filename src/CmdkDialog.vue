@@ -23,9 +23,11 @@
 </template>
 
 <script lang="ts">
-export default {
+import { defineComponent } from 'vue'
+
+export default defineComponent({
   name: 'Cmdk.Dialog'
-}
+})
 </script>
 
 <script lang="ts" setup>

@@ -1,5 +1,5 @@
 <template>
-  <div cmdk-group="" role="presentation">
+  <div cmdk-group="" role="presentation" v-if="isRender">
     <div cmdk-group-heading="" v-if="heading">
       {{ heading }}
     </div>
@@ -13,10 +13,23 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Cmdk.Group',
-
-  props: {
-    heading: String
-  }
+  name: 'Cmdk.Group'
 })
+</script>
+
+<script lang="ts" setup>
+import { computed } from 'vue'
+import { useCmdkState } from './useCmdkState'
+
+const groupId = 'dd'
+
+defineProps<{
+  heading: string
+}>()
+
+const { filtered, isSearching } = useCmdkState()
+
+const isRender = computed(() =>
+  !isSearching.value ? true : filtered.value.groups.has(groupId)
+)
 </script>

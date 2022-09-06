@@ -5,6 +5,7 @@
     :aria-selected="selectedNode === itemId"
     :key="itemId"
     :cmdk-item-key="itemId"
+    v-show="isRender"
   >
     <slot />
   </div>
@@ -19,10 +20,18 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { useCmdkState } from './useCmdkState'
+import { computed } from 'vue'
 import { nanoid } from 'nanoid'
 
-const { selectedNode } = useCmdkState()
+import { useCmdkState } from './useCmdkState'
+
+const { selectedNode, filtered, isSearching } = useCmdkState()
 
 const itemId = nanoid()
+
+const isRender = computed(() => {
+  const itemKey = filtered.value.items.get(itemId)
+
+  return !isSearching.value ? true : itemKey !== undefined
+})
 </script>

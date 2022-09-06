@@ -10,6 +10,7 @@
     role="combobox"
     :aria-expanded="true"
     :placeholder="placeholder"
+    :value="localSearch"
     @input="handleInput"
   />
 </template>
@@ -23,6 +24,9 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
+import { computed } from 'vue'
+import { useCmdkState } from './useCmdkState'
+
 const props = defineProps<{
   placeholder: string
 }>()
@@ -32,9 +36,13 @@ const emit = defineEmits<{
 }>()
 
 const inputRef = ref<HTMLInputElement | null>(null)
+const { search } = useCmdkState()
+const localSearch = computed(() => search.value)
 
 const handleInput = (e: Event) => {
-  console.log('input', e)
+  // console.log('input', e)
+  const input = e.target as HTMLInputElement
+  search.value = input?.value
   emit('input', e)
 }
 

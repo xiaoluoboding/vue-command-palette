@@ -1,5 +1,5 @@
 <template>
-  <div :class="theme" @keydown.prevent="handleKeyDown" ref="cmdkRef">
+  <div :class="theme" @keydown="handleKeyDown" ref="cmdkRef">
     <div cmdk-root>
       <slot />
     </div>
@@ -15,11 +15,15 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { provide, ref, onMounted, watch, nextTick } from 'vue'
+import { provide, ref, onMounted, watch, nextTick, computed } from 'vue'
+import { refDebounced } from '@vueuse/core'
+import Fuse from 'fuse.js'
+
 import { useCmdkState } from './useCmdkState'
 
 const ITEM_SELECTOR = '[cmdk-item=""]'
 const ITEM_KEY_SELECTOR = 'cmdk-item-key'
+const ITEM_DATA_VALUE_SELECTOR = 'cmdk-data-value'
 const LIST_SELECTOR = `[cmdk-list-sizer=""]`
 const GROUP_SELECTOR = `[cmdk-group=""]`
 const GROUP_ITEMS_SELECTOR = `[cmdk-group-items=""]`
@@ -29,6 +33,11 @@ const SELECTED_ITEM_SELECTOR = `${ITEM_SELECTOR}[aria-selected="true"]`
 const SELECT_EVENT = `cmdk-item-select`
 const VALUE_ATTR = `data-value`
 
+const fuseOptions = {
+  threshold: 0.2,
+  keys: ['label']
+}
+
 const props = defineProps({
   theme: {
     type: String,
@@ -37,9 +46,27 @@ const props = defineProps({
 })
 
 provide('theme', props.theme || 'default')
-const { selectedNode } = useCmdkState()
+const { selectedNode, search, filtered } = useCmdkState()
 
 const cmdkRef = ref<HTMLElement>()
+const cmdkList = refDebounced(ref(new Map()), 333)
+const allItemIds = refDebounced(ref<Set<string>>(new Set()), 333)
+
+const cmdkFuseList = computed(() => {
+  const fuseList = [] as any[]
+  for (const [key, label] of cmdkList.value.entries()) {
+    fuseList.push({
+      key,
+      label
+    })
+  }
+  return fuseList
+})
+
+const fuse = computed(() => {
+  const fuseIndex = Fuse.createIndex(fuseOptions.keys, cmdkFuseList.value)
+  return new Fuse(cmdkFuseList.value, fuseOptions, fuseIndex)
+})
 
 const scrollSelectedIntoView = () => {
   const item = getSelectedItem()
@@ -110,6 +137,7 @@ const first = () => updateSelectedToIndex(0)
 const last = () => updateSelectedToIndex(getValidItems().length - 1)
 
 const next = (e: KeyboardEvent) => {
+  e.preventDefault()
   if (e.metaKey) {
     // Last item
     last()
@@ -123,6 +151,7 @@ const next = (e: KeyboardEvent) => {
 }
 
 const prev = (e: KeyboardEvent) => {
+  e.preventDefault()
   if (e.metaKey) {
     // First item
     first()
@@ -137,7 +166,6 @@ const prev = (e: KeyboardEvent) => {
 
 const handleKeyDown = (e: KeyboardEvent) => {
   // console.log('keydown', e)
-  e.preventDefault()
   switch (e.key) {
     case 'n':
     case 'j': {
@@ -184,6 +212,41 @@ const handleKeyDown = (e: KeyboardEvent) => {
   }
 }
 
+const filterItems = () => {
+  if (!search.value) {
+    filtered.value.count = allItemIds.value.size
+    filtered.value.items = cmdkList.value
+  } else {
+    const items = new Map()
+
+    const list = fuse.value.search(search.value).map((r) => r.item)
+
+    for (const { key, label } of list) {
+      items.set(key, label)
+    }
+
+    nextTick(() => {
+      filtered.value.items = items
+      filtered.value.count = items.size
+    })
+  }
+}
+
+const initStore = () => {
+  const items = getValidItems()
+
+  for (const item of items) {
+    const itemKey = item.getAttribute(ITEM_KEY_SELECTOR) || ''
+    const itemLabel = item.getAttribute(ITEM_DATA_VALUE_SELECTOR) || ''
+    allItemIds.value.add(itemKey)
+    cmdkList.value.set(itemKey, itemLabel)
+    filtered.value.count = cmdkList.value.size
+  }
+}
+
+/**
+ * handle scroll into view
+ */
 watch(
   () => selectedNode.value,
   (newVal) => {
@@ -192,8 +255,18 @@ watch(
     }
   }
 )
+/**
+ * when search's value is changed, trigger filter action
+ */
+watch(
+  () => search.value,
+  (newVal) => {
+    filterItems()
+  }
+)
 
 onMounted(() => {
   selectedFirstItem()
+  initStore()
 })
 </script>

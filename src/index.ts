@@ -1,10 +1,11 @@
-import { defineComponent, h, provide } from 'vue'
+import { defineComponent, h, computed } from 'vue'
 import Cmdk from './Cmdk.vue'
 import Dialog from './CmdkDialog.vue'
 import Group from './CmdkGroup.vue'
 import Input from './CmdkInput.vue'
 import Item from './CmdkItem.vue'
 import List from './CmdkList.vue'
+import { useCmdkState } from './useCmdkState'
 
 /**
  * Cmdk Empty Node
@@ -12,12 +13,20 @@ import List from './CmdkList.vue'
 const Empty = defineComponent({
   name: 'Cmdk.Empty',
   setup(props, { attrs, slots }) {
+    const { filtered } = useCmdkState()
+    const isRender = computed(() => filtered.value.count === 0)
     return () =>
-      h('div', {
-        'cmdk-empty': '',
-        role: 'presentation',
-        ...attrs
-      })
+      isRender.value
+        ? h(
+            'div',
+            {
+              'cmdk-empty': '',
+              role: 'presentation',
+              ...attrs
+            },
+            slots
+          )
+        : h('div')
   }
 })
 
