@@ -24,9 +24,9 @@ import { findNextSibling, findPreviousSibling } from './utils'
 
 const ITEM_SELECTOR = '[cmdk-item=""]'
 const ITEM_KEY_SELECTOR = 'cmdk-item-key'
-const ITEM_DATA_VALUE_SELECTOR = 'cmdk-data-value'
 const LIST_SELECTOR = `[cmdk-list-sizer=""]`
 const GROUP_SELECTOR = `[cmdk-group=""]`
+const GROUP_KEY_SELECTOR = 'cmdk-group-key'
 const GROUP_ITEMS_SELECTOR = `[cmdk-group-items=""]`
 const GROUP_HEADING_SELECTOR = `[cmdk-group-heading=""]`
 const VALID_ITEM_SELECTOR = `${ITEM_SELECTOR}:not([aria-disabled="true"])`
@@ -93,15 +93,20 @@ const getSelectedItem = () => {
   return cmdkRef.value?.querySelector(SELECTED_ITEM_SELECTOR)
 }
 
-const getValidItems = () => {
-  const allItemEl = cmdkRef.value?.querySelectorAll(
-    ITEM_SELECTOR
-  ) as NodeListOf<Element>
+const getValidItems = (rootNode: HTMLElement | undefined) => {
+  const allItemEl = rootNode?.querySelectorAll(
+    VALID_ITEM_SELECTOR
+  ) as NodeListOf<HTMLElement>
   return Array.from(allItemEl)
 }
 
+const getValidGroups = () => {
+  const allGroupEl = cmdkRef.value?.querySelectorAll(GROUP_SELECTOR) as NodeListOf<HTMLElement>
+  return Array.from(allGroupEl)
+}
+
 const selectedFirstItem = () => {
-  const [firstItem] = getValidItems()
+  const [firstItem] = getValidItems(cmdkRef.value)
   if (firstItem.getAttribute(ITEM_KEY_SELECTOR)) {
     selectedNode.value = firstItem.getAttribute(ITEM_KEY_SELECTOR) || ''
   }
@@ -122,7 +127,7 @@ const updateSelectedToIndex = (index: number) => {
 
 const updateSelectedByChange = (change: 1 | -1) => {
   const selected = getSelectedItem()
-  const items = getValidItems()
+  const items = getValidItems(cmdkRef.value)
   const index = items.findIndex((item) => item === selected)
 
   // Get item at this index
@@ -159,7 +164,7 @@ const updateSelectedToGroup = (change: 1 | -1) => {
 }
 
 const first = () => updateSelectedToIndex(0)
-const last = () => updateSelectedToIndex(getValidItems().length - 1)
+const last = () => updateSelectedToIndex(getValidItems(cmdkRef.value).length - 1)
 
 const next = (e: KeyboardEvent) => {
   e.preventDefault()
@@ -247,12 +252,25 @@ const filterItems = () => {
     return
   }
 
+  // Reset the groups
+  filtered.value.groups = new Set('')
+
   const items = new Map()
 
   const list = fuse.value.search(search.value).map((r) => r.item)
 
+  // transform list to map
   for (const { key, label } of list) {
     items.set(key, label)
+  }
+
+  // Check which groups have at least 1 item shown
+  for(const [groupId, itemIdsInGroup] of allGroupIds.value) {
+    for (const itemId of itemIdsInGroup) {
+      if (items.get(itemId)) {
+        filtered.value.groups.add(groupId)
+      }
+    }
   }
 
   nextTick(() => {
@@ -262,14 +280,29 @@ const filterItems = () => {
 }
 
 const initStore = () => {
-  const items = getValidItems()
+  const items = getValidItems(cmdkRef.value)
+  const groups = getValidGroups()
 
   for (const item of items) {
     const itemKey = item.getAttribute(ITEM_KEY_SELECTOR) || ''
-    const itemLabel = item.getAttribute(ITEM_DATA_VALUE_SELECTOR) || ''
+    const itemLabel = item.getAttribute(VALUE_ATTR) || ''
     allItemIds.value.add(itemKey)
     cmdkList.value.set(itemKey, itemLabel)
     filtered.value.count = cmdkList.value.size
+  }
+
+  // map the items in group
+  for(const group of groups) {
+    console.log(group)
+    const itemsInGroup = getValidItems(group)
+    const groupId = group.getAttribute(GROUP_KEY_SELECTOR) || ''
+    const itemIds = new Set('')
+
+    for (const item of itemsInGroup) {
+      const itemKey = item.getAttribute(ITEM_KEY_SELECTOR) || ''
+      itemIds.add(itemKey)
+    }
+    allGroupIds.value.set(groupId, itemIds)
   }
 }
 

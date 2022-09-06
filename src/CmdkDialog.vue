@@ -31,10 +31,23 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
+import { onBeforeUnmount } from 'vue' 
+
 import Cmdk from './Cmdk.vue'
+import { useCmdkState } from './useCmdkState'
 
 defineProps<{
   visible: boolean
   theme: string
 }>()
+
+const { search, filtered } = useCmdkState()
+
+onBeforeUnmount(() => {
+  // reset the cmdk state
+  search.value = ''
+  filtered.value.count = 0
+  filtered.value.items = new Map()
+  filtered.value.groups = new Set()
+})
 </script>

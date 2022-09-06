@@ -2,7 +2,7 @@
   <div
     cmdk-group=""
     role="presentation"
-    v-if="isRender"
+    v-show="isRender"
     :key="groupId"
     :cmdk-group-key="groupId"
     :data-value="heading"

@@ -3,6 +3,7 @@
     cmdk-item=""
     role="option"
     :aria-selected="selectedNode === itemId"
+    :aria-disabled="!isRender"
     :key="itemId"
     :cmdk-item-key="itemId"
     v-show="isRender"
@@ -30,7 +31,7 @@ const { selectedNode, filtered, isSearching } = useCmdkState()
 const itemId = computed(() => `cmdk-item-${nanoid()}`)
 
 const isRender = computed(() => {
-  const itemKey = filtered.value.items.get(itemId)
+  const itemKey = filtered.value.items.get(itemId.value)
 
   return !isSearching.value ? true : itemKey !== undefined
 })

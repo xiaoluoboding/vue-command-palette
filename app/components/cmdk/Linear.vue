@@ -8,7 +8,7 @@
       <Cmdk.List>
         <Cmdk.Empty>No results found.</Cmdk.Empty>
         <Cmdk.Group heading="Suggestions">
-          <Cmdk.Item v-for="item in items" :cmdk-data-value="item.label">
+          <Cmdk.Item v-for="item in items" :data-value="item.label">
             <component :is="item.icon" />
             <div>{{ item.label }}</div>
             <div cmdk-linear-shortcuts>
@@ -17,14 +17,14 @@
           </Cmdk.Item>
         </Cmdk.Group>
         <Cmdk.Group heading="Web Dev Tools">
-          <Cmdk.Item cmdk-data-value="GitHub">
+          <Cmdk.Item data-value="GitHub">
             <div>GitHub</div>
           </Cmdk.Item>
           <Cmdk.Separator />
-          <Cmdk.Item cmdk-data-value="Vite">
+          <Cmdk.Item data-value="Vite">
             <div>Vite</div>
           </Cmdk.Item>
-          <Cmdk.Item cmdk-data-value="Vue">
+          <Cmdk.Item data-value="Vue">
             <div>Vue</div>
           </Cmdk.Item>
         </Cmdk.Group>
