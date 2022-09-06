@@ -27,7 +27,7 @@ import { useCmdkState } from './useCmdkState'
 
 const { selectedNode, filtered, isSearching } = useCmdkState()
 
-const itemId = nanoid()
+const itemId = computed(() => `cmdk-item-${nanoid()}`)
 
 const isRender = computed(() => {
   const itemKey = filtered.value.items.get(itemId)

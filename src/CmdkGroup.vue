@@ -1,5 +1,12 @@
 <template>
-  <div cmdk-group="" role="presentation" v-if="isRender">
+  <div
+    cmdk-group=""
+    role="presentation"
+    v-if="isRender"
+    :key="groupId"
+    :cmdk-group-key="groupId"
+    :data-value="heading"
+  >
     <div cmdk-group-heading="" v-if="heading">
       {{ heading }}
     </div>
@@ -19,9 +26,11 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { computed } from 'vue'
+import { nanoid } from 'nanoid'
+
 import { useCmdkState } from './useCmdkState'
 
-const groupId = 'dd'
+const groupId = computed(() => `cmdk-group-${nanoid()}`)
 
 defineProps<{
   heading: string
@@ -30,6 +39,6 @@ defineProps<{
 const { filtered, isSearching } = useCmdkState()
 
 const isRender = computed(() =>
-  !isSearching.value ? true : filtered.value.groups.has(groupId)
+  !isSearching.value ? true : filtered.value.groups.has(groupId.value)
 )
 </script>

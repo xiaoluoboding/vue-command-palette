@@ -20,6 +20,7 @@ import { refDebounced } from '@vueuse/core'
 import Fuse from 'fuse.js'
 
 import { useCmdkState } from './useCmdkState'
+import { findNextSibling, findPreviousSibling } from './utils'
 
 const ITEM_SELECTOR = '[cmdk-item=""]'
 const ITEM_KEY_SELECTOR = 'cmdk-item-key'
@@ -46,11 +47,12 @@ const props = defineProps({
 })
 
 provide('theme', props.theme || 'default')
-const { selectedNode, search, filtered } = useCmdkState()
+const { selectedNode, search, dataValue, filtered } = useCmdkState()
 
 const cmdkRef = ref<HTMLElement>()
 const cmdkList = refDebounced(ref(new Map()), 333)
-const allItemIds = refDebounced(ref<Set<string>>(new Set()), 333)
+const allItemIds = refDebounced(ref<Set<string>>(new Set()), 333) // [...itemIds]
+const allGroupIds = refDebounced(ref<Map<string, Set<string>>>(new Map())) // groupId -> [...itemIds]
 
 const cmdkFuseList = computed(() => {
   const fuseList = [] as any[]
@@ -72,8 +74,7 @@ const scrollSelectedIntoView = () => {
   const item = getSelectedItem()
 
   if (item) {
-    // console.log(item)
-    if (item.parentElement?.firstChild === item) {
+    if (item.parentElement?.firstElementChild === item) {
       // First item in Group, ensure heading is in view
       item
         .closest(GROUP_SELECTOR)
@@ -131,7 +132,31 @@ const updateSelectedByChange = (change: 1 | -1) => {
   }
 }
 
-const updateSelectedToGroup = (change: 1 | -1) => {}
+const updateSelectedToGroup = (change: 1 | -1) => {
+  const selected = getSelectedItem()
+  let group = selected?.closest(GROUP_SELECTOR)
+  let item: HTMLElement | null | undefined = null
+  // console.group('update selected to group')
+  // console.log(selected)
+  // console.log(group)
+
+  while (group && !item) {
+    group =
+      change > 0
+        ? findNextSibling(group, GROUP_SELECTOR)
+        : findPreviousSibling(group, GROUP_SELECTOR)
+    item = group?.querySelector(VALID_ITEM_SELECTOR)
+  }
+  // console.log(group)
+  // console.log(item)
+  // console.groupEnd()
+
+  if (item) {
+    selectedNode.value = item.getAttribute(ITEM_KEY_SELECTOR) || ''
+  } else {
+    updateSelectedByChange(change)
+  }
+}
 
 const first = () => updateSelectedToIndex(0)
 const last = () => updateSelectedToIndex(getValidItems().length - 1)
@@ -212,24 +237,28 @@ const handleKeyDown = (e: KeyboardEvent) => {
   }
 }
 
+/**
+ * Filters the current items.
+ */
 const filterItems = () => {
   if (!search.value) {
     filtered.value.count = allItemIds.value.size
-    filtered.value.items = cmdkList.value
-  } else {
-    const items = new Map()
-
-    const list = fuse.value.search(search.value).map((r) => r.item)
-
-    for (const { key, label } of list) {
-      items.set(key, label)
-    }
-
-    nextTick(() => {
-      filtered.value.items = items
-      filtered.value.count = items.size
-    })
+    // Do nothing, each item will know to show itself because search is empty
+    return
   }
+
+  const items = new Map()
+
+  const list = fuse.value.search(search.value).map((r) => r.item)
+
+  for (const { key, label } of list) {
+    items.set(key, label)
+  }
+
+  nextTick(() => {
+    filtered.value.count = items.size
+    filtered.value.items = items
+  })
 }
 
 const initStore = () => {
@@ -253,7 +282,8 @@ watch(
     if (newVal) {
       nextTick(() => scrollSelectedIntoView())
     }
-  }
+  },
+  { deep: true }
 )
 /**
  * when search's value is changed, trigger filter action

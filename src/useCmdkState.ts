@@ -12,7 +12,7 @@ type State = {
   selectedGroup: string
   // Input State
   search: string
-  value: string
+  dataValue: string
   filtered: FilteredItem
 }
 
@@ -20,7 +20,7 @@ const state = reactive<State>({
   selectedNode: '',
   selectedGroup: '',
   search: '',
-  value: '',
+  dataValue: '',
   filtered: {
     count: 0,
     items: new Map(),
