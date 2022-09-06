@@ -26,7 +26,7 @@ const Empty = defineComponent({
             },
             slots
           )
-        : h('div')
+        : h('')
   }
 })
 
