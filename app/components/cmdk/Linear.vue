@@ -7,7 +7,11 @@
       <!-- <Cmdk.Loading> Hang on... </Cmdk.Loading> -->
       <Cmdk.List>
         <Cmdk.Empty>No results found.</Cmdk.Empty>
-        <Cmdk.Item v-for="item in items" :data-value="item.label">
+        <Cmdk.Item
+          v-for="item in items"
+          :data-value="item.label"
+          @select="handleSelectItem"
+        >
           <component :is="item.icon" />
           <div>{{ item.label }}</div>
           <div cmdk-linear-shortcuts>
@@ -148,6 +152,10 @@ const items = [
     shortcut: ['⇧', 'D']
   }
 ]
+
+const handleSelectItem = (item: any) => {
+  console.log(item)
+}
 </script>
 
 <style lang="scss">

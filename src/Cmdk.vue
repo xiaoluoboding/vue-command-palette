@@ -101,7 +101,9 @@ const getValidItems = (rootNode: HTMLElement | undefined = cmdkRef.value) => {
 }
 
 const getValidGroups = () => {
-  const allGroupEl = cmdkRef.value?.querySelectorAll(GROUP_SELECTOR) as NodeListOf<HTMLElement>
+  const allGroupEl = cmdkRef.value?.querySelectorAll(
+    GROUP_SELECTOR
+  ) as NodeListOf<HTMLElement>
   return Array.from(allGroupEl)
 }
 
@@ -265,7 +267,7 @@ const filterItems = () => {
   }
 
   // Check which groups have at least 1 item shown
-  for(const [groupId, itemIdsInGroup] of allGroupIds.value) {
+  for (const [groupId, itemIdsInGroup] of allGroupIds.value) {
     for (const itemId of itemIdsInGroup) {
       if (items.get(itemId)) {
         filtered.value.groups.add(groupId)
@@ -292,7 +294,7 @@ const initStore = () => {
   }
 
   // map the items in group
-  for(const group of groups) {
+  for (const group of groups) {
     const itemsInGroup = getValidItems(group)
     const groupId = group.getAttribute(GROUP_KEY_SELECTOR) || ''
     const itemIds = new Set('')

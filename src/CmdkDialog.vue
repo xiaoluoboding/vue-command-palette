@@ -31,7 +31,7 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { onBeforeUnmount } from 'vue' 
+import { onBeforeUnmount } from 'vue'
 
 import Cmdk from './Cmdk.vue'
 import { useCmdkState } from './useCmdkState'
