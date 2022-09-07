@@ -1,6 +1,6 @@
 {
   "name": "vue-cmdk-palette",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "type": "module",
   "author": "xiaoluoboding <xiaoluoboding@gmail.com>",
   "scripts": {
@@ -28,8 +28,7 @@
   "dependencies": {
     "fuse.js": "^6.6.2",
     "mitt": "^3.0.0",
-    "nanoid": "^4.0.0",
-    "vue": "^3.2.37"
+    "nanoid": "^4.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.7.14",
@@ -40,6 +39,7 @@
     "unocss": "^0.45.13",
     "vite": "^3.0.7",
     "vite-plugin-dts": "^1.4.1",
+    "vue": "^3.2.37",
     "vue-tsc": "^0.39.5"
   }
 }
