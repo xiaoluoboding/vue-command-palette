@@ -32,7 +32,7 @@ const props = defineProps<{
 }>()
 
 const emit = defineEmits<{
-  (e: 'input', InputEvent): void
+  (e: 'input', ie: InputEvent): void
 }>()
 
 const inputRef = ref<HTMLInputElement | null>(null)
@@ -40,10 +40,10 @@ const { search } = useCmdkState()
 const localSearch = computed(() => search.value)
 
 const handleInput = (e: Event) => {
-  // console.log('input', e)
+  const event = e as InputEvent
   const input = e.target as HTMLInputElement
   search.value = input?.value
-  emit('input', e)
+  emit('input', event)
 }
 
 watchEffect(() => {
