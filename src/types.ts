@@ -10,3 +10,8 @@ export interface CMDK {
   Dialog?: DefineComponent<{}, {}, any>
   Input?: DefineComponent<{}, {}, any>
 }
+
+export type ItemInfo = {
+  key: string
+  value: string
+}

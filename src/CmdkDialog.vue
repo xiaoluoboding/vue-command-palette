@@ -1,7 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <Cmdk :theme="theme">
+      <Cmdk :theme="theme" @keydown="(e) => emit('keydown', e)">
         <div v-if="visible" cmdk-dialog>
           <div cmdk-dialog-mask>
             <div cmdk-dialog-wrapper>
@@ -11,7 +11,7 @@
               <div cmdk-dialog-body>
                 <slot name="body" />
               </div>
-              <div cmdk-dialog-footer>
+              <div cmdk-dialog-footer v-if="$slots.footer">
                 <slot name="footer" />
               </div>
             </div>
@@ -35,13 +35,25 @@ import { onBeforeUnmount } from 'vue'
 
 import Cmdk from './Cmdk.vue'
 import { useCmdkState } from './useCmdkState'
+import { useCmdkEvent } from './useCmdkEvent'
+import type { ItemInfo } from './types'
 
 defineProps<{
   visible: boolean
   theme: string
 }>()
 
+const emit = defineEmits<{
+  (e: 'select-item', item: ItemInfo): void
+  (e: 'keydown', ke: KeyboardEvent): void
+}>()
+
 const { search, filtered } = useCmdkState()
+const { emitter } = useCmdkEvent()
+
+emitter.on('selectItem', (item) => {
+  emit('select-item', item)
+})
 
 onBeforeUnmount(() => {
   // reset the cmdk state

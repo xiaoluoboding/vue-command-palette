@@ -27,15 +27,18 @@ import { computed, ref, watchEffect, onBeforeUnmount } from 'vue'
 import { nanoid } from 'nanoid'
 
 import { useCmdkState } from './useCmdkState'
+import { useCmdkEvent } from './useCmdkEvent'
+import type { ItemInfo } from './types'
 
 const SELECT_EVENT = `cmdk-item-select`
 const VALUE_ATTR = `data-value`
 
 const emit = defineEmits<{
-  (e: 'select', itemInfo: Record<string, any>): void
+  (e: 'select', itemInfo: ItemInfo): void
 }>()
 
 const { selectedNode, filtered, isSearching } = useCmdkState()
+const { emitter } = useCmdkEvent()
 
 const itemRef = ref<HTMLDivElement>()
 
@@ -48,10 +51,12 @@ const isRender = computed(() => {
 })
 
 const handleSelect = () => {
-  emit('select', {
+  const itemInfo = {
     key: itemId.value,
-    value: itemRef.value?.getAttribute(VALUE_ATTR)
-  })
+    value: itemRef.value?.getAttribute(VALUE_ATTR) || ''
+  }
+  emit('select', itemInfo)
+  emitter.emit('selectItem', itemInfo)
 }
 
 watchEffect(() => {
