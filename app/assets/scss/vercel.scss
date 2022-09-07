@@ -66,12 +66,12 @@
     transition: all 150ms ease;
     transition-property: none;
 
-    &[aria-selected="true"] {
+    &[aria-selected='true'] {
       background: var(--grayA3);
       color: var(--gray12);
     }
 
-    &[aria-disabled="true"] {
+    &[aria-disabled='true'] {
       color: var(--gray8);
       cursor: not-allowed;
     }
@@ -150,5 +150,9 @@
     height: 48px;
     white-space: pre-wrap;
     color: var(--gray11);
+  }
+
+  [cmdk-dialog-wrapper] {
+    padding: 8px;
   }
 }

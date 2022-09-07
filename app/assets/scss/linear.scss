@@ -170,50 +170,6 @@
     margin: 4px 0;
   }
 
-  [cmdk-dialog-mask] {
-    background-color: rgba(0, 0, 0, 0.3);
-    height: 100vh;
-    left: 0;
-    position: fixed;
-    top: 0;
-    width: 100vw;
-    z-index: 200;
-    animation: 333ms cubic-bezier(0.16, 1, 0.3, 1) 0s 1 normal none running
-      shown;
-  }
-
-  [cmdk-dialog-wrapper] {
-    position: relative;
-    background: var(--gray2);
-    border-radius: 6px;
-    box-shadow: none;
-    flex-direction: column;
-    margin: 20vh auto auto;
-    max-width: 560px;
-    animation: 333ms cubic-bezier(0.16, 1, 0.3, 1) 0s 1 normal none running
-      shown;
-  }
-
-  [cmdk-dialog-footer] {
-    border-top: 1px solid var(--gray6);
-    align-items: center;
-    background: var(--gray4);
-    color: var(--gray11);
-    border-radius: 0 0 8px 8px;
-    box-shadow: none;
-    display: flex;
-    flex-direction: row-reverse;
-    flex-shrink: 0;
-    height: 44px;
-    justify-content: space-between;
-    padding: 0 12px;
-    position: relative;
-    user-select: none;
-    width: 100%;
-    z-index: 300;
-    font-size: 12px;
-  }
-
   [cmdk-dialog-footer] ul,
   [cmdk-dialog-footer] ul li {
     display: flex;
