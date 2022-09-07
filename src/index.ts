@@ -26,7 +26,14 @@ const Empty = defineComponent({
             },
             slots
           )
-        : h('')
+        : h('div', {
+            'cmdk-empty': 'hidden',
+            role: 'presentation',
+            style: {
+              display: 'none'
+            },
+            ...attrs
+          })
   }
 })
 

@@ -124,10 +124,6 @@
       background: var(--gray4);
     }
 
-    &:first-child {
-      margin-top: 4px;
-    }
-
     svg {
       width: 16px;
       height: 16px;
@@ -157,7 +153,7 @@
     align-items: center;
   }
 
-  [cmdk-empty] {
+  [cmdk-empty=''] {
     font-size: 14px;
     display: flex;
     align-items: center;
