@@ -36,16 +36,13 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
-import { useDark } from '@vueuse/core'
+import { isDark } from '~/composables/useDarkmode'
 
 import { Cmdk } from '@/index'
 import { ItemInfo } from '@/types'
 import Home from './Home.vue'
 import RaycastLightIcon from '~/components/icons/RaycastLightIcon.vue'
 import RaycastDarkIcon from '~/components/icons/RaycastDarkIcon.vue'
-
-const isDark = useDark()
 
 const handleKeyDown = (e: KeyboardEvent) => {
   console.log(e)

@@ -29,16 +29,13 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { useDark, useToggle } from '@vueuse/core'
+import { toggleDarkmode } from '~/composables/useDarkmode'
 
 import { Cmdk } from '@/index'
 import { ItemInfo } from '@/types'
 
 import Home from './Home.vue'
 import Projects from './Projects.vue'
-
-const isDark = useDark()
-const toggleDarkMode = useToggle(isDark)
 
 const activePage = ref('home')
 const inputValue = ref('')
@@ -79,7 +76,7 @@ const handleSelectItem = (item: ItemInfo) => {
     togglePage()
   }
   if (item.value === 'Toggle Dark Mode') {
-    toggleDarkMode()
+    toggleDarkmode()
   }
 }
 </script>

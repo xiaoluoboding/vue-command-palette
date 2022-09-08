@@ -27,9 +27,9 @@ export default defineComponent({
 import { computed } from 'vue'
 import { useCmdkState } from './useCmdkState'
 
-const props = defineProps<{
-  value: string
+defineProps<{
   placeholder: string
+  value?: string
 }>()
 
 const emit = defineEmits<{

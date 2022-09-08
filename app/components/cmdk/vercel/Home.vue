@@ -40,7 +40,8 @@
         :shortcut="item.shortcut"
         :data-value="item.label"
       >
-        <component :is="item.icon" />
+        <SunIcon v-if="isDark" />
+        <MoonIcon v-else />
         {{ item.label }}
       </Item>
     </Cmdk.Group>
@@ -48,10 +49,9 @@
 </template>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
-import { useDark } from '@vueuse/core'
-
 import { Cmdk } from '@/index'
+
+import { isDark } from '~/composables/useDarkmode'
 import Item from './Item.vue'
 import ProjectsIcon from '~/components/icons/VercelProjectsIcon.vue'
 import PlusIcon from '~/components/icons/VercelPlusIcon.vue'
@@ -61,8 +61,6 @@ import FeedbackIcon from '~/components/icons/VercelFeedbackIcon.vue'
 import ContactIcon from '~/components/icons/VercelContactIcon.vue'
 import SunIcon from '~/components/icons/SunIcon.vue'
 import MoonIcon from '~/components/icons/MoonIcon.vue'
-
-const isDark = useDark()
 
 const items1 = [
   {
@@ -104,21 +102,11 @@ const items3 = [
   }
 ]
 
-const items4 = computed(() => {
-  return isDark.value
-    ? [
-        {
-          icon: MoonIcon,
-          label: 'Toggle Dark Mode',
-          shortcut: ['G', 'T']
-        }
-      ]
-    : [
-        {
-          icon: SunIcon,
-          label: 'Toggle Dark Mode',
-          shortcut: ['G', 'T']
-        }
-      ]
-})
+const items4 = [
+  {
+    icon: SunIcon,
+    label: 'Toggle Dark Mode',
+    shortcut: ['G', 'T']
+  }
+]
 </script>
