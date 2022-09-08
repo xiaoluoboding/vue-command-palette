@@ -16,18 +16,19 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { provide, ref, onMounted, watch, nextTick, computed } from 'vue'
-import { refDebounced } from '@vueuse/core'
+import { refDebounced, useDebounceFn } from '@vueuse/core'
 import Fuse from 'fuse.js'
 
 import { useCmdkState } from './useCmdkState'
+import { useCmdkEvent } from './useCmdkEvent'
 import { findNextSibling, findPreviousSibling } from './utils'
 
 const ITEM_SELECTOR = '[cmdk-item=""]'
 const ITEM_KEY_SELECTOR = 'cmdk-item-key'
-const LIST_SELECTOR = `[cmdk-list-sizer=""]`
+// const LIST_SELECTOR = `[cmdk-list-sizer=""]`
 const GROUP_SELECTOR = `[cmdk-group=""]`
 const GROUP_KEY_SELECTOR = 'cmdk-group-key'
-const GROUP_ITEMS_SELECTOR = `[cmdk-group-items=""]`
+// const GROUP_ITEMS_SELECTOR = `[cmdk-group-items=""]`
 const GROUP_HEADING_SELECTOR = `[cmdk-group-heading=""]`
 const VALID_ITEM_SELECTOR = `${ITEM_SELECTOR}:not([aria-disabled="true"])`
 const SELECTED_ITEM_SELECTOR = `${ITEM_SELECTOR}[aria-selected="true"]`
@@ -48,6 +49,7 @@ const props = defineProps({
 
 provide('theme', props.theme || 'default')
 const { selectedNode, search, dataValue, filtered } = useCmdkState()
+const { emitter } = useCmdkEvent()
 
 const cmdkRef = ref<HTMLElement>()
 const cmdkList = refDebounced(ref(new Map()), 333)
@@ -97,19 +99,19 @@ const getValidItems = (rootNode: HTMLElement | undefined = cmdkRef.value) => {
   const allItemEl = rootNode?.querySelectorAll(
     VALID_ITEM_SELECTOR
   ) as NodeListOf<HTMLElement>
-  return Array.from(allItemEl)
+  return allItemEl ? Array.from(allItemEl) : []
 }
 
 const getValidGroups = () => {
   const allGroupEl = cmdkRef.value?.querySelectorAll(
     GROUP_SELECTOR
   ) as NodeListOf<HTMLElement>
-  return Array.from(allGroupEl)
+  return allGroupEl ? Array.from(allGroupEl) : []
 }
 
 const selectedFirstItem = () => {
   const [firstItem] = getValidItems()
-  if (firstItem.getAttribute(ITEM_KEY_SELECTOR)) {
+  if (firstItem && firstItem.getAttribute(ITEM_KEY_SELECTOR)) {
     selectedNode.value = firstItem.getAttribute(ITEM_KEY_SELECTOR) || ''
   }
 }
@@ -314,7 +316,7 @@ watch(
   () => selectedNode.value,
   (newVal) => {
     if (newVal) {
-      nextTick(() => scrollSelectedIntoView())
+      nextTick(scrollSelectedIntoView)
     }
   },
   { deep: true }
@@ -326,11 +328,21 @@ watch(
   () => search.value,
   (newVal) => {
     filterItems()
+    nextTick(selectedFirstItem)
   }
 )
 
+const debouncedEmit = useDebounceFn((isRerender: Boolean) => {
+  if (isRerender) {
+    initStore()
+    nextTick(selectedFirstItem)
+  }
+}, 100)
+
+emitter.on('rerenderList', debouncedEmit)
+
 onMounted(() => {
-  selectedFirstItem()
   initStore()
+  selectedFirstItem()
 })
 </script>

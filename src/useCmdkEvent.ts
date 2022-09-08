@@ -3,6 +3,7 @@ import type { ItemInfo } from './types'
 
 type Events = {
   selectItem: ItemInfo
+  rerenderList: Boolean
 }
 
 const emitter: Emitter<Events> = mitt<Events>()
