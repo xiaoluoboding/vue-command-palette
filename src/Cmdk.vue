@@ -138,6 +138,11 @@ const updateSelectedByChange = (change: 1 | -1) => {
   const newSelected = items[index + change]
   if (newSelected) {
     selectedNode.value = newSelected.getAttribute(ITEM_KEY_SELECTOR) || ''
+  } else {
+    // no valid idx, then go to the first/last of item
+    change > 0
+      ? updateSelectedToIndex(0)
+      : updateSelectedToIndex(items.length - 1)
   }
 }
 
