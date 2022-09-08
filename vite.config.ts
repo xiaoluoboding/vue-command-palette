@@ -3,6 +3,9 @@ import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
 import UnoCSS from 'unocss/vite'
+import Icons from 'unplugin-icons/vite'
+import IconsResolver from 'unplugin-icons/resolver'
+import Components from 'unplugin-vue-components/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -17,7 +20,15 @@ export default defineConfig({
     dts({
       include: './src'
     }),
-    UnoCSS()
+    UnoCSS(),
+    Components({
+      resolvers: [
+        IconsResolver({
+          prefix: ''
+        })
+      ]
+    }),
+    Icons()
   ],
   build: {
     lib: {

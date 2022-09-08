@@ -1,7 +1,7 @@
 <template>
   <Cmdk.Dialog :visible="true" theme="linear">
     <template #header>
-      <!-- <div cmdk-linear-badge="">Issue - FUN-343</div> -->
+      <div cmdk-linear-badge="">Issue - FUN-343</div>
       <Cmdk.Input placeholder="Type a command or search..." />
     </template>
     <template #body>

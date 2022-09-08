@@ -31,12 +31,15 @@
     "nanoid": "^4.0.0"
   },
   "devDependencies": {
+    "@iconify/json": "^2.1.104",
     "@types/node": "^18.7.14",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vueuse/core": "^9.1.1",
     "sass": "^1.54.8",
     "typescript": "^4.6.4",
     "unocss": "^0.45.13",
+    "unplugin-icons": "^0.14.9",
+    "unplugin-vue-components": "^0.22.4",
     "vite": "^3.0.7",
     "vite-plugin-dts": "^1.4.1",
     "vue": "^3.2.37",
