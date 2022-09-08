@@ -1,5 +1,5 @@
 .raycast {
-  [cmdk-root] {
+  [cmdk-dialog-wrapper] {
     max-width: 640px;
     width: 100%;
     background: var(--gray1);
@@ -15,7 +15,7 @@
       border: 0;
 
       &:after {
-        content: "";
+        content: '';
         background: linear-gradient(
           to right,
           var(--gray6) 20%,
@@ -37,7 +37,7 @@
       }
 
       &:before {
-        content: "";
+        content: '';
         z-index: -1;
         position: absolute;
         border-radius: 12px;
@@ -117,7 +117,7 @@
     margin-bottom: 12px;
 
     &:after {
-      content: "";
+      content: '';
       width: 50%;
       height: 1px;
       position: absolute;
@@ -153,12 +153,12 @@
     transition: all 150ms ease;
     transition-property: none;
 
-    &[aria-selected="true"] {
+    &[aria-selected='true'] {
       background: var(--gray4);
       color: var(--gray12);
     }
 
-    &[aria-disabled="true"] {
+    &[aria-disabled='true'] {
       color: var(--gray8);
       cursor: not-allowed;
     }
@@ -259,7 +259,7 @@
       width: 1px;
     }
 
-    &[aria-expanded="true"],
+    &[aria-expanded='true'],
     &:hover {
       background: var(--gray4);
 
@@ -289,8 +289,9 @@
     align-items: center;
   }
 
-  [cmdk-raycast-footer] {
+  [cmdk-dialog-footer] {
     display: flex;
+    flex-direction: row;
     height: 40px;
     align-items: center;
     width: 100%;
@@ -321,7 +322,7 @@
     }
   }
 
-  [cmdk-dialog] {
+  [cmdk-popover] {
     z-index: var(--layer-portal);
     position: fixed;
     left: 50%;
@@ -334,7 +335,7 @@
       animation: dialogIn var(--transition-fast) forwards;
     }
 
-    &[data-state="closed"] [cmdk] {
+    &[data-state='closed'] [cmdk] {
       animation: dialogOut var(--transition-fast) forwards;
     }
   }
@@ -421,7 +422,7 @@
     transition: all 150ms ease;
     transition-property: none;
 
-    &[aria-selected="true"] {
+    &[aria-selected='true'] {
       background: var(--gray5);
       color: var(--gray12);
 
@@ -430,7 +431,7 @@
       }
     }
 
-    &[aria-disabled="true"] {
+    &[aria-disabled='true'] {
       color: var(--gray8);
       cursor: not-allowed;
     }
@@ -493,11 +494,11 @@
   animation-fill-mode: forwards;
   transform-origin: var(--radix-popover-content-transform-origin);
 
-  &[data-state="open"] {
+  &[data-state='open'] {
     animation-name: slideIn;
   }
 
-  &[data-state="closed"] {
+  &[data-state='closed'] {
     animation-name: slideOut;
   }
 

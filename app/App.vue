@@ -2,7 +2,7 @@
   <div class="w-screen h-full flex-center">
     <div class="container mx-auto">
       <div class="w-full max-w-3xl">
-        <Vercel v-if="isOpenDialog" ref="target" />
+        <Raycast v-if="isOpenDialog" ref="target" />
         <CmdkPlaceholder v-else />
       </div>
       <div class="w-full max-w-3xl mt-32">
@@ -23,6 +23,7 @@ import { useMagicKeys, onClickOutside, useDark, useToggle } from '@vueuse/core'
 
 import Linear from '~/components/cmdk/Linear.vue'
 import Vercel from '~/components/cmdk/vercel/Vercel.vue'
+import Raycast from '~/components/cmdk/raycast/Raycast.vue'
 import CmdkPlaceholder from '~/components/common/CmdkPlaceholder.vue'
 
 const isOpenDialog = ref(false)

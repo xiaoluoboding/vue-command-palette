@@ -1,9 +1,9 @@
 <template>
   <Cmdk.Item @select="onSelect">
     <slot />
-    <div cmdk-vercel-shortcuts="">
-      <kbd v-for="key in shortcut" key="key">{{ key }}</kbd>
-    </div>
+    <span cmdk-raycast-meta="">
+      {{ isCommand ? 'Command' : 'Application' }}
+    </span>
   </Cmdk.Item>
 </template>
 
@@ -12,8 +12,9 @@ import { Cmdk } from '@/index'
 import type { ItemInfo } from '@/types'
 
 defineProps({
-  shortcut: {
-    type: Array
+  isCommand: {
+    type: Boolean,
+    default: false
   }
 })
 
