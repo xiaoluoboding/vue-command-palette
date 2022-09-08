@@ -2,16 +2,8 @@
   <div class="w-screen h-full flex-center">
     <div class="container mx-auto">
       <div class="w-full max-w-3xl">
-        <Raycast v-if="isOpenDialog" ref="target" />
+        <Vercel v-if="isOpenDialog" ref="target" />
         <CmdkPlaceholder v-else />
-      </div>
-      <div class="w-full max-w-3xl mt-32">
-        <button
-          class="text-black dark:text-white px-8 py-4 border rounded-full cursor-pointer hover:bg-gray-100 hover:dark:bg-gray-800"
-          @click="(e) => toggleDarkMode()"
-        >
-          Toggle Dark Mode
-        </button>
       </div>
     </div>
   </div>
@@ -19,7 +11,7 @@
 
 <script lang="ts" setup>
 import { ref, watch } from 'vue'
-import { useMagicKeys, onClickOutside, useDark, useToggle } from '@vueuse/core'
+import { useMagicKeys, onClickOutside } from '@vueuse/core'
 
 import Linear from '~/components/cmdk/Linear.vue'
 import Vercel from '~/components/cmdk/vercel/Vercel.vue'
@@ -29,12 +21,9 @@ import CmdkPlaceholder from '~/components/common/CmdkPlaceholder.vue'
 const isOpenDialog = ref(false)
 const target = ref(null)
 
-const isDark = useDark()
 const keys = useMagicKeys()
 const CmdK = keys['Meta+K']
 const Escape = keys['Escape']
-
-const toggleDarkMode = useToggle(isDark)
 
 watch(CmdK, (v) => {
   if (v) {

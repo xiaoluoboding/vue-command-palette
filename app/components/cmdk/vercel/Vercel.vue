@@ -6,7 +6,12 @@
     @keydown="handleKeyDown"
   >
     <template #header>
-      <Cmdk.Input placeholder="What do you need?" />
+      <div cmdk-vercel-label>
+        <label cmdk-vercel-badge v-for="page in pageTree">
+          {{ page }}
+        </label>
+      </div>
+      <Cmdk.Input placeholder="What do you need?" v-model:value="inputValue" />
     </template>
     <template #body>
       <!-- <Cmdk.Loading> Hang on... </Cmdk.Loading> -->
@@ -24,6 +29,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
+import { useDark, useToggle } from '@vueuse/core'
 
 import { Cmdk } from '@/index'
 import { ItemInfo } from '@/types'
@@ -31,19 +37,34 @@ import { ItemInfo } from '@/types'
 import Home from './Home.vue'
 import Projects from './Projects.vue'
 
-const activePage = ref('home')
+const isDark = useDark()
+const toggleDarkMode = useToggle(isDark)
 
-const currentView = computed(() => {
-  return activePage.value === 'home' ? Home : Projects
-})
+const activePage = ref('home')
+const inputValue = ref('')
 
 const isHomePage = computed(() => activePage.value === 'home')
+
+const currentView = computed(() => {
+  return isHomePage.value ? Home : Projects
+})
+
+const pageTree = computed(() => {
+  let pages = ['Home']
+  if (isHomePage.value) {
+    pages = ['Home']
+  } else {
+    pages.push(activePage.value)
+  }
+  return pages
+})
+
 const togglePage = () => {
   activePage.value = isHomePage.value ? 'projects' : 'home'
 }
 
 const handleKeyDown = (e: KeyboardEvent) => {
-  if (isHomePage.value) {
+  if (isHomePage.value || inputValue.value.length) {
     return
   }
 
@@ -56,6 +77,9 @@ const handleKeyDown = (e: KeyboardEvent) => {
 const handleSelectItem = (item: ItemInfo) => {
   if (item.value === 'Search Projects...') {
     togglePage()
+  }
+  if (item.value === 'Toggle Dark Mode') {
+    toggleDarkMode()
   }
 }
 </script>

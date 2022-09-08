@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Item v-for="n in 6" cmdk-subitem="" :data-value="`Project ${n}`">
+    <Item v-for="n in 6" :data-value="`Project ${n}`">
       {{ `Project ${n}` }}
     </Item>
   </div>
