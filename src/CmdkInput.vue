@@ -28,11 +28,13 @@ import { computed } from 'vue'
 import { useCmdkState } from './useCmdkState'
 
 const props = defineProps<{
+  value: string
   placeholder: string
 }>()
 
 const emit = defineEmits<{
   (e: 'input', ie: InputEvent): void
+  (e: 'update:value', val: any): void
 }>()
 
 const inputRef = ref<HTMLInputElement | null>(null)
@@ -44,6 +46,7 @@ const handleInput = (e: Event) => {
   const input = e.target as HTMLInputElement
   search.value = input?.value
   emit('input', event)
+  emit('update:value', search.value)
 }
 
 watchEffect(() => {
