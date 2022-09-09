@@ -22,6 +22,7 @@ import Fuse from 'fuse.js'
 import { useCmdkState } from './useCmdkState'
 import { useCmdkEvent } from './useCmdkEvent'
 import { findNextSibling, findPreviousSibling } from './utils'
+import type { ItemInfo } from './types'
 
 const ITEM_SELECTOR = '[cmdk-item=""]'
 const ITEM_KEY_SELECTOR = 'cmdk-item-key'
@@ -46,6 +47,10 @@ const props = defineProps({
     default: 'default'
   }
 })
+
+const emit = defineEmits<{
+  (e: 'select-item', item: ItemInfo): void
+}>()
 
 provide('theme', props.theme || 'default')
 const { selectedNode, search, dataValue, filtered } = useCmdkState()
@@ -336,6 +341,10 @@ watch(
     nextTick(selectedFirstItem)
   }
 )
+
+emitter.on('selectItem', (item) => {
+  emit('select-item', item)
+})
 
 const debouncedEmit = useDebounceFn((isRerender: Boolean) => {
   if (isRerender) {
