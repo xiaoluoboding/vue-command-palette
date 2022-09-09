@@ -40,8 +40,8 @@
         :shortcut="item.shortcut"
         :data-value="item.label"
       >
-        <SunIcon v-if="isDark" />
-        <MoonIcon v-else />
+        <MoonIcon v-if="isDark" />
+        <SunIcon v-else />
         {{ item.label }}
       </Item>
     </Cmdk.Group>

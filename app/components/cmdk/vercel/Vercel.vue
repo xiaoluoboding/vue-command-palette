@@ -13,8 +13,8 @@
       </div>
       <Cmdk.Input placeholder="What do you need?" v-model:value="inputValue" />
     </template>
+    <!-- <Cmdk.Loading> Hang on... </Cmdk.Loading> -->
     <template #body>
-      <!-- <Cmdk.Loading> Hang on... </Cmdk.Loading> -->
       <Cmdk.List ref="dialogRef">
         <Cmdk.Empty>No results found.</Cmdk.Empty>
         <Transition name="pop-page">

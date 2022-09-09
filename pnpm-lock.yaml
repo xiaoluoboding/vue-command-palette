@@ -3,6 +3,7 @@ lockfileVersion: 5.4
 specifiers:
   '@iconify/json': ^2.1.104
   '@types/node': ^18.7.14
+  '@unocss/reset': ^0.45.18
   '@vitejs/plugin-vue': ^3.0.3
   '@vueuse/core': ^9.1.1
   fuse.js: ^6.6.2
@@ -26,6 +27,7 @@ dependencies:
 devDependencies:
   '@iconify/json': 2.1.104
   '@types/node': 18.7.14
+  '@unocss/reset': 0.45.18
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.38
   '@vueuse/core': 9.1.1_vue@3.2.38
   sass: 1.54.8
@@ -378,6 +380,10 @@ packages:
 
   /@unocss/reset/0.45.13:
     resolution: {integrity: sha512-BLnmfZNMNRu+qKNMm0v0xccGg8qEj4nLBKCGW739871qduN28KfqztYnY3UfGy6CJGIyMyZRI7lElhkjWO2NhA==}
+    dev: true
+
+  /@unocss/reset/0.45.18:
+    resolution: {integrity: sha512-85T9tdRo86Legeus3HHCMvwUDJRWoUz2hcHrwVeI5J1mCgC0uw/0+BybOyzHBEW4uvFLp9n3tI6Z8x0k+7ZFMQ==}
     dev: true
 
   /@unocss/scope/0.45.13:
