@@ -200,20 +200,3 @@ import { Command } from 'vue-command-palette'
 const visible = ref(false)
 `
 </script>
-
-<style>
-html,
-body,
-#app {
-  height: 100%;
-}
-body {
-  margin: 0;
-  padding: 0;
-}
-
-ul {
-  margin: 0;
-  padding: 0;
-}
-</style>

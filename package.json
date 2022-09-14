@@ -1,6 +1,6 @@
 {
   "name": "vue-command-palette",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "type": "module",
   "author": "xiaoluoboding <xiaoluoboding@gmail.com>",
   "scripts": {
