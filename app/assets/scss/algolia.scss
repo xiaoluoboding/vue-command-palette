@@ -192,7 +192,7 @@
 // transition for cmdk-dialog
 .cmdk-dialog-enter-active,
 .cmdk-dialog-leave-active {
-  transition: opacity 0.3s ease;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .cmdk-dialog-enter-from,
@@ -201,12 +201,12 @@
 }
 
 .cmdk-dialog-enter-active {
-  transition-duration: 0.55s;
+  transition-duration: 0.5s;
 }
 
 // transition for cmdk-dialog-wrapper
 .cmdk-dialog-enter-active [cmdk-dialog-wrapper] {
-  transition-delay: 0.25s;
+  transition-delay: 0.2s;
 }
 
 .cmdk-dialog-enter-from [cmdk-dialog-wrapper],
@@ -215,7 +215,7 @@
 }
 
 .cmdk-dialog-enter-active [cmdk-dialog-wrapper] {
-  transition: transform ease-out 0.3s;
+  transition: transform ease-out 0.2s;
 }
 
 .cmdk-dialog-enter-to [cmdk-dialog-wrapper],
