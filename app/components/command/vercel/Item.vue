@@ -1,20 +1,19 @@
 <template>
-  <Cmdk.Item @select="onSelect">
+  <Command.Item @select="onSelect">
     <slot />
-    <span cmdk-raycast-meta="">
-      {{ isCommand ? 'Command' : 'Application' }}
-    </span>
-  </Cmdk.Item>
+    <div command-vercel-shortcuts="">
+      <kbd v-for="key in shortcut" key="key">{{ key }}</kbd>
+    </div>
+  </Command.Item>
 </template>
 
 <script lang="ts" setup>
-import { Cmdk } from '@/index'
+import { Command } from '@/index'
 import type { ItemInfo } from '@/types'
 
 defineProps({
-  isCommand: {
-    type: Boolean,
-    default: false
+  shortcut: {
+    type: Array
   }
 })
 

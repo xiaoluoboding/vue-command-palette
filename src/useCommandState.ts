@@ -28,7 +28,7 @@ const state = reactive<State>({
   }
 })
 
-const useCmdkState = () => {
+const useCommandState = () => {
   const isSearching = computed(() => state.search !== '')
   return {
     isSearching,
@@ -36,4 +36,4 @@ const useCmdkState = () => {
   }
 }
 
-export { useCmdkState }
+export { useCommandState }

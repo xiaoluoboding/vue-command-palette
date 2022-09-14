@@ -1,31 +1,31 @@
 <template>
-  <Cmdk.Dialog :visible="true" theme="linear">
+  <Command.Dialog :visible="true" theme="linear">
     <template #header>
-      <div cmdk-linear-badge="">Issue - FUN-343</div>
-      <Cmdk.Input placeholder="Type a command or search..." />
+      <div command-linear-badge="">Issue - FUN-343</div>
+      <Command.Input placeholder="Type a command or search..." />
     </template>
     <template #body>
-      <!-- <Cmdk.Loading> Hang on... </Cmdk.Loading> -->
-      <Cmdk.List>
-        <Cmdk.Empty>No results found.</Cmdk.Empty>
-        <Cmdk.Item
+      <!-- <Command.Loading> Hang on... </Command.Loading> -->
+      <Command.List>
+        <Command.Empty>No results found.</Command.Empty>
+        <Command.Item
           v-for="item in items"
           :data-value="item.label"
           @select="handleSelectItem"
         >
           <component :is="item.icon" />
           <div>{{ item.label }}</div>
-          <div cmdk-linear-shortcuts>
+          <div command-linear-shortcuts>
             <kbd v-for="key in item.shortcut" key="key">{{ key }}</kbd>
           </div>
-        </Cmdk.Item>
-      </Cmdk.List>
+        </Command.Item>
+      </Command.List>
     </template>
-  </Cmdk.Dialog>
+  </Command.Dialog>
 </template>
 
 <script lang="ts" setup>
-import { Cmdk } from '@/index'
+import { Command } from '@/index'
 import LinearAssignToIcon from '../icons/LinearAssignToIcon.vue'
 import LinearAssignToMeIcon from '../icons/LinearAssignToMeIcon.vue'
 import LinearChangeStatusIcon from '../icons/LinearChangeStatusIcon.vue'

@@ -1,5 +1,5 @@
 <template>
-  <div cmdk-raycast-hammer-icon="">
+  <div command-raycast-hammer-icon="">
     <svg
       width="32"
       height="32"

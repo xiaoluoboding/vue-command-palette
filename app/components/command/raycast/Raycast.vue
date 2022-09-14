@@ -1,44 +1,44 @@
 <template>
-  <Cmdk.Dialog
+  <Command.Dialog
     :visible="true"
     theme="raycast"
     @select-item="handleSelectItem"
     @keydown="handleKeyDown"
   >
     <template #header>
-      <div cmdk-raycast-top-shine="" />
-      <Cmdk.Input placeholder="Search for apps and commands..." />
-      <hr cmdk-raycast-loader="" />
+      <div command-raycast-top-shine="" />
+      <Command.Input placeholder="Search for apps and commands..." />
+      <hr command-raycast-loader="" />
     </template>
     <template #body>
-      <!-- <Cmdk.Loading> Hang on... </Cmdk.Loading> -->
-      <Cmdk.List ref="dialogRef">
-        <Cmdk.Empty>No results found.</Cmdk.Empty>
+      <!-- <Command.Loading> Hang on... </Command.Loading> -->
+      <Command.List ref="dialogRef">
+        <Command.Empty>No results found.</Command.Empty>
         <Home />
-      </Cmdk.List>
+      </Command.List>
     </template>
     <template #footer>
       <RaycastDarkIcon v-if="isDark" />
       <RaycastLightIcon v-else />
-      <button cmdk-raycast-open-trigger="">
+      <button command-raycast-open-trigger="">
         Open Application
         <kbd>↵</kbd>
       </button>
 
       <hr />
-      <button cmdk-raycast-subcommand-trigger="">
+      <button command-raycast-subcommand-trigger="">
         Actions
         <kbd>⌘</kbd>
         <kbd>K</kbd>
       </button>
     </template>
-  </Cmdk.Dialog>
+  </Command.Dialog>
 </template>
 
 <script lang="ts" setup>
 import { isDark } from '~/composables/useDarkmode'
 
-import { Cmdk } from '@/index'
+import { Command } from '@/index'
 import { ItemInfo } from '@/types'
 import Home from './Home.vue'
 import RaycastLightIcon from '~/components/icons/RaycastLightIcon.vue'

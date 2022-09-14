@@ -8,10 +8,10 @@ type Events = {
 
 const emitter: Emitter<Events> = mitt<Events>()
 
-const useCmdkEvent = () => {
+const useCommandEvent = () => {
   return {
     emitter
   }
 }
 
-export { useCmdkEvent }
+export { useCommandEvent }

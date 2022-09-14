@@ -2,7 +2,7 @@
   margin: 0 auto;
   display: flex;
   justify-content: center;
-  [cmdk-root] {
+  [command-root] {
     max-width: 640px;
     width: 100%;
     background: #ffffff;
@@ -10,7 +10,7 @@
     overflow: hidden;
     padding: 0;
     font-family: var(--font-sans);
-    box-shadow: var(--cmdk-shadow);
+    box-shadow: var(--command-shadow);
 
     .dark & {
       background: linear-gradient(
@@ -34,7 +34,7 @@
     }
   }
 
-  [cmdk-linear-badge] {
+  [command-linear-badge] {
     height: 24px;
     padding: 16px 8px 0;
     font-size: 12px;
@@ -47,7 +47,7 @@
     margin: 16px 16px 0;
   }
 
-  [cmdk-linear-shortcuts] {
+  [command-linear-shortcuts] {
     display: flex;
     margin-left: auto;
     gap: 8px;
@@ -59,7 +59,7 @@
     }
   }
 
-  [cmdk-input] {
+  [command-input] {
     font-family: var(--font-sans);
     border: none;
     width: 100%;
@@ -78,7 +78,7 @@
     }
   }
 
-  [cmdk-item] {
+  [command-item] {
     content-visibility: auto;
 
     cursor: pointer;
@@ -131,8 +131,8 @@
     }
   }
 
-  [cmdk-list] {
-    height: min(300px, var(--cmdk-list-height));
+  [command-list] {
+    height: min(300px, var(--command-list-height));
     max-height: 360px;
     overflow: auto;
     overscroll-behavior: contain;
@@ -140,11 +140,11 @@
     transition-property: height;
   }
 
-  * + [cmdk-group] {
+  * + [command-group] {
     margin-top: 8px;
   }
 
-  [cmdk-group-heading] {
+  [command-group-heading] {
     user-select: none;
     font-size: 12px;
     color: var(--gray11);
@@ -153,7 +153,7 @@
     align-items: center;
   }
 
-  [cmdk-empty=''] {
+  [command-empty=''] {
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -163,20 +163,20 @@
     color: var(--gray11);
   }
 
-  [cmdk-separator] {
+  [command-separator] {
     height: 1px;
     width: 100%;
     background: var(--gray5);
     margin: 4px 0;
   }
 
-  [cmdk-dialog-footer] ul,
-  [cmdk-dialog-footer] ul li {
+  [command-dialog-footer] ul,
+  [command-dialog-footer] ul li {
     display: flex;
     align-items: center;
   }
 
-  [cmdk-dialog-footer] ul li {
+  [command-dialog-footer] ul li {
     gap: 4px;
     margin-left: 4px;
     margin-right: 4px;

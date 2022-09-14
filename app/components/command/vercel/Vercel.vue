@@ -1,37 +1,40 @@
 <template>
-  <Cmdk.Dialog
+  <Command.Dialog
     :visible="true"
     theme="vercel"
     @select-item="handleSelectItem"
     @keydown="handleKeyDown"
   >
     <template #header>
-      <div cmdk-vercel-label>
-        <label cmdk-vercel-badge v-for="page in pageTree">
+      <div command-vercel-label>
+        <label command-vercel-badge v-for="page in pageTree">
           {{ page }}
         </label>
       </div>
-      <Cmdk.Input placeholder="What do you need?" v-model:value="inputValue" />
+      <Command.Input
+        placeholder="What do you need?"
+        v-model:value="inputValue"
+      />
     </template>
-    <!-- <Cmdk.Loading> Hang on... </Cmdk.Loading> -->
+    <!-- <Command.Loading> Hang on... </Command.Loading> -->
     <template #body>
-      <Cmdk.List ref="dialogRef">
-        <Cmdk.Empty>No results found.</Cmdk.Empty>
+      <Command.List ref="dialogRef">
+        <Command.Empty>No results found.</Command.Empty>
         <Transition name="pop-page">
           <KeepAlive>
             <component :is="currentView" :key="activePage" />
           </KeepAlive>
         </Transition>
-      </Cmdk.List>
+      </Command.List>
     </template>
-  </Cmdk.Dialog>
+  </Command.Dialog>
 </template>
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
 import { toggleDarkmode } from '~/composables/useDarkmode'
 
-import { Cmdk } from '@/index'
+import { Command } from '@/index'
 import { ItemInfo } from '@/types'
 
 import Home from './Home.vue'

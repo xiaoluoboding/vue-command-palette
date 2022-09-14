@@ -1,7 +1,7 @@
 <template>
   <input
     ref="inputRef"
-    cmdk-input=""
+    command-input=""
     auto-focus
     auto-complete="off"
     auto-correct="off"
@@ -19,13 +19,13 @@
 import { defineComponent, ref, watchEffect } from 'vue'
 
 export default defineComponent({
-  name: 'Cmdk.Input'
+  name: 'Command.Input'
 })
 </script>
 
 <script lang="ts" setup>
 import { computed } from 'vue'
-import { useCmdkState } from './useCmdkState'
+import { useCommandState } from './useCommandState'
 
 defineProps<{
   placeholder: string
@@ -38,7 +38,7 @@ const emit = defineEmits<{
 }>()
 
 const inputRef = ref<HTMLInputElement | null>(null)
-const { search } = useCmdkState()
+const { search } = useCommandState()
 const localSearch = computed(() => search.value)
 
 const handleInput = (e: Event) => {

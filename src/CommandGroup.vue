@@ -1,16 +1,16 @@
 <template>
   <div
-    cmdk-group=""
+    command-group=""
     role="presentation"
     v-show="isRender"
     :key="groupId"
-    :cmdk-group-key="groupId"
+    :command-group-key="groupId"
     :data-value="heading"
   >
-    <div cmdk-group-heading="" v-if="heading">
+    <div command-group-heading="" v-if="heading">
       {{ heading }}
     </div>
-    <div cmdk-group-items="" role="group">
+    <div command-group-items="" role="group">
       <slot />
     </div>
   </div>
@@ -20,7 +20,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Cmdk.Group'
+  name: 'Command.Group'
 })
 </script>
 
@@ -28,15 +28,15 @@ export default defineComponent({
 import { computed } from 'vue'
 import { nanoid } from 'nanoid'
 
-import { useCmdkState } from './useCmdkState'
+import { useCommandState } from './useCommandState'
 
-const groupId = computed(() => `cmdk-group-${nanoid()}`)
+const groupId = computed(() => `command-group-${nanoid()}`)
 
 defineProps<{
   heading: string
 }>()
 
-const { filtered, isSearching } = useCmdkState()
+const { filtered, isSearching } = useCommandState()
 
 const isRender = computed(() =>
   !isSearching.value ? true : filtered.value.groups.has(groupId.value)

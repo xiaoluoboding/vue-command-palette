@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Cmdk.Group heading="Projects">
+    <Command.Group heading="Projects">
       <Item
         v-for="item in items1"
         :key="item.label"
@@ -10,8 +10,8 @@
         <component :is="item.icon" />
         {{ item.label }}
       </Item>
-    </Cmdk.Group>
-    <Cmdk.Group heading="Teams">
+    </Command.Group>
+    <Command.Group heading="Teams">
       <Item
         v-for="item in items2"
         :key="item.label"
@@ -21,8 +21,8 @@
         <component :is="item.icon" />
         {{ item.label }}
       </Item>
-    </Cmdk.Group>
-    <Cmdk.Group heading="Help">
+    </Command.Group>
+    <Command.Group heading="Help">
       <Item
         v-for="item in items3"
         :key="item.label"
@@ -32,8 +32,8 @@
         <component :is="item.icon" />
         {{ item.label }}
       </Item>
-    </Cmdk.Group>
-    <Cmdk.Group heading="Preference">
+    </Command.Group>
+    <Command.Group heading="Preference">
       <Item
         v-for="item in items4"
         :key="item.label"
@@ -44,12 +44,12 @@
         <SunIcon v-else />
         {{ item.label }}
       </Item>
-    </Cmdk.Group>
+    </Command.Group>
   </div>
 </template>
 
 <script lang="ts" setup>
-import { Cmdk } from '@/index'
+import { Command } from '@/index'
 
 import { isDark } from '~/composables/useDarkmode'
 import Item from './Item.vue'

@@ -1,23 +1,27 @@
 <template>
   <Teleport to="body">
-    <Transition name="cmdk-dialog" appear>
-      <Cmdk :theme="theme" @keydown="(e) => emit('keydown', e)" v-if="visible">
-        <div cmdk-dialog>
-          <div cmdk-dialog-mask>
-            <div cmdk-dialog-wrapper>
-              <div cmdk-dialog-header>
+    <Transition name="command-dialog" appear>
+      <Command
+        :theme="theme"
+        @keydown="(e) => emit('keydown', e)"
+        v-if="visible"
+      >
+        <div command-dialog>
+          <div command-dialog-mask>
+            <div command-dialog-wrapper>
+              <div command-dialog-header>
                 <slot name="header" />
               </div>
-              <div cmdk-dialog-body>
+              <div command-dialog-body>
                 <slot name="body" />
               </div>
-              <div cmdk-dialog-footer v-if="$slots.footer">
+              <div command-dialog-footer v-if="$slots.footer">
                 <slot name="footer" />
               </div>
             </div>
           </div>
         </div>
-      </Cmdk>
+      </Command>
     </Transition>
   </Teleport>
 </template>
@@ -26,16 +30,16 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Cmdk.Dialog'
+  name: 'Command.Dialog'
 })
 </script>
 
 <script lang="ts" setup>
 import { onBeforeUnmount } from 'vue'
 
-import Cmdk from './Cmdk.vue'
-import { useCmdkState } from './useCmdkState'
-import { useCmdkEvent } from './useCmdkEvent'
+import Command from './Command.vue'
+import { useCommandState } from './useCommandState'
+import { useCommandEvent } from './useCommandEvent'
 import type { ItemInfo } from './types'
 
 defineProps<{
@@ -48,15 +52,15 @@ const emit = defineEmits<{
   (e: 'keydown', ke: KeyboardEvent): void
 }>()
 
-const { search, filtered } = useCmdkState()
-const { emitter } = useCmdkEvent()
+const { search, filtered } = useCommandState()
+const { emitter } = useCommandEvent()
 
 emitter.on('selectItem', (item) => {
   emit('select-item', item)
 })
 
 onBeforeUnmount(() => {
-  // reset the cmdk state
+  // reset the command state
   search.value = ''
   filtered.value.count = 0
   filtered.value.items = new Map()

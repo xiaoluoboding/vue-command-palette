@@ -1,6 +1,6 @@
 import type { DefineComponent } from 'vue'
 
-export interface CMDK {
+export interface Command {
   Empty: DefineComponent<{}, {}, any>
   Loading: DefineComponent<{}, {}, any>
   Separator: DefineComponent<{}, {}, any>

@@ -1,5 +1,5 @@
 <template>
-  <div cmdk-raycast-clipboard-icon="">
+  <div command-raycast-clipboard-icon="">
     <svg
       width="32"
       height="32"

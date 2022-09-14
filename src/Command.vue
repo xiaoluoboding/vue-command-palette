@@ -1,6 +1,6 @@
 <template>
-  <div :class="theme" @keydown="handleKeyDown" ref="cmdkRef">
-    <div cmdk-root>
+  <div :class="theme" @keydown="handleKeyDown" ref="commandRef">
+    <div command-root>
       <slot />
     </div>
   </div>
@@ -10,7 +10,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Cmdk'
+  name: 'Command'
 })
 </script>
 
@@ -19,21 +19,21 @@ import { provide, ref, onMounted, watch, nextTick, computed } from 'vue'
 import { refDebounced, useDebounceFn } from '@vueuse/core'
 import Fuse from 'fuse.js'
 
-import { useCmdkState } from './useCmdkState'
-import { useCmdkEvent } from './useCmdkEvent'
+import { useCommandState } from './useCommandState'
+import { useCommandEvent } from './useCommandEvent'
 import { findNextSibling, findPreviousSibling } from './utils'
 import type { ItemInfo } from './types'
 
-const ITEM_SELECTOR = '[cmdk-item=""]'
-const ITEM_KEY_SELECTOR = 'cmdk-item-key'
-// const LIST_SELECTOR = `[cmdk-list-sizer=""]`
-const GROUP_SELECTOR = `[cmdk-group=""]`
-const GROUP_KEY_SELECTOR = 'cmdk-group-key'
-// const GROUP_ITEMS_SELECTOR = `[cmdk-group-items=""]`
-const GROUP_HEADING_SELECTOR = `[cmdk-group-heading=""]`
+const ITEM_SELECTOR = '[command-item=""]'
+const ITEM_KEY_SELECTOR = 'command-item-key'
+// const LIST_SELECTOR = `[command-list-sizer=""]`
+const GROUP_SELECTOR = `[command-group=""]`
+const GROUP_KEY_SELECTOR = 'command-group-key'
+// const GROUP_ITEMS_SELECTOR = `[command-group-items=""]`
+const GROUP_HEADING_SELECTOR = `[command-group-heading=""]`
 const VALID_ITEM_SELECTOR = `${ITEM_SELECTOR}:not([aria-disabled="true"])`
 const SELECTED_ITEM_SELECTOR = `${ITEM_SELECTOR}[aria-selected="true"]`
-const SELECT_EVENT = `cmdk-item-select`
+const SELECT_EVENT = `command-item-select`
 const VALUE_ATTR = `data-value`
 
 const fuseOptions = {
@@ -53,17 +53,17 @@ const emit = defineEmits<{
 }>()
 
 provide('theme', props.theme || 'default')
-const { selectedNode, search, dataValue, filtered } = useCmdkState()
-const { emitter } = useCmdkEvent()
+const { selectedNode, search, dataValue, filtered } = useCommandState()
+const { emitter } = useCommandEvent()
 
-const cmdkRef = ref<HTMLElement>()
-const cmdkList = refDebounced(ref(new Map()), 333)
+const commandRef = ref<HTMLElement>()
+const commandList = refDebounced(ref(new Map()), 333)
 const allItemIds = refDebounced(ref<Set<string>>(new Set()), 333) // [...itemIds]
 const allGroupIds = refDebounced(ref<Map<string, Set<string>>>(new Map())) // groupId -> [...itemIds]
 
-const cmdkFuseList = computed(() => {
+const commandFuseList = computed(() => {
   const fuseList = [] as any[]
-  for (const [key, label] of cmdkList.value.entries()) {
+  for (const [key, label] of commandList.value.entries()) {
     fuseList.push({
       key,
       label
@@ -73,8 +73,8 @@ const cmdkFuseList = computed(() => {
 })
 
 const fuse = computed(() => {
-  const fuseIndex = Fuse.createIndex(fuseOptions.keys, cmdkFuseList.value)
-  return new Fuse(cmdkFuseList.value, fuseOptions, fuseIndex)
+  const fuseIndex = Fuse.createIndex(fuseOptions.keys, commandFuseList.value)
+  return new Fuse(commandFuseList.value, fuseOptions, fuseIndex)
 })
 
 const scrollSelectedIntoView = () => {
@@ -97,10 +97,12 @@ const scrollSelectedIntoView = () => {
 /** Getters */
 
 const getSelectedItem = () => {
-  return cmdkRef.value?.querySelector(SELECTED_ITEM_SELECTOR)
+  return commandRef.value?.querySelector(SELECTED_ITEM_SELECTOR)
 }
 
-const getValidItems = (rootNode: HTMLElement | undefined = cmdkRef.value) => {
+const getValidItems = (
+  rootNode: HTMLElement | undefined = commandRef.value
+) => {
   const allItemEl = rootNode?.querySelectorAll(
     VALID_ITEM_SELECTOR
   ) as NodeListOf<HTMLElement>
@@ -108,7 +110,7 @@ const getValidItems = (rootNode: HTMLElement | undefined = cmdkRef.value) => {
 }
 
 const getValidGroups = () => {
-  const allGroupEl = cmdkRef.value?.querySelectorAll(
+  const allGroupEl = commandRef.value?.querySelectorAll(
     GROUP_SELECTOR
   ) as NodeListOf<HTMLElement>
   return allGroupEl ? Array.from(allGroupEl) : []
@@ -301,8 +303,8 @@ const initStore = () => {
     const itemKey = item.getAttribute(ITEM_KEY_SELECTOR) || ''
     const itemLabel = item.getAttribute(VALUE_ATTR) || ''
     allItemIds.value.add(itemKey)
-    cmdkList.value.set(itemKey, itemLabel)
-    filtered.value.count = cmdkList.value.size
+    commandList.value.set(itemKey, itemLabel)
+    filtered.value.count = commandList.value.size
   }
 
   // map the items in group

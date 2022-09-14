@@ -1,9 +1,9 @@
 .algolia {
-  [cmdk-root] {
+  [command-root] {
     padding: 8px;
   }
 
-  [cmdk-input] {
+  [command-input] {
     font-family: var(--font-sans);
     width: 100%;
     font-size: 18px;
@@ -22,8 +22,8 @@
     }
   }
 
-  [cmdk-list] {
-    height: min(300px, var(--cmdk-list-height));
+  [command-list] {
+    height: min(300px, var(--command-list-height));
     max-height: 360px;
     overflow: auto;
     overscroll-behavior: contain;
@@ -31,7 +31,7 @@
     transition-property: height;
   }
 
-  [cmdk-item] {
+  [command-item] {
     position: relative;
     content-visibility: auto;
     cursor: pointer;
@@ -62,7 +62,7 @@
         color: #fff;
       }
 
-      [cmdk-linear-shortcuts] {
+      [command-linear-shortcuts] {
         display: flex;
         margin-left: auto;
         gap: 8px;
@@ -92,7 +92,7 @@
     }
   }
 
-  [cmdk-empty=''] {
+  [command-empty=''] {
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -102,19 +102,19 @@
     color: var(--gray11);
   }
 
-  [cmdk-dialog-mask] {
+  [command-dialog-mask] {
     background-color: rgba(75, 75, 75, 0.8);
   }
 
-  [cmdk-dialog-header] {
+  [command-dialog-header] {
     padding: 12px 12px 0;
   }
 
-  [cmdk-dialog-body] {
+  [command-dialog-body] {
     padding: 0 12px 12px;
   }
 
-  [cmdk-dialog-footer] {
+  [command-dialog-footer] {
     align-items: center;
     border-radius: 0 0 8px 8px;
     box-shadow: 0 -1px 0 0 #e0e3e8, 0 -3px 6px 0 rgba(69, 98, 155, 0.12);
@@ -130,19 +130,18 @@
     z-index: 300;
   }
 
-  [cmdk-group-heading] {
+  [command-group-heading] {
     color: var(--vcp-c-brand);
     font-size: 0.85em;
     font-weight: 600;
     line-height: 32px;
     margin: 0 -4px;
     padding: 8px 4px 0;
-    position: sticky;
     top: 0;
     z-index: 10;
   }
 
-  .cmdk-palette-commands {
+  .command-palette-commands {
     color: var(--docsearch-muted-color);
     display: flex;
     list-style: none;
@@ -158,7 +157,7 @@
     }
   }
 
-  .cmdk-palette-logo {
+  .command-palette-logo {
     a {
       display: flex;
       align-items: center;
@@ -170,7 +169,7 @@
     }
   }
 
-  .cmdk-palette-commands-key {
+  .command-palette-commands-key {
     align-items: center;
     background: var(--gray3);
     border-radius: 2px;
@@ -185,45 +184,46 @@
   }
 }
 
-.dark .algolia [cmdk-dialog-footer] {
+.dark .algolia [command-dialog-footer] {
   box-shadow: none;
 }
 
-// transition for cmdk-dialog
-.cmdk-dialog-enter-active,
-.cmdk-dialog-leave-active {
-  transition: opacity 0.3s ease-in-out;
+// transition for command-dialog
+.command-dialog-enter-active,
+.command-dialog-leave-active {
+  transition: opacity 0.2s ease-in-out;
 }
 
-.cmdk-dialog-enter-from,
-.cmdk-dialog-leave-to {
+.command-dialog-enter-from,
+.command-dialog-leave-to {
   opacity: 0;
 }
 
-.cmdk-dialog-enter-active {
+.command-dialog-enter-active {
   transition-duration: 0.5s;
 }
 
-// transition for cmdk-dialog-wrapper
-.cmdk-dialog-enter-active [cmdk-dialog-wrapper] {
+// transition for command-dialog-wrapper
+.command-dialog-enter-active [command-dialog-wrapper] {
   transition-delay: 0.2s;
 }
 
-.cmdk-dialog-enter-from [cmdk-dialog-wrapper],
-.cmdk-dialog-leave-to [cmdk-dialog-wrapper] {
+.command-dialog-enter-from [command-dialog-wrapper],
+.command-dialog-leave-to [command-dialog-wrapper] {
+  opacity: 0;
   transform: translateY(10px) scale(0.95);
 }
 
-.cmdk-dialog-enter-active [cmdk-dialog-wrapper] {
-  transition: transform ease-out 0.2s;
+.command-dialog-enter-active [command-dialog-wrapper] {
+  transition: transform ease-out 0.3s;
 }
 
-.cmdk-dialog-enter-to [cmdk-dialog-wrapper],
-.cmdk-dialog-leave-from [cmdk-dialog-wrapper] {
+.command-dialog-enter-to [command-dialog-wrapper],
+.command-dialog-leave-from [command-dialog-wrapper] {
   opacity: 1;
   transform: translateY(0) scale(1);
 }
 
-.cmdk-dialog-leave-active [cmdk-dialog-wrapper] {
+.command-dialog-leave-active [command-dialog-wrapper] {
   transition: transfrom ease-in 0.2s;
 }

@@ -1,33 +1,33 @@
 import { defineComponent, h, computed } from 'vue'
-import Cmdk from './Cmdk.vue'
-import Dialog from './CmdkDialog.vue'
-import Group from './CmdkGroup.vue'
-import Input from './CmdkInput.vue'
-import Item from './CmdkItem.vue'
-import List from './CmdkList.vue'
-import { useCmdkState } from './useCmdkState'
+import Command from './Command.vue'
+import Dialog from './CommandDialog.vue'
+import Group from './CommandGroup.vue'
+import Input from './CommandInput.vue'
+import Item from './CommandItem.vue'
+import List from './CommandList.vue'
+import { useCommandState } from './useCommandState'
 
 /**
- * Cmdk Empty Node
+ * Command Empty Node
  */
 const Empty = defineComponent({
-  name: 'Cmdk.Empty',
+  name: 'Command.Empty',
   setup(props, { attrs, slots }) {
-    const { filtered } = useCmdkState()
+    const { filtered } = useCommandState()
     const isRender = computed(() => filtered.value.count === 0)
     return () =>
       isRender.value
         ? h(
             'div',
             {
-              'cmdk-empty': '',
+              'command-empty': '',
               role: 'presentation',
               ...attrs
             },
             slots
           )
         : h('div', {
-            'cmdk-empty': 'hidden',
+            'command-empty': 'hidden',
             role: 'presentation',
             style: {
               display: 'none'
@@ -38,16 +38,16 @@ const Empty = defineComponent({
 })
 
 /**
- * Cmdk Loading Node
+ * Command Loading Node
  */
 const Loading = defineComponent({
-  name: 'Cmdk.Loading',
+  name: 'Command.Loading',
   setup(props, { attrs, slots }) {
     return () =>
       h(
         'div',
         {
-          'cmdk-loading': '',
+          'command-loading': '',
           role: 'progressbar',
           ...attrs
         },
@@ -57,21 +57,21 @@ const Loading = defineComponent({
 })
 
 /**
- * Cmdk Separator Node
+ * Command Separator Node
  */
 const Separator = defineComponent({
-  name: 'Cmdk.Separator',
+  name: 'Command.Separator',
   setup(props, { attrs, slots }) {
     return () =>
       h('div', {
-        'cmdk-separator': '',
+        'command-separator': '',
         role: 'separator',
         ...attrs
       })
   }
 })
 
-const pkg = Object.assign(Cmdk, {
+const pkg = Object.assign(Command, {
   Dialog,
   Empty,
   Group,
@@ -80,7 +80,7 @@ const pkg = Object.assign(Cmdk, {
   List,
   Loading,
   Separator,
-  Root: Cmdk
+  Root: Command
 })
 
-export { pkg as Cmdk }
+export { pkg as Command }

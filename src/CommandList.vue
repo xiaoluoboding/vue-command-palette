@@ -1,6 +1,6 @@
 <template>
-  <div cmdk-list="" role="listbox" aria-label="Suggestions" ref="listRef">
-    <div cmdk-list-sizer ref="heightRef">
+  <div command-list="" role="listbox" aria-label="Suggestions" ref="listRef">
+    <div command-list-sizer ref="heightRef">
       <slot />
     </div>
   </div>
@@ -10,16 +10,16 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Cmdk.List'
+  name: 'Command.List'
 })
 </script>
 
 <script lang="ts" setup>
 import { ref, watchEffect, onBeforeUnmount } from 'vue'
 
-import { useCmdkEvent } from './useCmdkEvent'
+import { useCommandEvent } from './useCommandEvent'
 
-const { emitter } = useCmdkEvent()
+const { emitter } = useCommandEvent()
 
 const listRef = ref<HTMLDivElement>()
 const heightRef = ref<HTMLDivElement>()
@@ -29,7 +29,7 @@ let sizer: HTMLDivElement | undefined
 
 /**
  * Contains `Item`, `Group`, and `Separator`.
- * Use the `--cmdk-list-height` CSS variable to animate height based on the number of results.
+ * Use the `--command-list-height` CSS variable to animate height based on the number of results.
  */
 watchEffect(() => {
   sizer = heightRef.value
@@ -39,7 +39,7 @@ watchEffect(() => {
     observer = new ResizeObserver((entries) => {
       const height = sizer?.getBoundingClientRect().height
       wrapper?.style.setProperty(
-        '--cmdk-list-height',
+        '--command-list-height',
         `${height?.toFixed(1)}px`
       )
       emitter.emit('rerenderList', true)

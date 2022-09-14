@@ -1,12 +1,12 @@
 .raycast {
-  [cmdk-dialog-wrapper] {
+  [command-dialog-wrapper] {
     max-width: 640px;
     width: 100%;
     background: var(--gray1);
     border-radius: 12px;
     padding: 8px 0;
     font-family: var(--font-sans);
-    box-shadow: var(--cmdk-shadow);
+    box-shadow: var(--command-shadow);
     border: 1px solid var(--gray6);
     position: relative;
 
@@ -68,7 +68,7 @@
     }
   }
 
-  [cmdk-input] {
+  [command-input] {
     font-family: var(--font-sans);
     border: none;
     width: 100%;
@@ -83,7 +83,7 @@
     }
   }
 
-  [cmdk-raycast-top-shine] {
+  [command-raycast-top-shine] {
     .dark & {
       background: linear-gradient(
         90deg,
@@ -102,7 +102,7 @@
     }
   }
 
-  [cmdk-raycast-loader] {
+  [command-raycast-loader] {
     --loader-color: var(--gray9);
     border: 0;
     width: 100%;
@@ -136,7 +136,7 @@
     }
   }
 
-  [cmdk-item] {
+  [command-item] {
     content-visibility: auto;
 
     cursor: pointer;
@@ -172,7 +172,7 @@
       margin-top: 8px;
     }
 
-    & + [cmdk-item] {
+    & + [command-item] {
       margin-top: 4px;
     }
 
@@ -182,13 +182,13 @@
     }
   }
 
-  [cmdk-raycast-meta] {
+  [command-raycast-meta] {
     margin-left: auto;
     color: var(--gray11);
     font-size: 13px;
   }
 
-  [cmdk-list] {
+  [command-list] {
     padding: 0 8px;
     height: var(--cmd-list-height);
     overflow: auto;
@@ -199,8 +199,8 @@
     padding-bottom: 40px;
   }
 
-  [cmdk-raycast-open-trigger],
-  [cmdk-raycast-subcommand-trigger] {
+  [command-raycast-open-trigger],
+  [command-raycast-subcommand-trigger] {
     color: var(--gray11);
     padding: 0px 4px 0px 8px;
     border-radius: 6px;
@@ -210,8 +210,8 @@
     letter-spacing: -0.25px;
   }
 
-  [cmdk-raycast-clipboard-icon],
-  [cmdk-raycast-hammer-icon] {
+  [command-raycast-clipboard-icon],
+  [command-raycast-hammer-icon] {
     width: 20px;
     height: 20px;
     border-radius: 6px;
@@ -226,21 +226,21 @@
     }
   }
 
-  [cmdk-raycast-clipboard-icon] {
+  [command-raycast-clipboard-icon] {
     background: linear-gradient(to bottom, #f55354, #eb4646);
   }
 
-  [cmdk-raycast-hammer-icon] {
+  [command-raycast-hammer-icon] {
     background: linear-gradient(to bottom, #6cb9a3, #2c6459);
   }
 
-  [cmdk-raycast-open-trigger] {
+  [command-raycast-open-trigger] {
     display: flex;
     align-items: center;
     color: var(--gray12);
   }
 
-  [cmdk-raycast-subcommand-trigger] {
+  [command-raycast-subcommand-trigger] {
     display: flex;
     align-items: center;
     gap: 4px;
@@ -269,18 +269,18 @@
     }
   }
 
-  [cmdk-separator] {
+  [command-separator] {
     height: 1px;
     width: 100%;
     background: var(--gray5);
     margin: 4px 0;
   }
 
-  * + [cmdk-group] {
+  * + [command-group] {
     margin-top: 8px;
   }
 
-  [cmdk-group-heading] {
+  [command-group-heading] {
     user-select: none;
     font-size: 12px;
     color: var(--gray11);
@@ -289,7 +289,7 @@
     align-items: center;
   }
 
-  [cmdk-dialog-footer] {
+  [command-dialog-footer] {
     display: flex;
     flex-direction: row;
     height: 40px;
@@ -322,25 +322,25 @@
     }
   }
 
-  [cmdk-popover] {
+  [command-popover] {
     z-index: var(--layer-portal);
     position: fixed;
     left: 50%;
     top: var(--page-top);
     transform: translateX(-50%);
 
-    [cmdk] {
+    [command] {
       width: 640px;
       transform-origin: center center;
       animation: dialogIn var(--transition-fast) forwards;
     }
 
-    &[data-state='closed'] [cmdk] {
+    &[data-state='closed'] [command] {
       animation: dialogOut var(--transition-fast) forwards;
     }
   }
 
-  [cmdk-empty] {
+  [command-empty] {
     font-size: 14px;
     display: flex;
     align-items: center;
@@ -388,7 +388,7 @@
 }
 
 .raycast-submenu {
-  [cmdk-root] {
+  [command-root] {
     display: flex;
     flex-direction: column;
     width: 320px;
@@ -397,7 +397,7 @@
     border-radius: 8px;
   }
 
-  [cmdk-list] {
+  [command-list] {
     padding: 8px;
     overflow: auto;
     overscroll-behavior: contain;
@@ -405,7 +405,7 @@
     transition-property: height;
   }
 
-  [cmdk-item] {
+  [command-item] {
     height: 40px;
 
     cursor: pointer;
@@ -426,7 +426,7 @@
       background: var(--gray5);
       color: var(--gray12);
 
-      [cmdk-raycast-submenu-shortcuts] kbd {
+      [command-raycast-submenu-shortcuts] kbd {
         background: var(--gray7);
       }
     }
@@ -441,7 +441,7 @@
       height: 16px;
     }
 
-    [cmdk-raycast-submenu-shortcuts] {
+    [command-raycast-submenu-shortcuts] {
       display: flex;
       margin-left: auto;
       gap: 2px;
@@ -466,7 +466,7 @@
     }
   }
 
-  [cmdk-group-heading] {
+  [command-group-heading] {
     text-transform: capitalize;
     font-size: 12px;
     color: var(--gray11);
@@ -476,7 +476,7 @@
     margin-left: 4px;
   }
 
-  [cmdk-input] {
+  [command-input] {
     padding: 12px;
     font-family: var(--font-sans);
     border: 0;
@@ -502,7 +502,7 @@
     animation-name: slideOut;
   }
 
-  [cmdk-empty] {
+  [command-empty] {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -539,7 +539,7 @@
 
 @media (max-width: 640px) {
   .raycast {
-    [cmdk-input] {
+    [command-input] {
       font-size: 16px;
     }
   }

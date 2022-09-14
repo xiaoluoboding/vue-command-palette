@@ -3,7 +3,7 @@
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
   --app-bg: var(--gray1);
   --app-text: #000000;
-  --cmdk-shadow: 0 16px 70px rgb(0 0 0 / 20%);
+  --command-shadow: 0 16px 70px rgb(0 0 0 / 20%);
 
   --lowContrast: #ffffff;
   --highContrast: #000000;
@@ -101,7 +101,7 @@ body {
   background: var(--app-bg);
 }
 
-div [cmdk-dialog-mask] {
+div [command-dialog-mask] {
   background-color: rgba(0, 0, 0, 0.3);
   height: 100vh;
   left: 0;
@@ -112,7 +112,7 @@ div [cmdk-dialog-mask] {
   animation: 333ms cubic-bezier(0.16, 1, 0.3, 1) 0s 1 normal none running shown;
 }
 
-div [cmdk-dialog-wrapper] {
+div [command-dialog-wrapper] {
   position: relative;
   background: var(--gray2);
   border-radius: 6px;
@@ -123,7 +123,7 @@ div [cmdk-dialog-wrapper] {
   animation: 333ms cubic-bezier(0.16, 1, 0.3, 1) 0s 1 normal none running shown;
 }
 
-div [cmdk-dialog-footer] {
+div [command-dialog-footer] {
   border-top: 1px solid var(--gray6);
   align-items: center;
   background: var(--gray4);

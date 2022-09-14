@@ -1,5 +1,5 @@
 {
-  "name": "vue-cmdk-palette",
+  "name": "vue-command-palette",
   "version": "0.1.0",
   "type": "module",
   "author": "xiaoluoboding <xiaoluoboding@gmail.com>",
@@ -10,18 +10,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/xiaoluoboding/vue-cmdk-palette.git"
+    "url": "git+https://github.com/xiaoluoboding/vue-command-palette.git"
   },
-  "homepage": "https://github.com/xiaoluoboding/vue-cmdk-palette",
+  "homepage": "https://github.com/xiaoluoboding/vue-command-palette",
   "files": [
     "lib"
   ],
-  "main": "./lib/vue-cmdk-palette.umd.cjs",
-  "module": "./lib/vue-cmdk-palette.js",
+  "main": "./lib/vue-command-palette.umd.cjs",
+  "module": "./lib/vue-command-palette.js",
   "exports": {
     ".": {
-      "import": "./lib/vue-cmdk-palette.js",
-      "require": "./lib/vue-cmdk-palette.umd.cjs"
+      "import": "./lib/vue-command-palette.js",
+      "require": "./lib/vue-command-palette.umd.cjs"
     }
   },
   "types": "./lib/index.d.ts",

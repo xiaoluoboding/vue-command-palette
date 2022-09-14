@@ -1,5 +1,5 @@
 <template>
-  <Cmdk.Group heading="Suggestions">
+  <Command.Group heading="Suggestions">
     <Item
       v-for="item in items1"
       :key="item.label"
@@ -12,8 +12,8 @@
       </div>
       {{ item.label }}
     </Item>
-  </Cmdk.Group>
-  <Cmdk.Group heading="Commands">
+  </Command.Group>
+  <Command.Group heading="Commands">
     <Item
       v-for="item in items2"
       :key="item.label"
@@ -23,11 +23,11 @@
       <component :is="item.icon" />
       {{ item.label }}
     </Item>
-  </Cmdk.Group>
+  </Command.Group>
 </template>
 
 <script lang="ts" setup>
-import { Cmdk } from '@/index'
+import { Command } from '@/index'
 import Item from './Item.vue'
 import FigmaIcon from '~/components/icons/FigmaIcon.vue'
 import RaycastIcon from '~/components/icons/RaycastIcon.vue'

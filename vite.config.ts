@@ -33,8 +33,8 @@ export default defineConfig({
   build: {
     lib: {
       entry: resolve(__dirname, 'src/index.ts'),
-      name: 'VueCmdkPalette',
-      fileName: 'vue-cmdk-palette'
+      name: 'VueCommandPalette',
+      fileName: 'vue-command-palette'
     },
     outDir: 'lib',
     emptyOutDir: true,

@@ -4,7 +4,7 @@
       <nav class="h-20 py-4 flex-between text-[var(--app-text)]">
         <div class="font-semibold text-xl flex-center gap-2">
           <Logo class="h-6 w-6" />
-          Vue CMDK Palette
+          Vue Command Palette
         </div>
         <div class="flex-center gap-4">
           <button
@@ -16,7 +16,7 @@
           </button>
           <a
             class="opacity-50 hover:opacity-100 transition"
-            href="https://github.com/xiaoluoboding/vue-cmdk-palette"
+            href="https://github.com/xiaoluoboding/vue-command-palette"
           >
             <carbon:logo-github class="h-6 w-6" />
           </a>
@@ -35,7 +35,7 @@
         <div class="flex gap-4 mt-16">
           <a
             class="bg-gray-200 hover:bg-gray-300 transition rounded-full text-lg font-semibold py-3 px-6 w-full sm:w-auto text-center"
-            href="https://github.com/xiaoluoboding/vue-cmdk-palette"
+            href="https://github.com/xiaoluoboding/vue-command-palette"
             >Documentation</a
           >
           <button
@@ -130,10 +130,10 @@ import { ref, watch, computed } from 'vue'
 import { useMagicKeys, onClickOutside } from '@vueuse/core'
 
 import { isDark, toggleDarkmode } from '~/composables/useDarkmode'
-import Linear from '~/components/cmdk/Linear.vue'
-import Vercel from '~/components/cmdk/vercel/Vercel.vue'
-import Raycast from '~/components/cmdk/raycast/Raycast.vue'
-import Self from '~/components/cmdk/Self.vue'
+import Linear from '~/components/command/Linear.vue'
+import Vercel from '~/components/command/vercel/Vercel.vue'
+import Raycast from '~/components/command/raycast/Raycast.vue'
+import Self from '~/components/command/Self.vue'
 import Logo from '~/components/icons/Logo.vue'
 import SunIcon from '~/components/icons/SunIcon.vue'
 import MoonIcon from '~/components/icons/MoonIcon.vue'
