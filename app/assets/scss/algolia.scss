@@ -199,3 +199,31 @@
 .cmdk-dialog-leave-to {
   opacity: 0;
 }
+
+.cmdk-dialog-enter-active {
+  transition-duration: 0.55s;
+}
+
+// transition for cmdk-dialog-wrapper
+.cmdk-dialog-enter-active [cmdk-dialog-wrapper] {
+  transition-delay: 0.25s;
+}
+
+.cmdk-dialog-enter-from [cmdk-dialog-wrapper],
+.cmdk-dialog-leave-to [cmdk-dialog-wrapper] {
+  transform: translateY(10px) scale(0.95);
+}
+
+.cmdk-dialog-enter-active [cmdk-dialog-wrapper] {
+  transition: transform ease-out 0.3s;
+}
+
+.cmdk-dialog-enter-to [cmdk-dialog-wrapper],
+.cmdk-dialog-leave-from [cmdk-dialog-wrapper] {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.cmdk-dialog-leave-active [cmdk-dialog-wrapper] {
+  transition: transfrom ease-in 0.2s;
+}

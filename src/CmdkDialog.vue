@@ -1,6 +1,6 @@
 <template>
   <Teleport to="body">
-    <Transition name="cmdk-dialog">
+    <Transition name="cmdk-dialog" appear>
       <Cmdk :theme="theme" @keydown="(e) => emit('keydown', e)" v-if="visible">
         <div cmdk-dialog>
           <div cmdk-dialog-mask>
