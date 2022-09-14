@@ -1,8 +1,8 @@
 <template>
   <Teleport to="body">
-    <Transition name="modal">
-      <Cmdk :theme="theme" @keydown="(e) => emit('keydown', e)">
-        <div v-if="visible" cmdk-dialog>
+    <Transition name="cmdk-dialog">
+      <Cmdk :theme="theme" @keydown="(e) => emit('keydown', e)" v-if="visible">
+        <div cmdk-dialog>
           <div cmdk-dialog-mask>
             <div cmdk-dialog-wrapper>
               <div cmdk-dialog-header>

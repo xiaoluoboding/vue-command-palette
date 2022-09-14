@@ -1,5 +1,5 @@
 <template>
-  <Cmdk.Dialog :visible="true" theme="algolia">
+  <Cmdk.Dialog :visible="visible" theme="algolia">
     <template #header>
       <Cmdk.Input placeholder="Type a command or search..." />
     </template>
@@ -133,7 +133,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Cmdk } from '../../../src/index'
+import { Cmdk } from '@/index'
 import { isDark, toggleDarkmode } from '~/composables/useDarkmode'
 import RaycastIcon from '~/components/icons/RaycastIcon.vue'
 import LinearIcon from '~/components/icons/LinearIcon.vue'
@@ -141,6 +141,10 @@ import VercelIcon from '~/components/icons/VercelIcon.vue'
 import SunIcon from '~/components/icons/SunIcon.vue'
 import MoonIcon from '~/components/icons/MoonIcon.vue'
 import Logo from '~/components/icons/Logo.vue'
+
+defineProps<{
+  visible: boolean
+}>()
 
 const emit = defineEmits(['select'])
 

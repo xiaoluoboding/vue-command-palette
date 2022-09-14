@@ -58,10 +58,16 @@
           </button>
         </div>
       </header>
-      <main class="w-full mx-auto">
-        <Self v-if="isOpenDialog" @select="handleChangeDialog" />
-        <component :is="currentDialog" v-if="isOpenThemeDialog" />
+
+      <main class="grid grid-cols-3 gap-8">
+        <div class="bg-emerald-100 p-8 rounded-md">1</div>
+        <div class="bg-emerald-100 p-8 rounded-md">1</div>
+        <div class="bg-emerald-100 p-8 rounded-md">1</div>
+        <div class="bg-emerald-100 p-8 rounded-md">1</div>
+        <div class="bg-emerald-100 p-8 rounded-md">1</div>
+        <div class="bg-emerald-100 p-8 rounded-md">1</div>
       </main>
+
       <footer
         class="fixed bottom-4 left-0 w-full flex-center text-[var(--app-text)]"
         text="slate-900 dark:slate-300 opacity-60 sm"
@@ -110,6 +116,11 @@
           </p>
         </div>
       </footer>
+
+      <div class="w-full mx-auto">
+        <Self :visible="isOpenDialog" @select="handleChangeDialog" />
+        <component :is="currentDialog" v-if="isOpenThemeDialog" />
+      </div>
     </div>
   </div>
 </template>

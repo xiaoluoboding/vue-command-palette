@@ -25,7 +25,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Cmdk } from '../../../src/index'
+import { Cmdk } from '@/index'
 import LinearAssignToIcon from '../icons/LinearAssignToIcon.vue'
 import LinearAssignToMeIcon from '../icons/LinearAssignToMeIcon.vue'
 import LinearChangeStatusIcon from '../icons/LinearChangeStatusIcon.vue'

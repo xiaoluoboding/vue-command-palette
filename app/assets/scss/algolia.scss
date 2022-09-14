@@ -102,6 +102,10 @@
     color: var(--gray11);
   }
 
+  [cmdk-dialog-mask] {
+    background-color: rgba(75, 75, 75, 0.8);
+  }
+
   [cmdk-dialog-header] {
     padding: 12px 12px 0;
   }
@@ -183,4 +187,15 @@
 
 .dark .algolia [cmdk-dialog-footer] {
   box-shadow: none;
+}
+
+// transition for cmdk-dialog
+.cmdk-dialog-enter-active,
+.cmdk-dialog-leave-active {
+  transition: opacity 0.3s ease;
+}
+
+.cmdk-dialog-enter-from,
+.cmdk-dialog-leave-to {
+  opacity: 0;
 }
