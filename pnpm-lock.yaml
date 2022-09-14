@@ -7,6 +7,7 @@ specifiers:
   '@vitejs/plugin-vue': ^3.0.3
   '@vueuse/core': ^9.1.1
   fuse.js: ^6.6.2
+  highlight.js: ^11.6.0
   mitt: ^3.0.0
   nanoid: ^4.0.0
   sass: ^1.54.8
@@ -30,6 +31,7 @@ devDependencies:
   '@unocss/reset': 0.45.18
   '@vitejs/plugin-vue': 3.0.3_vite@3.0.9+vue@3.2.38
   '@vueuse/core': 9.1.1_vue@3.2.38
+  highlight.js: 11.6.0
   sass: 1.54.8
   typescript: 4.8.2
   unocss: 0.45.13_vite@3.0.9
@@ -1095,6 +1097,11 @@ packages:
     engines: {node: '>= 0.4.0'}
     dependencies:
       function-bind: 1.1.1
+    dev: true
+
+  /highlight.js/11.6.0:
+    resolution: {integrity: sha512-ig1eqDzJaB0pqEvlPVIpSSyMaO92bH1N2rJpLMN/nX396wTpDA4Eq0uK+7I/2XG17pFaaKE0kjV/XPeGt7Evjw==}
+    engines: {node: '>=12.0.0'}
     dev: true
 
   /human-signals/2.1.0:

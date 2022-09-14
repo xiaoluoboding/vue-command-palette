@@ -56,7 +56,7 @@ provide('theme', props.theme || 'default')
 const { selectedNode, search, dataValue, filtered } = useCommandState()
 const { emitter } = useCommandEvent()
 
-const commandRef = ref<HTMLElement>()
+const commandRef = ref<HTMLDivElement>()
 const commandList = refDebounced(ref(new Map()), 333)
 const allItemIds = refDebounced(ref<Set<string>>(new Set()), 333) // [...itemIds]
 const allGroupIds = refDebounced(ref<Map<string, Set<string>>>(new Map())) // groupId -> [...itemIds]

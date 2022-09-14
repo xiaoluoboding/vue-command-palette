@@ -59,13 +59,13 @@
         </div>
       </header>
 
-      <main class="grid grid-cols-3 gap-8">
-        <div class="bg-emerald-100 p-8 rounded-md">1</div>
-        <div class="bg-emerald-100 p-8 rounded-md">1</div>
-        <div class="bg-emerald-100 p-8 rounded-md">1</div>
-        <div class="bg-emerald-100 p-8 rounded-md">1</div>
-        <div class="bg-emerald-100 p-8 rounded-md">1</div>
-        <div class="bg-emerald-100 p-8 rounded-md">1</div>
+      <main class="grid grid-cols-1 gap-8">
+        <Highlight :autodetect="false" language="html" :code="demoCode1" />
+        <Highlight
+          :autodetect="false"
+          language="javascript"
+          :code="demoCode2"
+        />
       </main>
 
       <footer
@@ -176,6 +176,29 @@ watch(Escape, (v) => {
 //   console.log('Clicked the outside element of Command K Palette')
 //   isOpenDialog.value = false
 // })
+
+const demoCode1 = `<!-- <template> -->
+<Command.Dialog :visible="visible" theme="custom">
+  <template #header>
+    <Command.Input placeholder="Type a command or search..." />
+  </template>
+  <template #body>
+    <Command.List>
+      <Command.Empty>No results found.</Command.Empty>
+      <Command.Item>Command 1</Command.Item>
+      <Command.Item>Command 2</Command.Item>
+      <Command.Item>Command 3</Command.Item>
+    </Command.List>
+  </template>
+</Command.Dialog>
+`
+
+const demoCode2 = `// <script lang="ts" setup>
+import { ref } from 'vue'
+import { Command } from 'vue-command-palette'
+
+const visible = ref(false)
+`
 </script>
 
 <style>

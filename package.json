@@ -36,6 +36,7 @@
     "@unocss/reset": "^0.45.18",
     "@vitejs/plugin-vue": "^3.0.3",
     "@vueuse/core": "^9.1.1",
+    "highlight.js": "^11.6.0",
     "sass": "^1.54.8",
     "typescript": "^4.6.4",
     "unocss": "^0.45.13",

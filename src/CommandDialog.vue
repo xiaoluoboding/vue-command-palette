@@ -1,5 +1,5 @@
 <template>
-  <Teleport to="body">
+  <Teleport to="body" ref="dialogRef">
     <Transition name="command-dialog" appear>
       <Command :theme="theme" v-if="visible">
         <div command-dialog>
@@ -31,7 +31,7 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { onBeforeUnmount } from 'vue'
+import { onBeforeUnmount, ref } from 'vue'
 import { whenever } from '@vueuse/core'
 
 import Command from './Command.vue'
@@ -50,6 +50,7 @@ const emit = defineEmits<{
 
 const { search, filtered } = useCommandState()
 const { emitter } = useCommandEvent()
+const dialogRef = ref<HTMLDivElement>()
 
 emitter.on('selectItem', (item) => {
   emit('select-item', item)

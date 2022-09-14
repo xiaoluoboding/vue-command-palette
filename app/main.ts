@@ -3,8 +3,10 @@ import App from './App.vue'
 
 import 'uno.css'
 import '@unocss/reset/tailwind.css'
-import './assets/global.css'
+import './assets/scss/global.scss'
+import highlight from '~/plugins/highlight'
 
 const app = createApp(App)
 
+app.use(highlight)
 app.mount('#app')

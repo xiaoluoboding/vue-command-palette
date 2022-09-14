@@ -1,3 +1,5 @@
+@import 'highlight.scss';
+
 :root {
   --font-sans: 'Inter', --apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
     Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
@@ -10,7 +12,7 @@
   --vcp-c-brand: #44bd87;
   --vcp-c-accent: #35495e;
 
-  --gray1: hsl(0, 0%, 99%);
+  --gray1: hsl(0, 0%, 98%);
   --gray2: hsl(0, 0%, 97.3%);
   --gray3: hsl(0, 0%, 95.1%);
   --gray4: hsl(0, 0%, 93%);
