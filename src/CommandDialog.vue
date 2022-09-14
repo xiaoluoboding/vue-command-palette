@@ -1,11 +1,7 @@
 <template>
   <Teleport to="body">
     <Transition name="command-dialog" appear>
-      <Command
-        :theme="theme"
-        @keydown="(e) => emit('keydown', e)"
-        v-if="visible"
-      >
+      <Command :theme="theme" v-if="visible">
         <div command-dialog>
           <div command-dialog-mask>
             <div command-dialog-wrapper>
@@ -36,20 +32,20 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { onBeforeUnmount } from 'vue'
+import { whenever } from '@vueuse/core'
 
 import Command from './Command.vue'
 import { useCommandState } from './useCommandState'
 import { useCommandEvent } from './useCommandEvent'
 import type { ItemInfo } from './types'
 
-defineProps<{
+const props = defineProps<{
   visible: boolean
   theme: string
 }>()
 
 const emit = defineEmits<{
   (e: 'select-item', item: ItemInfo): void
-  (e: 'keydown', ke: KeyboardEvent): void
 }>()
 
 const { search, filtered } = useCommandState()
@@ -59,11 +55,15 @@ emitter.on('selectItem', (item) => {
   emit('select-item', item)
 })
 
-onBeforeUnmount(() => {
+const resetStore = () => {
   // reset the command state
   search.value = ''
   filtered.value.count = 0
   filtered.value.items = new Map()
   filtered.value.groups = new Set()
-})
+}
+
+whenever(() => props.visible, resetStore)
+
+onBeforeUnmount(resetStore)
 </script>

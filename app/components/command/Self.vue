@@ -1,7 +1,10 @@
 <template>
   <Command.Dialog :visible="visible" theme="algolia">
     <template #header>
-      <Command.Input placeholder="Type a command or search..." />
+      <Command.Input
+        placeholder="Type a command or search..."
+        v-model:value="inputValue"
+      />
     </template>
     <template #body>
       <Command.List>
@@ -10,6 +13,8 @@
           <Command.Item
             v-for="item in items"
             :data-value="item.label"
+            :shortcut="item.shortcut"
+            :perform="item.perform"
             @select="handleSelectTheme"
           >
             <component :is="item.icon" />
@@ -35,6 +40,8 @@
             v-for="item in preferenceItems"
             :key="item.label"
             :data-value="item.label"
+            :shortcut="item.shortcut"
+            :perform="item.perform"
             @select="() => toggleDarkmode()"
           >
             <MoonIcon class="w-6 h-6" v-if="isDark" />
@@ -133,6 +140,9 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, computed } from 'vue'
+import { useMagicKeys, whenever } from '@vueuse/core'
+
 import { Command } from '@/index'
 import { isDark, toggleDarkmode } from '~/composables/useDarkmode'
 import RaycastIcon from '~/components/icons/RaycastIcon.vue'
@@ -141,6 +151,7 @@ import VercelIcon from '~/components/icons/VercelIcon.vue'
 import SunIcon from '~/components/icons/SunIcon.vue'
 import MoonIcon from '~/components/icons/MoonIcon.vue'
 import Logo from '~/components/icons/Logo.vue'
+import { ItemInfo } from '@/types'
 
 defineProps<{
   visible: boolean
@@ -152,17 +163,20 @@ const items = [
   {
     icon: LinearIcon,
     label: 'Linear',
-    shortcut: ['L']
+    shortcut: ['L'],
+    perform: () => {}
   },
   {
     icon: RaycastIcon,
     label: 'Raycast',
-    shortcut: ['R']
+    shortcut: ['R'],
+    perform: () => {}
   },
   {
     icon: VercelIcon,
     label: 'Vercel',
-    shortcut: ['V']
+    shortcut: ['V'],
+    perform: () => {}
   }
 ]
 
@@ -170,11 +184,33 @@ const preferenceItems = [
   {
     icon: SunIcon,
     label: 'Toggle Dark Mode',
-    shortcut: ['G', 'T']
+    shortcut: ['G', 'T'],
+    perform: () => toggleDarkmode()
   }
 ]
 
+const activePage = ref('home')
+const inputValue = ref('')
+
+const isHomePage = computed(() => activePage.value === 'home')
+
+const { current } = useMagicKeys()
+
+const togglePage = () => {
+  activePage.value = 'home'
+  emit('select', 'self')
+}
+
+whenever(
+  () => current.has('backspace'),
+  () => {
+    if (isHomePage.value || inputValue.value.length) return
+    togglePage()
+  }
+)
+
 const handleSelectTheme = (item: any) => {
+  activePage.value = item.value
   emit('select', item.value)
 }
 </script>

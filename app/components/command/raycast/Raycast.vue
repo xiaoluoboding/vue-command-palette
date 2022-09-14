@@ -3,7 +3,6 @@
     :visible="true"
     theme="raycast"
     @select-item="handleSelectItem"
-    @keydown="handleKeyDown"
   >
     <template #header>
       <div command-raycast-top-shine="" />
@@ -43,10 +42,6 @@ import { ItemInfo } from '@/types'
 import Home from './Home.vue'
 import RaycastLightIcon from '~/components/icons/RaycastLightIcon.vue'
 import RaycastDarkIcon from '~/components/icons/RaycastDarkIcon.vue'
-
-const handleKeyDown = (e: KeyboardEvent) => {
-  console.log(e)
-}
 
 const handleSelectItem = (item: ItemInfo) => {
   console.log(item)

@@ -3,7 +3,6 @@
     :visible="true"
     theme="vercel"
     @select-item="handleSelectItem"
-    @keydown="handleKeyDown"
   >
     <template #header>
       <div command-vercel-label>
@@ -32,13 +31,16 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { toggleDarkmode } from '~/composables/useDarkmode'
+import { useMagicKeys, whenever } from '@vueuse/core'
 
+import { toggleDarkmode } from '~/composables/useDarkmode'
 import { Command } from '@/index'
 import { ItemInfo } from '@/types'
 
 import Home from './Home.vue'
 import Projects from './Projects.vue'
+
+const { current } = useMagicKeys()
 
 const activePage = ref('home')
 const inputValue = ref('')
@@ -63,16 +65,15 @@ const togglePage = () => {
   activePage.value = isHomePage.value ? 'projects' : 'home'
 }
 
-const handleKeyDown = (e: KeyboardEvent) => {
+const handleKeyDown = () => {
   if (isHomePage.value || inputValue.value.length) {
     return
   }
 
-  if (e.key === 'Backspace') {
-    e.preventDefault()
-    togglePage()
-  }
+  togglePage()
 }
+
+whenever(() => current.has('backspace'), handleKeyDown)
 
 const handleSelectItem = (item: ItemInfo) => {
   if (item.value === 'Search Projects...') {

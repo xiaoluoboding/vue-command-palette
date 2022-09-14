@@ -11,6 +11,8 @@
         <Command.Item
           v-for="item in items"
           :data-value="item.label"
+          :shortcut="item.shortcut"
+          :perform="item.perform"
           @select="handleSelectItem"
         >
           <component :is="item.icon" />
@@ -38,7 +40,10 @@ const items = [
   {
     icon: LinearAssignToIcon,
     label: 'Assign to...',
-    shortcut: ['A']
+    shortcut: ['A'],
+    perform: () => {
+      console.log('action')
+    }
   },
   {
     icon: LinearAssignToMeIcon,

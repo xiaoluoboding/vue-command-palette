@@ -152,10 +152,11 @@ const keys = useMagicKeys()
 const CmdK = keys['Meta+K']
 const Escape = keys['Escape']
 
-const handleChangeDialog = (view: string) => {
+const handleChangeDialog = (view = 'self') => {
+  const isSelf = view === 'self'
   selectedView.value = view
-  isOpenDialog.value = false
-  isOpenThemeDialog.value = true
+  isOpenDialog.value = isSelf
+  isOpenThemeDialog.value = !isSelf
 }
 
 watch(CmdK, (v) => {
