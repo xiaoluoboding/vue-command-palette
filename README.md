@@ -7,7 +7,7 @@
 
 ## Preview
 
-![Preview](public/vue-command-palette.gif)
+![Preview](vue-command-palette.gif)
 
 ## Features
 
