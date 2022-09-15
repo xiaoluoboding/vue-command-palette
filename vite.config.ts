@@ -1,4 +1,4 @@
-import { defineConfig } from 'vite'
+import { defineConfig, UserConfig } from 'vite'
 import { resolve } from 'path'
 import vue from '@vitejs/plugin-vue'
 import dts from 'vite-plugin-dts'
@@ -8,44 +8,55 @@ import IconsResolver from 'unplugin-icons/resolver'
 import Components from 'unplugin-vue-components/vite'
 
 // https://vitejs.dev/config/
-export default defineConfig({
-  resolve: {
-    alias: {
-      '@': resolve(__dirname, '/src'),
-      '~': resolve(__dirname, '/app')
-    }
-  },
-  plugins: [
-    vue(),
-    dts({
-      include: './src'
-    }),
-    UnoCSS(),
-    Components({
-      resolvers: [
-        IconsResolver({
-          prefix: ''
-        })
-      ]
-    }),
-    Icons()
-  ],
-  build: {
-    lib: {
-      entry: resolve(__dirname, 'src/index.ts'),
-      name: 'VueCommandPalette',
-      fileName: 'vue-command-palette'
-    },
-    outDir: 'lib',
-    emptyOutDir: true,
-    sourcemap: false,
-    rollupOptions: {
-      external: ['vue'],
-      output: {
-        globals: {
-          vue: 'Vue'
+export default defineConfig(({ command, mode }) => {
+  let userConfig: UserConfig = {}
+
+  console.log(command)
+  console.log(mode)
+
+  if (mode === 'lib') {
+    userConfig.build = {
+      lib: {
+        entry: resolve(__dirname, 'packages/index.ts'),
+        name: 'VueCommandPalette',
+        fileName: 'vue-command-palette'
+      },
+      outDir: 'lib',
+      emptyOutDir: true,
+      sourcemap: false,
+      rollupOptions: {
+        external: ['vue'],
+        output: {
+          globals: {
+            vue: 'Vue'
+          }
         }
       }
     }
+  }
+
+  return {
+    resolve: {
+      alias: {
+        '@': resolve(__dirname, '/packages'),
+        '~': resolve(__dirname, '/src')
+      }
+    },
+    plugins: [
+      vue(),
+      dts({
+        include: './packages'
+      }),
+      UnoCSS(),
+      Components({
+        resolvers: [
+          IconsResolver({
+            prefix: ''
+          })
+        ]
+      }),
+      Icons()
+    ],
+    ...userConfig
   }
 })

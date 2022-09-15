@@ -5,7 +5,8 @@
 ## Features
 
 - 🧩 [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) Design
--
+- 🔍 Fuzzy search support to find relevant command
+- ⌨️ keyboard shortcut support to bind custom keybindings to your command
 
 ## Install
 
@@ -25,9 +26,15 @@ Then you can import the `Command` [Compound Component](https://kentcdodds.com/bl
     <Command.Input placeholder="Type a command or search..." />
     <Command.List>
       <Command.Empty>No results found.</Command.Empty>
-      <Command.Item>Command 1</Command.Item>
-      <Command.Item>Command 2</Command.Item>
-      <Command.Item>Command 3</Command.Item>
+
+      <Command.Group heading="Letters">
+        <Command.Item>a</Command.Item>
+        <Command.Item>b</Command.Item>
+        <Command.Separator />
+        <Command.Item>c</Command.Item>
+      </Command.Group>
+
+      <Command.Item>Apple</Command.Item>
     </Command.List>
   </Command>
 </template>
@@ -56,9 +63,15 @@ or in a dialog:
     <template #body>
       <Command.List>
         <Command.Empty>No results found.</Command.Empty>
-        <Command.Item>Command 1</Command.Item>
-        <Command.Item>Command 2</Command.Item>
-        <Command.Item>Command 3</Command.Item>
+
+        <Command.Group heading="Letters">
+          <Command.Item>a</Command.Item>
+          <Command.Item>b</Command.Item>
+          <Command.Separator />
+          <Command.Item>c</Command.Item>
+        </Command.Group>
+
+        <Command.Item>Apple</Command.Item>
       </Command.List>
     </template>
   </Command.Dialog>

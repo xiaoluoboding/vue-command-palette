@@ -23,7 +23,7 @@
   }
 
   [command-list] {
-    height: min(300px, var(--command-list-height));
+    height: var(--command-list-height);
     max-height: 360px;
     overflow: auto;
     overscroll-behavior: contain;
@@ -107,7 +107,7 @@
   }
 
   [command-dialog-header] {
-    padding: 12px 12px 0;
+    padding: 12px;
   }
 
   [command-dialog-body] {

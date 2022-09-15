@@ -1,6 +1,6 @@
 <template>
   <div class="w-screen h-full">
-    <div class="container mx-auto max-w-5xl">
+    <div class="container mx-auto max-w-5xl relative">
       <nav class="h-20 py-4 flex-between text-[var(--app-text)]">
         <div class="font-semibold text-xl flex-center gap-2">
           <Logo class="h-6 w-6" />
@@ -32,7 +32,7 @@
         >
           Fast, composable, unstyled command palette for Vue.
         </div>
-        <div class="flex gap-4 mt-16">
+        <div class="flex gap-4 mt-8">
           <a
             class="bg-gray-200 hover:bg-gray-300 transition rounded-full text-lg font-semibold py-3 px-6 w-full sm:w-auto text-center"
             href="https://github.com/xiaoluoboding/vue-command-palette"
@@ -59,7 +59,7 @@
         </div>
       </header>
 
-      <main class="grid grid-cols-1 gap-8">
+      <main class="grid grid-cols-1 gap-8 text-xs 2xl:text-sm">
         <Highlight :autodetect="false" language="html" :code="demoCode1" />
         <Highlight
           :autodetect="false"
@@ -69,15 +69,15 @@
       </main>
 
       <footer
-        class="fixed bottom-4 left-0 w-full flex-center text-[var(--app-text)]"
+        class="mt-16 w-full flex-center text-[var(--app-text)]"
         text="slate-900 dark:slate-300 opacity-60 sm"
       >
         <div class="copyright flex flex-col justify-center items-center">
           <p>
             Code with ❤ & ☕️ by
-            <a class="text-neon" href="https://github.com/xiaoluoboding"
-              >@xiaoluoboding</a
-            >
+            <a class="text-neon" href="https://github.com/xiaoluoboding">
+              @xiaoluoboding
+            </a>
             <span> © {{ new Date().getFullYear() }}</span>
           </p>
           <p class="flex items-center space-x-1">
@@ -91,7 +91,7 @@
                 Follow me on Twitter
               </a>
             </span>
-            <span class="px-2 text-sky-300">|</span>
+            <span class="px-2 text-emerald-300">|</span>
             <carbon:cafe class="text-emerald-500" />
             <span>
               <a
@@ -102,7 +102,7 @@
                 Buy me a coffee
               </a>
             </span>
-            <span class="px-2 text-sky-300">|</span>
+            <span class="px-2 text-emerald-300">|</span>
             <mdi:heart class="text-emerald-500" />
             <span>
               <a
@@ -185,9 +185,15 @@ const demoCode1 = `<!-- <template> -->
   <template #body>
     <Command.List>
       <Command.Empty>No results found.</Command.Empty>
-      <Command.Item>Command 1</Command.Item>
-      <Command.Item>Command 2</Command.Item>
-      <Command.Item>Command 3</Command.Item>
+
+      <Command.Group heading="Letters">
+        <Command.Item>a</Command.Item>
+        <Command.Item>b</Command.Item>
+        <Command.Separator />
+        <Command.Item>c</Command.Item>
+      </Command.Group>
+
+      <Command.Item>Apple</Command.Item>
     </Command.List>
   </template>
 </Command.Dialog>

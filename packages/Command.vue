@@ -1,5 +1,10 @@
 <template>
-  <div :class="theme" @keydown="handleKeyDown" ref="commandRef">
+  <div
+    :class="theme"
+    @keydown="handleKeyDown"
+    ref="commandRef"
+    :command-theme="theme"
+  >
     <div command-root>
       <slot />
     </div>

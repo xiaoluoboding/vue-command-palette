@@ -15,7 +15,7 @@ export default defineComponent({
 </script>
 
 <script lang="ts" setup>
-import { ref, watchEffect, onBeforeUnmount } from 'vue'
+import { ref, watchEffect, onBeforeUnmount, nextTick } from 'vue'
 
 import { useCommandEvent } from './useCommandEvent'
 
@@ -37,12 +37,18 @@ watchEffect(() => {
 
   if (sizer && wrapper) {
     observer = new ResizeObserver((entries) => {
-      const height = sizer?.getBoundingClientRect().height
-      wrapper?.style.setProperty(
-        '--command-list-height',
-        `${height?.toFixed(1)}px`
-      )
-      emitter.emit('rerenderList', true)
+      nextTick(() => {
+        const height = sizer?.offsetHeight
+        const wrapperH = wrapper?.offsetHeight
+
+        console.log(height)
+        console.log(wrapperH)
+        wrapper?.style.setProperty(
+          '--command-list-height',
+          `${height?.toFixed(1)}px`
+        )
+        emitter.emit('rerenderList', true)
+      })
     })
     observer.observe(sizer)
   }
