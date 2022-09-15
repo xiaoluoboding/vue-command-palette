@@ -39,10 +39,7 @@ watchEffect(() => {
     observer = new ResizeObserver((entries) => {
       nextTick(() => {
         const height = sizer?.offsetHeight
-        const wrapperH = wrapper?.offsetHeight
 
-        console.log(height)
-        console.log(wrapperH)
         wrapper?.style.setProperty(
           '--command-list-height',
           `${height?.toFixed(1)}px`

@@ -204,7 +204,15 @@ const togglePage = () => {
 whenever(
   () => current.has('backspace'),
   () => {
-    if (isHomePage.value || inputValue.value.length) return
+    const commandInputEl = document.querySelector(
+      'input[command-input]'
+    ) as HTMLInputElement
+    if (
+      isHomePage.value ||
+      inputValue.value.length ||
+      commandInputEl.value.length
+    )
+      return
     togglePage()
   }
 )
