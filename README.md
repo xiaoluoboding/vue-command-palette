@@ -3,7 +3,7 @@
 ![vue-command-palette minzip package size](https://img.shields.io/bundlephobia/minzip/vue-command-palette)
 ![vue-command-palette package version](https://img.shields.io/npm/v/vue-command-palette.svg?colorB=green)
 
-> A fast, composable, unstyled `command` + `k` command palette for Vue.
+> A fast, composable, unstyled `command` + `k` interface (Command Palette) for Vue.
 
 ## Preview
 
