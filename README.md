@@ -11,7 +11,7 @@
 
 ## Features
 
-- 🧩 [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) Design
+- 🧩 [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) + [Namespaced Components](https://vuejs.org/api/sfc-script-setup.html#using-components) Design
 - 💄 Completely unstyled, but more customizable
 - 🔍 Fuzzy search support to find relevant command
 - ⌨️ keyboard shortcut support to bind custom keybindings to your command
