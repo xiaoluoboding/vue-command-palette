@@ -32,7 +32,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { onBeforeUnmount, ref } from 'vue'
-import { whenever } from '@vueuse/core'
+import { onClickOutside, whenever } from '@vueuse/core'
 
 import Command from './Command.vue'
 import { useCommandState } from './useCommandState'
@@ -42,6 +42,7 @@ import type { ItemInfo } from './types'
 const props = defineProps<{
   visible: boolean
   theme: string
+  clickOutside: Function
 }>()
 
 const emit = defineEmits<{
@@ -55,6 +56,10 @@ const dialogRef = ref<HTMLDivElement>()
 emitter.on('selectItem', (item) => {
   emit('select-item', item)
 })
+
+onClickOutside(dialogRef,
+  () => props.clickOutside()
+)
 
 const resetStore = () => {
   // reset the command state
