@@ -27,7 +27,13 @@
 </template>
 
 <script lang="ts" setup>
-import { Command } from '@/index'
+import Command from '@/Command.vue'
+import CommandDialog from '@/CommandDialog.vue'
+import CommandInput from '@/CommandInput.vue'
+import CommandList from '@/CommandList.vue'
+import { Empty as CommandEmpty, Loading as CommandLoading, Separator as CommandSeparator } from '@/index'
+import CommandItem from '@/CommandItem.vue'
+
 import LinearAssignToIcon from '../icons/LinearAssignToIcon.vue'
 import LinearAssignToMeIcon from '../icons/LinearAssignToMeIcon.vue'
 import LinearChangeStatusIcon from '../icons/LinearChangeStatusIcon.vue'
@@ -35,7 +41,7 @@ import LinearChangePriorityIcon from '../icons/LinearChangePriorityIcon.vue'
 import LinearChangeLabelsIcon from '../icons/LinearChangeLabelsIcon.vue'
 import LinearRemoveLabelIcon from '../icons/LinearRemoveLabelIcon.vue'
 import LinearSetDueDateIcon from '../icons/LinearSetDueDateIcon.vue'
-import CommandInput from '@/CommandInput.vue'
+
 
 const items = [
   {

@@ -37,7 +37,11 @@
 <script lang="ts" setup>
 import { isDark } from '~/composables/useDarkmode'
 
-import { Command } from '@/index'
+import CommandList from '@/CommandList.vue'
+import CommandDialog from '@/CommandDialog.vue'
+import CommandInput from '@/CommandInput.vue'
+import { Empty as CommandEmpty, Loading as CommandLoading, Separator as CommandSeparator } from '@/index'
+
 import { ItemInfo } from '@/types'
 import Home from './Home.vue'
 import RaycastLightIcon from '~/components/icons/RaycastLightIcon.vue'

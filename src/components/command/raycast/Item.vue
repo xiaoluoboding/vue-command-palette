@@ -8,7 +8,7 @@
 </template>
 
 <script lang="ts" setup>
-import { Command } from '@/index'
+import CommandItem from '@/CommandItem.vue'
 import type { ItemInfo } from '@/types'
 
 defineProps({

@@ -27,7 +27,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Command } from '@/index'
+import CommandGroup from '@/CommandGroup.vue'
+
 import Item from './Item.vue'
 import FigmaIcon from '~/components/icons/FigmaIcon.vue'
 import RaycastIcon from '~/components/icons/RaycastIcon.vue'

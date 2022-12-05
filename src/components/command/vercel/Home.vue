@@ -49,7 +49,8 @@
 </template>
 
 <script lang="ts" setup>
-import { Command } from '@/index'
+
+import CommandGroup from '@/CommandGroup.vue'
 
 import { isDark } from '~/composables/useDarkmode'
 import Item from './Item.vue'

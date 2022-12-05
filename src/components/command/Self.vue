@@ -143,7 +143,7 @@
 import { ref, computed } from 'vue'
 import { useMagicKeys, whenever } from '@vueuse/core'
 
-import { Command } from '@/index'
+
 import { isDark, toggleDarkmode } from '~/composables/useDarkmode'
 import RaycastIcon from '~/components/icons/RaycastIcon.vue'
 import LinearIcon from '~/components/icons/LinearIcon.vue'
@@ -152,10 +152,13 @@ import SunIcon from '~/components/icons/SunIcon.vue'
 import MoonIcon from '~/components/icons/MoonIcon.vue'
 import Logo from '~/components/icons/Logo.vue'
 import { ItemInfo } from '@/types'
+import Command from '@/Command.vue'
 import CommandItem from '@/CommandItem.vue'
 import CommandGroup from '@/CommandGroup.vue'
 import CommandList from '@/CommandList.vue'
 import CommandDialog from '@/CommandDialog.vue'
+import CommandInput from '@/CommandInput.vue'
+import { Empty as CommandEmpty } from '@/index'
 
 defineProps<{
   visible: boolean
