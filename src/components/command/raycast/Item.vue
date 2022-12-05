@@ -1,10 +1,10 @@
 <template>
-  <Command.Item @select="onSelect">
+  <CommandItem @select="onSelect">
     <slot />
     <span command-raycast-meta="">
       {{ isCommand ? 'Command' : 'Application' }}
     </span>
-  </Command.Item>
+  </CommandItem>
 </template>
 
 <script lang="ts" setup>

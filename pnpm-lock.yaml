@@ -17,6 +17,7 @@ specifiers:
   unplugin-vue-components: ^0.22.4
   vite: ^3.0.7
   vite-plugin-dts: ^1.4.1
+  vite-plugin-vue-setup-extend: ^0.4.0
   vue: ^3.2.37
   vue-tsc: ^0.39.5
 
@@ -39,6 +40,7 @@ devDependencies:
   unplugin-vue-components: 0.22.4_vite@3.0.9+vue@3.2.38
   vite: 3.0.9_sass@1.54.8
   vite-plugin-dts: 1.4.1_vite@3.0.9
+  vite-plugin-vue-setup-extend: 0.4.0_vite@3.0.9
   vue: 3.2.38
   vue-tsc: 0.39.5_typescript@4.8.2
 
@@ -1737,6 +1739,16 @@ packages:
       vite: 3.0.9_sass@1.54.8
     transitivePeerDependencies:
       - supports-color
+    dev: true
+
+  /vite-plugin-vue-setup-extend/0.4.0_vite@3.0.9:
+    resolution: {integrity: sha512-WMbjPCui75fboFoUTHhdbXzu4Y/bJMv5N9QT9a7do3wNMNHHqrk+Tn2jrSJU0LS5fGl/EG+FEDBYVUeWIkDqXQ==}
+    peerDependencies:
+      vite: '>=2.0.0'
+    dependencies:
+      '@vue/compiler-sfc': 3.2.38
+      magic-string: 0.25.9
+      vite: 3.0.9_sass@1.54.8
     dev: true
 
   /vite/3.0.9_sass@1.54.8:

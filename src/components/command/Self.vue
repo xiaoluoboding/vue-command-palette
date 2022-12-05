@@ -1,16 +1,16 @@
 <template>
-  <Command.Dialog :visible="visible" theme="algolia">
+  <CommandDialog :visible="visible" theme="algolia">
     <template #header>
-      <Command.Input
+      <CommandInput
         placeholder="Type a command or search..."
         v-model:value="inputValue"
       />
     </template>
     <template #body>
-      <Command.List>
-        <Command.Empty>No results found.</Command.Empty>
-        <Command.Group heading="Theme">
-          <Command.Item
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandGroup heading="Theme">
+          <CommandItem
             v-for="item in items"
             :data-value="item.label"
             :shortcut="item.shortcut"
@@ -33,10 +33,10 @@
                 </g>
               </svg>
             </div>
-          </Command.Item>
-        </Command.Group>
-        <Command.Group heading="Preference">
-          <Command.Item
+          </CommandItem>
+        </CommandGroup>
+        <CommandGroup heading="Preference">
+          <CommandItem
             v-for="item in preferenceItems"
             :key="item.label"
             :data-value="item.label"
@@ -61,9 +61,9 @@
                 </g>
               </svg>
             </div>
-          </Command.Item>
-        </Command.Group>
-      </Command.List>
+          </CommandItem>
+        </CommandGroup>
+      </CommandList>
     </template>
     <template #footer>
       <div class="command-palette-logo">
@@ -136,7 +136,7 @@
         </li>
       </ul>
     </template>
-  </Command.Dialog>
+  </CommandDialog>
 </template>
 
 <script lang="ts" setup>
@@ -152,6 +152,10 @@ import SunIcon from '~/components/icons/SunIcon.vue'
 import MoonIcon from '~/components/icons/MoonIcon.vue'
 import Logo from '~/components/icons/Logo.vue'
 import { ItemInfo } from '@/types'
+import CommandItem from '@/CommandItem.vue'
+import CommandGroup from '@/CommandGroup.vue'
+import CommandList from '@/CommandList.vue'
+import CommandDialog from '@/CommandDialog.vue'
 
 defineProps<{
   visible: boolean

@@ -1,10 +1,10 @@
 <template>
-  <Command.Item @select="onSelect">
+  <CommandItem @select="onSelect">
     <slot />
     <div command-vercel-shortcuts="">
       <kbd v-for="key in shortcut" key="key">{{ key }}</kbd>
     </div>
-  </Command.Item>
+  </CommandItem>
 </template>
 
 <script lang="ts" setup>

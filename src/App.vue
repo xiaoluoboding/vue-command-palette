@@ -178,25 +178,25 @@ watch(Escape, (v) => {
 // })
 
 const demoCode1 = `<!-- <template> -->
-<Command.Dialog :visible="visible" theme="custom">
+<CommandDialog :visible="visible" theme="custom">
   <template #header>
-    <Command.Input placeholder="Type a command or search..." />
+    <CommandInput placeholder="Type a command or search..." />
   </template>
   <template #body>
-    <Command.List>
-      <Command.Empty>No results found.</Command.Empty>
+    <CommandList>
+      <CommandEmpty>No results found.</CommandEmpty>
 
-      <Command.Group heading="Letters">
-        <Command.Item>a</Command.Item>
-        <Command.Item>b</Command.Item>
-        <Command.Separator />
-        <Command.Item>c</Command.Item>
-      </Command.Group>
+      <CommandGroup heading="Letters">
+        <CommandItem>a</CommandItem>
+        <CommandItem>b</CommandItem>
+        <CommandSeparator />
+        <CommandItem>c</CommandItem>
+      </CommandGroup>
 
-      <Command.Item>Apple</Command.Item>
-    </Command.List>
+      <CommandItem>Apple</CommandItem>
+    </CommandList>
   </template>
-</Command.Dialog>
+</CommandDialog>
 `
 
 const demoCode2 = `// <script lang="ts" setup>

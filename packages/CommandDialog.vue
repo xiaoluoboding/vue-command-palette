@@ -22,14 +22,6 @@
   </Teleport>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'Command.Dialog'
-})
-</script>
-
 <script lang="ts" setup>
 import { onBeforeUnmount, ref } from 'vue'
 import { whenever } from '@vueuse/core'

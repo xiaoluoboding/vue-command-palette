@@ -37,19 +37,19 @@ Then you can import the `Command` [Compound Component](https://kentcdodds.com/bl
 ```vue
 <template>
   <Command theme="custom">
-    <Command.Input placeholder="Type a command or search..." />
-    <Command.List>
-      <Command.Empty>No results found.</Command.Empty>
+    <CommandInput placeholder="Type a command or search..." />
+    <CommandList>
+      <CommandEmpty>No results found.</CommandEmpty>
 
-      <Command.Group heading="Letters">
-        <Command.Item>a</Command.Item>
-        <Command.Item>b</Command.Item>
-        <Command.Separator />
-        <Command.Item>c</Command.Item>
-      </Command.Group>
+      <CommandGroup heading="Letters">
+        <CommandItem>a</CommandItem>
+        <CommandItem>b</CommandItem>
+        <CommandSeparator />
+        <CommandItem>c</CommandItem>
+      </CommandGroup>
 
-      <Command.Item>Apple</Command.Item>
-    </Command.List>
+      <CommandItem>Apple</CommandItem>
+    </CommandList>
   </Command>
 </template>
 
@@ -68,25 +68,25 @@ or in a dialog:
 
 ```vue
 <template>
-  <Command.Dialog :visible="visible" theme="custom">
+  <CommandDialog :visible="visible" theme="custom">
     <template #header>
-      <Command.Input placeholder="Type a command or search..." />
+      <CommandInput placeholder="Type a command or search..." />
     </template>
     <template #body>
-      <Command.List>
-        <Command.Empty>No results found.</Command.Empty>
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
 
-        <Command.Group heading="Letters">
-          <Command.Item>a</Command.Item>
-          <Command.Item>b</Command.Item>
-          <Command.Separator />
-          <Command.Item>c</Command.Item>
-        </Command.Group>
+        <CommandGroup heading="Letters">
+          <CommandItem>a</CommandItem>
+          <CommandItem>b</CommandItem>
+          <CommandSeparator />
+          <CommandItem>c</CommandItem>
+        </CommandGroup>
 
-        <Command.Item>Apple</Command.Item>
-      </Command.List>
+        <CommandItem>Apple</CommandItem>
+      </CommandList>
     </template>
-  </Command.Dialog>
+  </CommandDialog>
 </template>
 
 <script lang="ts" setup>
@@ -129,7 +129,7 @@ Do I have to use command + K? No, it's just a convention that you can use any ke
 
 |     Name      | Description                                                           | Parameters       |
 | :-----------: | --------------------------------------------------------------------- | :--------------- |
-| `select-item` | Every time an item is being selected in `Command` or `Command.Dialog` | `(item) => void` |
+| `select-item` | Every time an item is being selected in `Command` or `CommandDialog` | `(item) => void` |
 
 ### Styling
 
@@ -145,9 +145,9 @@ div[command-root=''] {
 
 ### Animation
 
-#### Command.Dialog
+#### CommandDialog
 
-`Command.Dialog` wraped by built-in components [Transition](https://vuejs.org/guide/built-ins/transition.html), you can customize the animation using the name `command-dialog` .
+`CommandDialog` wraped by built-in components [Transition](https://vuejs.org/guide/built-ins/transition.html), you can customize the animation using the name `command-dialog` .
 
 [Example Code](https://github.com/xiaoluoboding/vue-command-palette/blob/main/src/assets/scss/algolia.scss#L193)
 
@@ -171,17 +171,17 @@ The root component, Passes the `theme` props to set your own style.
 </Command>
 ```
 
-### Command.Dialog `[command-dialog=""]`
+### CommandDialog `[command-dialog=""]`
 
 The root component with a dialog interface, [Teleport](https://vuejs.org/guide/built-ins/teleport.html) dialog to `body` tag. Passes the `theme` props to set your own style, and `visible` props control whether render it.
 
 ```vue
-<Command.Dialog :visible="visible" theme="custom">
+<CommandDialog :visible="visible" theme="custom">
   <!-- Contains other namespaced components -->
   <template #header></template>
   <template #body></template>
   <template #footer></template>
-</Command.Dialog>
+</CommandDialog>
 ```
 
 `data-attribute` within dialog
@@ -192,18 +192,18 @@ The root component with a dialog interface, [Teleport](https://vuejs.org/guide/b
 - `[command-dialog-body]` - the parent of dialog body slot.
 - `[command-dialog-footer]` - the parent of dialog footer slot.
 
-### Command.Input `[command-input=""]`
+### CommandInput `[command-input=""]`
 
 Usually we need a input in the command palette to search sth.
 
 ```vue
-<Command.Input
+<CommandInput
   placeholder="Type a command or search..."
   v-model:value="inputValue"
 />
 ```
 
-### Command.List `[command-list=""]`
+### CommandList `[command-list=""]`
 
 Contains items and groups. Animate height using the `--command-list-height` CSS variable.
 
@@ -217,28 +217,28 @@ Contains items and groups. Animate height using the `--command-list-height` CSS 
 ```
 
 ```vue
-<Command.List>
+<CommandList>
   <!-- Contains Group, Item, Empty -->
-</Command.List>
+</CommandList>
 ```
 
-### Command.Group `[command-group=""]`
+### CommandGroup `[command-group=""]`
 
 Group items (`[command-group-items]`) together with the given `heading` (`[command-group-heading]`)
 
 ```vue
-<Command.Group heading="Perference">
-  <Command.Item>Toggle Dark Mode</Command.Item>
-  <Command.Item>Change Language</Command.Item>
-</Command.Group>
+<CommandGroup heading="Perference">
+  <CommandItem>Toggle Dark Mode</CommandItem>
+  <CommandItem>Change Language</CommandItem>
+</CommandGroup>
 ```
 
-### Command.Item `[command-item=""]`
+### CommandItem `[command-item=""]`
 
 Passed the `data-value`, we use `data-value` to fetch the value.
 
 ```vue
-<Command.Item
+<CommandItem
   v-for="item in items"
   :data-value="item.label"
   :shortcut="item.shortcut"
@@ -247,14 +247,14 @@ Passed the `data-value`, we use `data-value` to fetch the value.
   // the itemInfo.value is some as `data-value`
 >
   {{ item.label }}
-</Command.Item>
+</CommandItem>
 ```
 
-### Command.Separator `[command-separator=""]`
+### CommandSeparator `[command-separator=""]`
 
 Usually used to distinguish between different groups
 
-### Command.Empty `[command-empty=""]`
+### CommandEmpty `[command-empty=""]`
 
 Automatically renders when there are no results for the search query.
 

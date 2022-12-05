@@ -6,12 +6,14 @@ import Input from './CommandInput.vue'
 import Item from './CommandItem.vue'
 import List from './CommandList.vue'
 import { useCommandState } from './useCommandState'
+import { useCommandEvent } from './useCommandEvent'
 
+export { useCommandState, useCommandEvent }
 /**
  * Command Empty Node
  */
 const Empty = defineComponent({
-  name: 'Command.Empty',
+  name: 'CommandEmpty',
   setup(props, { attrs, slots }) {
     const { filtered } = useCommandState()
     const isRender = computed(() => filtered.value.count === 0)
@@ -41,7 +43,7 @@ const Empty = defineComponent({
  * Command Loading Node
  */
 const Loading = defineComponent({
-  name: 'Command.Loading',
+  name: 'CommandLoading',
   setup(props, { attrs, slots }) {
     return () =>
       h(
@@ -60,7 +62,7 @@ const Loading = defineComponent({
  * Command Separator Node
  */
 const Separator = defineComponent({
-  name: 'Command.Separator',
+  name: 'CommandSeparator',
   setup(props, { attrs, slots }) {
     return () =>
       h('div', {
@@ -71,16 +73,7 @@ const Separator = defineComponent({
   }
 })
 
-const pkg = Object.assign(Command, {
-  Dialog,
-  Empty,
-  Group,
-  Input,
-  Item,
-  List,
-  Loading,
-  Separator,
-  Root: Command
-})
 
-export { pkg as Command }
+
+export { Command, Dialog, Group, Input, Item, List, Empty, Loading, Separator }
+

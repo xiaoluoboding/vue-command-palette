@@ -11,14 +11,6 @@
   </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'Command'
-})
-</script>
-
 <script lang="ts" setup>
 import { provide, ref, onMounted, watch, nextTick, computed } from 'vue'
 import { refDebounced, useDebounceFn } from '@vueuse/core'

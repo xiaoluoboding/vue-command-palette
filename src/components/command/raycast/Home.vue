@@ -1,5 +1,5 @@
 <template>
-  <Command.Group heading="Suggestions">
+  <CommandGroup heading="Suggestions">
     <Item
       v-for="item in items1"
       :key="item.label"
@@ -12,8 +12,8 @@
       </div>
       {{ item.label }}
     </Item>
-  </Command.Group>
-  <Command.Group heading="Commands">
+  </CommandGroup>
+  <CommandGroup heading="Commands">
     <Item
       v-for="item in items2"
       :key="item.label"
@@ -23,7 +23,7 @@
       <component :is="item.icon" />
       {{ item.label }}
     </Item>
-  </Command.Group>
+  </CommandGroup>
 </template>
 
 <script lang="ts" setup>

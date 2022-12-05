@@ -19,7 +19,7 @@
 import { defineComponent, ref, watchEffect } from 'vue'
 
 export default defineComponent({
-  name: 'Command.Input'
+  name: 'CommandInput'
 })
 </script>
 
