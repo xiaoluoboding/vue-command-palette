@@ -9,6 +9,7 @@ import { useCommandState } from './useCommandState'
 import { useCommandEvent } from './useCommandEvent'
 
 export { useCommandState, useCommandEvent }
+export * from './types'
 /**
  * Command Empty Node
  */

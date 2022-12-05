@@ -50,8 +50,6 @@ export default defineConfig(({ command, mode }) => {
       dts({
         outputDir: 'lib/types',
         include: './packages',
-        staticImport: true,
-        insertTypesEntry: true,
       }),
       UnoCSS(),
       Components({
