@@ -258,7 +258,7 @@ Usually used to distinguish between different groups
 
 Automatically renders when there are no results for the search query.
 
-### Command.Loading `[command-loading=""]`
+### CommandLoading `[command-loading=""]`
 
 Your should manually control `loading`
 

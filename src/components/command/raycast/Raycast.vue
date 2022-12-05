@@ -10,7 +10,7 @@
       <hr command-raycast-loader="" />
     </template>
     <template #body>
-      <!-- <Command.Loading> Hang on... </Command.Loading> -->
+      <!-- <CommandLoading> Hang on... </CommandLoading> -->
       <CommandList ref="dialogRef">
         <CommandEmpty>No results found.</CommandEmpty>
         <Home />

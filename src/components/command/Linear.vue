@@ -5,7 +5,7 @@
       <CommandInput placeholder="Type a command or search..." />
     </template>
     <template #body>
-      <!-- <Command.Loading> Hang on... </Command.Loading> -->
+      <!-- <CommandLoading> Hang on... </CommandLoading> -->
       <CommandList>
         <CommandEmpty>No results found.</CommandEmpty>
         <CommandItem

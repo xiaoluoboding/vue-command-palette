@@ -15,7 +15,7 @@
         v-model:value="inputValue"
       />
     </template>
-    <!-- <Command.Loading> Hang on... </Command.Loading> -->
+    <!-- <CommandLoading> Hang on... </CommandLoading> -->
     <template #body>
       <CommandList ref="dialogRef">
         <CommandEmpty>No results found.</CommandEmpty>
