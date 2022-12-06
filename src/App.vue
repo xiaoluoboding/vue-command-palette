@@ -1,5 +1,5 @@
 <template>
-  <div class="w-screen h-full">
+  <div class="w-full h-full">
     <div class="container mx-auto max-w-5xl relative">
       <nav class="h-20 py-4 flex-between text-[var(--app-text)]">
         <div class="font-semibold text-xl flex-center gap-2">
