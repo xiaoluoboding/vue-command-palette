@@ -31,7 +31,7 @@ import Command from '@/Command.vue'
 import CommandDialog from '@/CommandDialog.vue'
 import CommandInput from '@/CommandInput.vue'
 import CommandList from '@/CommandList.vue'
-import { Empty as CommandEmpty, Loading as CommandLoading, Separator as CommandSeparator } from '@/index'
+import { CommandEmpty, CommandLoading, CommandSeparator } from '@/index'
 import CommandItem from '@/CommandItem.vue'
 
 import LinearAssignToIcon from '../icons/LinearAssignToIcon.vue'

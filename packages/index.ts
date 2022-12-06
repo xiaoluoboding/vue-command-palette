@@ -1,10 +1,10 @@
 import { defineComponent, h, computed } from 'vue'
 import Command from './Command.vue'
-import Dialog from './CommandDialog.vue'
-import Group from './CommandGroup.vue'
-import Input from './CommandInput.vue'
-import Item from './CommandItem.vue'
-import List from './CommandList.vue'
+import CommandDialog from './CommandDialog.vue'
+import CommandGroup from './CommandGroup.vue'
+import CommandInput from './CommandInput.vue'
+import CommandItem from './CommandItem.vue'
+import CommandList from './CommandList.vue'
 import { useCommandState } from './useCommandState'
 import { useCommandEvent } from './useCommandEvent'
 
@@ -13,7 +13,7 @@ export * from './types'
 /**
  * Command Empty Node
  */
-const Empty = defineComponent({
+const CommandEmpty = defineComponent({
   name: 'CommandEmpty',
   setup(props, { attrs, slots }) {
     const { filtered } = useCommandState()
@@ -43,7 +43,7 @@ const Empty = defineComponent({
 /**
  * Command Loading Node
  */
-const Loading = defineComponent({
+const CommandLoading = defineComponent({
   name: 'CommandLoading',
   setup(props, { attrs, slots }) {
     return () =>
@@ -62,7 +62,7 @@ const Loading = defineComponent({
 /**
  * Command Separator Node
  */
-const Separator = defineComponent({
+const CommandSeparator = defineComponent({
   name: 'CommandSeparator',
   setup(props, { attrs, slots }) {
     return () =>
@@ -76,5 +76,5 @@ const Separator = defineComponent({
 
 
 
-export { Command, Dialog, Group, Input, Item, List, Empty, Loading, Separator }
+export { Command, CommandDialog, CommandGroup, CommandInput, CommandItem, CommandList, CommandEmpty, CommandLoading, CommandSeparator }
 

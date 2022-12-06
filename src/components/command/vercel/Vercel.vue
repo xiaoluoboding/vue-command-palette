@@ -37,7 +37,7 @@ import { toggleDarkmode } from '~/composables/useDarkmode'
 import CommandList from '@/CommandList.vue'
 import CommandDialog from '@/CommandDialog.vue'
 import CommandInput from '@/CommandInput.vue'
-import { Empty as CommandEmpty, Loading as CommandLoading, Separator as CommandSeparator } from '@/index'
+import { CommandEmpty, CommandLoading, CommandSeparator } from '@/index'
 
 import { ItemInfo } from '@/types'
 

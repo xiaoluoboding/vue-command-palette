@@ -158,7 +158,7 @@ import CommandGroup from '@/CommandGroup.vue'
 import CommandList from '@/CommandList.vue'
 import CommandDialog from '@/CommandDialog.vue'
 import CommandInput from '@/CommandInput.vue'
-import { Empty as CommandEmpty } from '@/index'
+import { CommandEmpty } from '@/index'
 
 defineProps<{
   visible: boolean
