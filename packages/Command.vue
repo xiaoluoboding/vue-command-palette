@@ -41,15 +41,17 @@ const SELECTED_ITEM_SELECTOR = `${ITEM_SELECTOR}[aria-selected="true"]`
 const SELECT_EVENT = `command-item-select`
 const VALUE_ATTR = `data-value`
 
-const fuseOptions = {
-  threshold: 0.2,
-  keys: ['label']
-}
-
 const props = defineProps({
   theme: {
     type: String,
     default: 'default'
+  },
+  fuseOptions: {
+    type: Object,
+    default: () => ({
+      threshold: 0.2,
+      keys: ['label']
+    })
   }
 })
 
@@ -78,8 +80,8 @@ const commandFuseList = computed(() => {
 })
 
 const fuse = computed(() => {
-  const fuseIndex = Fuse.createIndex(fuseOptions.keys, commandFuseList.value)
-  return new Fuse(commandFuseList.value, fuseOptions, fuseIndex)
+  const fuseIndex = Fuse.createIndex(props.fuseOptions.keys, commandFuseList.value)
+  return new Fuse(commandFuseList.value, props.fuseOptions, fuseIndex)
 })
 
 const scrollSelectedIntoView = () => {
