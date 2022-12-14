@@ -1,17 +1,20 @@
 import { defineComponent, h, computed } from 'vue'
 import Command from './Command.vue'
-import Dialog from './CommandDialog.vue'
-import Group from './CommandGroup.vue'
-import Input from './CommandInput.vue'
-import Item from './CommandItem.vue'
-import List from './CommandList.vue'
+import CommandDialog from './CommandDialog.vue'
+import CommandGroup from './CommandGroup.vue'
+import CommandInput from './CommandInput.vue'
+import CommandItem from './CommandItem.vue'
+import CommandList from './CommandList.vue'
 import { useCommandState } from './useCommandState'
+import { useCommandEvent } from './useCommandEvent'
 
+export { useCommandState, useCommandEvent }
+export * from './types'
 /**
  * Command Empty Node
  */
-const Empty = defineComponent({
-  name: 'Command.Empty',
+const CommandEmpty = defineComponent({
+  name: 'CommandEmpty',
   setup(props, { attrs, slots }) {
     const { filtered } = useCommandState()
     const isRender = computed(() => filtered.value.count === 0)
@@ -40,8 +43,8 @@ const Empty = defineComponent({
 /**
  * Command Loading Node
  */
-const Loading = defineComponent({
-  name: 'Command.Loading',
+const CommandLoading = defineComponent({
+  name: 'CommandLoading',
   setup(props, { attrs, slots }) {
     return () =>
       h(
@@ -59,8 +62,8 @@ const Loading = defineComponent({
 /**
  * Command Separator Node
  */
-const Separator = defineComponent({
-  name: 'Command.Separator',
+const CommandSeparator = defineComponent({
+  name: 'CommandSeparator',
   setup(props, { attrs, slots }) {
     return () =>
       h('div', {
@@ -71,16 +74,7 @@ const Separator = defineComponent({
   }
 })
 
-const pkg = Object.assign(Command, {
-  Dialog,
-  Empty,
-  Group,
-  Input,
-  Item,
-  List,
-  Loading,
-  Separator,
-  Root: Command
-})
 
-export { pkg as Command }
+
+export { Command, CommandDialog, CommandGroup, CommandInput, CommandItem, CommandList, CommandEmpty, CommandLoading, CommandSeparator }
+

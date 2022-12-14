@@ -1,20 +1,20 @@
 <template>
-  <Command.Dialog
+  <CommandDialog
     :visible="true"
     theme="raycast"
     @select-item="handleSelectItem"
   >
     <template #header>
       <div command-raycast-top-shine="" />
-      <Command.Input placeholder="Search for apps and commands..." />
+      <CommandInput placeholder="Search for apps and commands..." />
       <hr command-raycast-loader="" />
     </template>
     <template #body>
-      <!-- <Command.Loading> Hang on... </Command.Loading> -->
-      <Command.List ref="dialogRef">
-        <Command.Empty>No results found.</Command.Empty>
+      <!-- <CommandLoading> Hang on... </CommandLoading> -->
+      <CommandList ref="dialogRef">
+        <CommandEmpty>No results found.</CommandEmpty>
         <Home />
-      </Command.List>
+      </CommandList>
     </template>
     <template #footer>
       <RaycastDarkIcon v-if="isDark" />
@@ -31,13 +31,17 @@
         <kbd>K</kbd>
       </button>
     </template>
-  </Command.Dialog>
+  </CommandDialog>
 </template>
 
 <script lang="ts" setup>
 import { isDark } from '~/composables/useDarkmode'
 
-import { Command } from '@/index'
+import CommandList from '@/CommandList.vue'
+import CommandDialog from '@/CommandDialog.vue'
+import CommandInput from '@/CommandInput.vue'
+import { CommandEmpty, CommandLoading, CommandSeparator } from '@/index'
+
 import { ItemInfo } from '@/types'
 import Home from './Home.vue'
 import RaycastLightIcon from '~/components/icons/RaycastLightIcon.vue'

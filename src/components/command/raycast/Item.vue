@@ -1,14 +1,14 @@
 <template>
-  <Command.Item @select="onSelect">
+  <CommandItem @select="onSelect">
     <slot />
     <span command-raycast-meta="">
       {{ isCommand ? 'Command' : 'Application' }}
     </span>
-  </Command.Item>
+  </CommandItem>
 </template>
 
 <script lang="ts" setup>
-import { Command } from '@/index'
+import CommandItem from '@/CommandItem.vue'
 import type { ItemInfo } from '@/types'
 
 defineProps({

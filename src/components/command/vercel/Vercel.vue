@@ -1,5 +1,5 @@
 <template>
-  <Command.Dialog
+  <CommandDialog
     :visible="true"
     theme="vercel"
     @select-item="handleSelectItem"
@@ -10,23 +10,23 @@
           {{ page }}
         </label>
       </div>
-      <Command.Input
+      <CommandInput
         placeholder="What do you need?"
         v-model:value="inputValue"
       />
     </template>
-    <!-- <Command.Loading> Hang on... </Command.Loading> -->
+    <!-- <CommandLoading> Hang on... </CommandLoading> -->
     <template #body>
-      <Command.List ref="dialogRef">
-        <Command.Empty>No results found.</Command.Empty>
+      <CommandList ref="dialogRef">
+        <CommandEmpty>No results found.</CommandEmpty>
         <Transition name="pop-page">
           <KeepAlive>
             <component :is="currentView" :key="activePage" />
           </KeepAlive>
         </Transition>
-      </Command.List>
+      </CommandList>
     </template>
-  </Command.Dialog>
+  </CommandDialog>
 </template>
 
 <script lang="ts" setup>
@@ -34,7 +34,11 @@ import { ref, computed } from 'vue'
 import { useMagicKeys, whenever } from '@vueuse/core'
 
 import { toggleDarkmode } from '~/composables/useDarkmode'
-import { Command } from '@/index'
+import CommandList from '@/CommandList.vue'
+import CommandDialog from '@/CommandDialog.vue'
+import CommandInput from '@/CommandInput.vue'
+import { CommandEmpty, CommandLoading, CommandSeparator } from '@/index'
+
 import { ItemInfo } from '@/types'
 
 import Home from './Home.vue'

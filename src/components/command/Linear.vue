@@ -1,14 +1,14 @@
 <template>
-  <Command.Dialog :visible="true" theme="linear">
+  <CommandDialog :visible="true" theme="linear">
     <template #header>
       <div command-linear-badge="">Issue - FUN-343</div>
-      <Command.Input placeholder="Type a command or search..." />
+      <CommandInput placeholder="Type a command or search..." />
     </template>
     <template #body>
-      <!-- <Command.Loading> Hang on... </Command.Loading> -->
-      <Command.List>
-        <Command.Empty>No results found.</Command.Empty>
-        <Command.Item
+      <!-- <CommandLoading> Hang on... </CommandLoading> -->
+      <CommandList>
+        <CommandEmpty>No results found.</CommandEmpty>
+        <CommandItem
           v-for="item in items"
           :data-value="item.label"
           :shortcut="item.shortcut"
@@ -20,14 +20,20 @@
           <div command-linear-shortcuts>
             <kbd v-for="key in item.shortcut" key="key">{{ key }}</kbd>
           </div>
-        </Command.Item>
-      </Command.List>
+        </CommandItem>
+      </CommandList>
     </template>
-  </Command.Dialog>
+  </CommandDialog>
 </template>
 
 <script lang="ts" setup>
-import { Command } from '@/index'
+import Command from '@/Command.vue'
+import CommandDialog from '@/CommandDialog.vue'
+import CommandInput from '@/CommandInput.vue'
+import CommandList from '@/CommandList.vue'
+import { CommandEmpty, CommandLoading, CommandSeparator } from '@/index'
+import CommandItem from '@/CommandItem.vue'
+
 import LinearAssignToIcon from '../icons/LinearAssignToIcon.vue'
 import LinearAssignToMeIcon from '../icons/LinearAssignToMeIcon.vue'
 import LinearChangeStatusIcon from '../icons/LinearChangeStatusIcon.vue'
@@ -35,6 +41,7 @@ import LinearChangePriorityIcon from '../icons/LinearChangePriorityIcon.vue'
 import LinearChangeLabelsIcon from '../icons/LinearChangeLabelsIcon.vue'
 import LinearRemoveLabelIcon from '../icons/LinearRemoveLabelIcon.vue'
 import LinearSetDueDateIcon from '../icons/LinearSetDueDateIcon.vue'
+
 
 const items = [
   {

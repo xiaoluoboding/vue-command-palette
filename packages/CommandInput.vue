@@ -15,17 +15,11 @@
   />
 </template>
 
-<script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue'
-
-export default defineComponent({
-  name: 'Command.Input'
-})
-</script>
 
 <script lang="ts" setup>
-import { computed } from 'vue'
+import { computed,ref, watchEffect } from 'vue'
 import { useCommandState } from './useCommandState'
+
 
 defineProps<{
   placeholder: string
