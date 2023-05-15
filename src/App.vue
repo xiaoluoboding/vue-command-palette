@@ -118,7 +118,7 @@
       </footer>
 
       <div class="w-full mx-auto">
-        <Self :visible="isOpenDialog" @select="handleChangeDialog" />
+        <Self :visible="isOpenDialog" @dialog="handleOpenDialog"  @select="handleChangeDialog" />
         <component :is="currentDialog" v-if="isOpenThemeDialog" />
       </div>
     </div>
@@ -157,6 +157,14 @@ const handleChangeDialog = (view = 'self') => {
   selectedView.value = view
   isOpenDialog.value = isSelf
   isOpenThemeDialog.value = !isSelf
+}
+const handleOpenDialog = (value) => {
+  if(value){
+    isOpenDialog.value = true
+  }
+  else{
+    isOpenDialog.value = false
+  }
 }
 
 watch(CmdK, (v) => {

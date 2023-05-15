@@ -1,5 +1,5 @@
 <template>
-  <Command.Dialog :visible="visible" theme="algolia">
+  <Command.Dialog ref="el" :visible="visible" theme="algolia">
     <template #header>
       <Command.Input
         placeholder="Type a command or search..."
@@ -141,7 +141,7 @@
 
 <script lang="ts" setup>
 import { ref, computed } from 'vue'
-import { useMagicKeys, whenever } from '@vueuse/core'
+import { useMagicKeys, whenever, onClickOutside } from '@vueuse/core'
 
 import { Command } from '@/index'
 import { isDark, toggleDarkmode } from '~/composables/useDarkmode'
@@ -157,7 +157,8 @@ defineProps<{
   visible: boolean
 }>()
 
-const emit = defineEmits(['select'])
+const emit = defineEmits(['select', 'dialog'])
+const el = ref(null);
 
 const items = [
   {
@@ -221,6 +222,11 @@ const handleSelectTheme = (item: any) => {
   activePage.value = item.value
   emit('select', item.value)
 }
+onClickOutside(el, (e) => {
+  if (e?.target?.attributes[0]?.name === "command-dialog-mask") {
+    emit("dialog", false);
+  }
+});
 </script>
 
 <style lang="scss">
