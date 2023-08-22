@@ -158,7 +158,7 @@ defineProps<{
 }>()
 
 const emit = defineEmits(['select', 'dialog'])
-const el = ref(null);
+const el = ref<HTMLDivElement | null>(null)
 
 const items = [
   {
@@ -222,11 +222,12 @@ const handleSelectTheme = (item: any) => {
   activePage.value = item.value
   emit('select', item.value)
 }
-onClickOutside(el, (e) => {
-  if (e?.target?.attributes[0]?.name === "command-dialog-mask") {
-    emit("dialog", false);
+onClickOutside(el, (e: Event) => {
+  const divEl = e.target as HTMLDivElement
+  if (divEl?.hasAttribute('command-dialog-mask')) {
+    emit('dialog', false)
   }
-});
+})
 </script>
 
 <style lang="scss">

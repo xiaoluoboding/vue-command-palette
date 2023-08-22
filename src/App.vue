@@ -118,7 +118,11 @@
       </footer>
 
       <div class="w-full mx-auto">
-        <Self :visible="isOpenDialog" @dialog="handleOpenDialog"  @select="handleChangeDialog" />
+        <Self
+          :visible="isOpenDialog"
+          @dialog="handleOpenDialog"
+          @select="handleChangeDialog"
+        />
         <component :is="currentDialog" v-if="isOpenThemeDialog" />
       </div>
     </div>
@@ -146,6 +150,7 @@ const currentDialog = computed(() => {
   if (selectedView.value === 'Linear') return Linear
   if (selectedView.value === 'Vercel') return Vercel
   if (selectedView.value === 'Raycast') return Raycast
+  return Linear
 })
 
 const keys = useMagicKeys()
@@ -158,11 +163,10 @@ const handleChangeDialog = (view = 'self') => {
   isOpenDialog.value = isSelf
   isOpenThemeDialog.value = !isSelf
 }
-const handleOpenDialog = (value) => {
-  if(value){
+const handleOpenDialog = (value: any) => {
+  if (value) {
     isOpenDialog.value = true
-  }
-  else{
+  } else {
     isOpenDialog.value = false
   }
 }

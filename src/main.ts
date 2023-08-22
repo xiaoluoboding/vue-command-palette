@@ -2,7 +2,7 @@ import { createApp } from 'vue'
 import App from './App.vue'
 
 import 'uno.css'
-import '@unocss/reset/tailwind.css'
+import '@unocss/reset/tailwind-compat.css'
 import './assets/scss/global.scss'
 import highlight from '~/plugins/highlight'
 
