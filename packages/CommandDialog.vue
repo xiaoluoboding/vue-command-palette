@@ -34,7 +34,7 @@ export default defineComponent({
 import { onBeforeUnmount, ref } from 'vue'
 import { whenever } from '@vueuse/core'
 
-import Command from './Command.vue'
+import Command from './CommandRoot.vue'
 import { useCommandState } from './useCommandState'
 import { useCommandEvent } from './useCommandEvent'
 import type { ItemInfo } from './types'

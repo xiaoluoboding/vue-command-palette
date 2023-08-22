@@ -1,5 +1,5 @@
 import { defineComponent, h, computed } from 'vue'
-import Command from './Command.vue'
+import Root from './CommandRoot.vue'
 import Dialog from './CommandDialog.vue'
 import Group from './CommandGroup.vue'
 import Input from './CommandInput.vue'
@@ -71,7 +71,8 @@ const Separator = defineComponent({
   }
 })
 
-const pkg = Object.assign(Command, {
+const Command = Object.assign(Root, {
+  Root,
   Dialog,
   Empty,
   Group,
@@ -79,8 +80,17 @@ const pkg = Object.assign(Command, {
   Item,
   List,
   Loading,
-  Separator,
-  Root: Command
-})
+  Separator
+}) as typeof Root & {
+  readonly Root: typeof Root
+  readonly Dialog: typeof Dialog
+  readonly Empty: typeof Empty
+  readonly Group: typeof Group
+  readonly Input: typeof Input
+  readonly Item: typeof Item
+  readonly List: typeof List
+  readonly Loading: typeof Loading
+  readonly Separator: typeof Separator
+}
 
-export { pkg as Command }
+export { Command }

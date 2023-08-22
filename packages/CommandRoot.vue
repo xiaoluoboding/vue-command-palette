@@ -15,7 +15,7 @@
 import { defineComponent } from 'vue'
 
 export default defineComponent({
-  name: 'Command'
+  name: 'CommandRoot'
 })
 </script>
 
@@ -80,7 +80,10 @@ const commandFuseList = computed(() => {
 })
 
 const fuse = computed(() => {
-  const fuseIndex = Fuse.createIndex(props.fuseOptions.keys, commandFuseList.value)
+  const fuseIndex = Fuse.createIndex(
+    props.fuseOptions.keys,
+    commandFuseList.value
+  )
   return new Fuse(commandFuseList.value, props.fuseOptions, fuseIndex)
 })
 
