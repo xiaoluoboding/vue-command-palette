@@ -1,9 +1,17 @@
 # Command Palette for Vue
 
-![vue-command-palette minzip package size](https://img.shields.io/bundlephobia/minzip/vue-command-palette)
-![vue-command-palette package version](https://img.shields.io/npm/v/vue-command-palette.svg?colorB=green)
+[![NPM][npmBadge]][npmUrl]
+[![Minzip Package][bundlePhobiaBadge]][bundlePhobiaUrl]
+[![NPM Download][npmDtBadge]][npmDtUrl]
 
-> A fast, composable, unstyled `command` + `k` interface (Command Palette) for Vue.
+[npmBadge]: https://img.shields.io/npm/v/vue-command-palette.svg?maxAge=2592000
+[npmUrl]: https://www.npmjs.com/package/vue-command-palette
+[npmDtBadge]: https://img.shields.io/npm/dt/vue-command-palette.svg
+[npmDtUrl]: https://www.npmjs.com/package/vue-command-palette
+[bundlePhobiaBadge]: https://img.shields.io/bundlephobia/minzip/vue-command-palette
+[bundlePhobiaUrl]: https://bundlephobia.com/package/vue-command-palette@latest
+
+> A fast, composable, unstyled `Command` + `K` interface (Command Palette) for Vue.
 
 ## Preview
 
@@ -14,6 +22,40 @@
 Command palette interfaces are used to create a web experience where users can quickly get in charge with keyboard shortcuts, rather than using the mouse.
 
 With macOS's `Spotlight` and `Raycast`'s command palette experience in mind, `vue-command-palette` is designed to provide a fast, composable, unstyled command palette to your site.
+
+## Table of Contents
+
+<details>
+
+<summary>TOC</summary>
+
+- [Command Palette for Vue](#command-palette-for-vue)
+  - [Preview](#preview)
+  - [Concepts](#concepts)
+  - [Table of Contents](#table-of-contents)
+  - [Features](#features)
+  - [Install](#install)
+  - [Usage](#usage)
+    - [Command + K or ?](#command--k-or-)
+    - [Events](#events)
+    - [Styling](#styling)
+    - [Animation](#animation)
+      - [Command.Dialog](#commanddialog)
+      - [List Item Height](#list-item-height)
+  - [Namespaced components](#namespaced-components)
+    - [Command `[command-root=""]`](#command-command-root)
+    - [Command.Dialog `[command-dialog=""]`](#commanddialog-command-dialog)
+    - [Command.Input `[command-input=""]`](#commandinput-command-input)
+    - [Command.List `[command-list=""]`](#commandlist-command-list)
+    - [Command.Group `[command-group=""]`](#commandgroup-command-group)
+    - [Command.Item `[command-item=""]`](#commanditem-command-item)
+    - [Command.Separator `[command-separator=""]`](#commandseparator-command-separator)
+    - [Command.Empty `[command-empty=""]`](#commandempty-command-empty)
+    - [Command.Loading `[command-loading=""]`](#commandloading-command-loading)
+  - [Inspiration](#inspiration)
+  - [License](#license)
+
+</details>
 
 ## Features
 
