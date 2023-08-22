@@ -1,3 +1,18 @@
+# [0.2.0](https://github.com/xiaoluoboding/vue-command-palette/compare/v0.1.4...v0.2.0) (2023-08-22)
+
+
+### Bug Fixes
+
+* fixed the type error ([70bf1f5](https://github.com/xiaoluoboding/vue-command-palette/commit/70bf1f53469aa9e0ecf0bf32383afb1ffab3988e))
+
+
+### Features
+
+* add types for command component ([e619b5e](https://github.com/xiaoluoboding/vue-command-palette/commit/e619b5ed560a924716381ce06a2e8d6fa2ca54c9))
+* close on clicking outside ([ca71816](https://github.com/xiaoluoboding/vue-command-palette/commit/ca71816ea4b5f6750a7388b068782629c02ede7d))
+
+
+
 ## [0.1.4](https://github.com/xiaoluoboding/vue-command-palette/compare/v0.1.3...v0.1.4) (2022-12-14)
 
 
