@@ -306,8 +306,8 @@ const filterItems = () => {
 }
 
 const initStore = () => {
-  const items = getValidItems()
   const groups = getValidGroups()
+  const items = getValidItems()
 
   for (const item of items) {
     const itemKey = item.getAttribute(ITEM_KEY_SELECTOR) || ''
@@ -360,7 +360,6 @@ emitter.on('selectItem', (item) => {
 
 const debouncedEmit = useDebounceFn((isRerender: Boolean) => {
   if (isRerender) {
-    initStore()
     nextTick(selectedFirstItem)
   }
 }, 100)

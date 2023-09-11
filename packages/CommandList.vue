@@ -48,6 +48,10 @@ watchEffect(() => {
       })
     })
     observer.observe(sizer)
+
+    return () => {
+      observer?.unobserve(sizer!)
+    }
   }
 })
 
