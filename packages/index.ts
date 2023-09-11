@@ -93,4 +93,4 @@ const Command = Object.assign(Root, {
   readonly Separator: typeof Separator
 }
 
-export { Command }
+export { Command, useCommandState }

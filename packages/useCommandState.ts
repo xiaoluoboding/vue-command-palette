@@ -30,6 +30,7 @@ const state = reactive<State>({
 
 const useCommandState = () => {
   const isSearching = computed(() => state.search !== '')
+
   return {
     isSearching,
     ...toRefs(state)
