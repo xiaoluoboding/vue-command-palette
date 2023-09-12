@@ -34,13 +34,14 @@ import { ref, computed } from 'vue'
 import { useMagicKeys, whenever } from '@vueuse/core'
 
 import { toggleDarkmode } from '~/composables/useDarkmode'
-import { Command } from '@/index'
+import { Command, useCommandState } from '@/index'
 import { ItemInfo } from '@/types'
 
 import Home from './Home.vue'
 import Projects from './Projects.vue'
 
 const { current } = useMagicKeys()
+const { search } = useCommandState()
 
 const activePage = ref('home')
 const inputValue = ref('')
@@ -63,6 +64,7 @@ const pageTree = computed(() => {
 
 const togglePage = () => {
   activePage.value = isHomePage.value ? 'projects' : 'home'
+  search.value = ''
 }
 
 const handleKeyDown = () => {

@@ -60,7 +60,7 @@ const emit = defineEmits<{
 }>()
 
 provide('theme', props.theme || 'default')
-const { selectedNode, search, dataValue, filtered } = useCommandState()
+const { selectedNode, search, filtered } = useCommandState()
 const { emitter } = useCommandEvent()
 
 const commandRef = ref<HTMLDivElement>()
@@ -110,6 +110,20 @@ const getSelectedItem = () => {
   return commandRef.value?.querySelector(SELECTED_ITEM_SELECTOR)
 }
 
+const getAllGroups = () => {
+  const allGroupEl = commandRef.value?.querySelectorAll(
+    GROUP_SELECTOR
+  ) as NodeListOf<HTMLElement>
+  return allGroupEl ? Array.from(allGroupEl) : []
+}
+
+const getAllItems = (rootNode: HTMLElement | undefined = commandRef.value) => {
+  const allItemEl = rootNode?.querySelectorAll(
+    ITEM_SELECTOR
+  ) as NodeListOf<HTMLElement>
+  return allItemEl ? Array.from(allItemEl) : []
+}
+
 const getValidItems = (
   rootNode: HTMLElement | undefined = commandRef.value
 ) => {
@@ -117,13 +131,6 @@ const getValidItems = (
     VALID_ITEM_SELECTOR
   ) as NodeListOf<HTMLElement>
   return allItemEl ? Array.from(allItemEl) : []
-}
-
-const getValidGroups = () => {
-  const allGroupEl = commandRef.value?.querySelectorAll(
-    GROUP_SELECTOR
-  ) as NodeListOf<HTMLElement>
-  return allGroupEl ? Array.from(allGroupEl) : []
 }
 
 const selectedFirstItem = () => {
@@ -279,7 +286,7 @@ const filterItems = () => {
   }
 
   // Reset the groups
-  filtered.value.groups = new Set('')
+  filtered.value.groups = new Set()
 
   const items = new Map()
 
@@ -299,15 +306,13 @@ const filterItems = () => {
     }
   }
 
-  nextTick(() => {
-    filtered.value.count = items.size
-    filtered.value.items = items
-  })
+  filtered.value.count = items.size
+  filtered.value.items = items
 }
 
 const initStore = () => {
-  const items = getValidItems()
-  const groups = getValidGroups()
+  const groups = getAllGroups()
+  const items = getAllItems()
 
   for (const item of items) {
     const itemKey = item.getAttribute(ITEM_KEY_SELECTOR) || ''
@@ -319,7 +324,7 @@ const initStore = () => {
 
   // map the items in group
   for (const group of groups) {
-    const itemsInGroup = getValidItems(group)
+    const itemsInGroup = getAllItems(group)
     const groupId = group.getAttribute(GROUP_KEY_SELECTOR) || ''
     const itemIds = new Set('')
 
@@ -343,12 +348,13 @@ watch(
   },
   { deep: true }
 )
+
 /**
  * when search's value is changed, trigger filter action
  */
 watch(
   () => search.value,
-  (newVal) => {
+  () => {
     filterItems()
     nextTick(selectedFirstItem)
   }
@@ -361,7 +367,10 @@ emitter.on('selectItem', (item) => {
 const debouncedEmit = useDebounceFn((isRerender: Boolean) => {
   if (isRerender) {
     initStore()
-    nextTick(selectedFirstItem)
+    nextTick(() => {
+      filterItems()
+      selectedFirstItem()
+    })
   }
 }, 100)
 
@@ -369,6 +378,6 @@ emitter.on('rerenderList', debouncedEmit)
 
 onMounted(() => {
   initStore()
-  selectedFirstItem()
+  nextTick(selectedFirstItem)
 })
 </script>

@@ -12,26 +12,38 @@ type State = {
   selectedGroup: string
   // Input State
   search: string
-  dataValue: string
   filtered: FilteredItem
 }
 
 const state = reactive<State>({
   selectedNode: '',
   selectedGroup: '',
+  /** Value of the search query. */
   search: '',
-  dataValue: '',
   filtered: {
+    /** The count of all visible items. */
     count: 0,
+    /** Map from visible item id. */
     items: new Map(),
+    /** Set of groups with at least one visible item. */
     groups: new Set()
   }
 })
 
 const useCommandState = () => {
   const isSearching = computed(() => state.search !== '')
+
+  const resetStore = () => {
+    // reset the command state
+    state.search = ''
+    state.filtered.count = 0
+    state.filtered.items = new Map()
+    state.filtered.groups = new Set()
+  }
+
   return {
     isSearching,
+    resetStore,
     ...toRefs(state)
   }
 }

@@ -143,7 +143,7 @@
 import { ref, computed } from 'vue'
 import { useMagicKeys, whenever, onClickOutside } from '@vueuse/core'
 
-import { Command } from '@/index'
+import { Command, useCommandState } from '@/index'
 import { isDark, toggleDarkmode } from '~/composables/useDarkmode'
 import RaycastIcon from '~/components/icons/RaycastIcon.vue'
 import LinearIcon from '~/components/icons/LinearIcon.vue'
@@ -151,7 +151,6 @@ import VercelIcon from '~/components/icons/VercelIcon.vue'
 import SunIcon from '~/components/icons/SunIcon.vue'
 import MoonIcon from '~/components/icons/MoonIcon.vue'
 import Logo from '~/components/icons/Logo.vue'
-import { ItemInfo } from '@/types'
 
 defineProps<{
   visible: boolean
@@ -196,6 +195,7 @@ const inputValue = ref('')
 const isHomePage = computed(() => activePage.value === 'home')
 
 const { current } = useMagicKeys()
+const { search } = useCommandState()
 
 const togglePage = () => {
   activePage.value = 'home'
@@ -220,6 +220,7 @@ whenever(
 
 const handleSelectTheme = (item: any) => {
   activePage.value = item.value
+  search.value = ''
   emit('select', item.value)
 }
 onClickOutside(el, (e: Event) => {

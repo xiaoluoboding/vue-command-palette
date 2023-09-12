@@ -1,6 +1,6 @@
 <template>
   <div command-list="" role="listbox" aria-label="Suggestions" ref="listRef">
-    <div command-list-sizer ref="heightRef">
+    <div command-list-sizer="" ref="heightRef">
       <slot />
     </div>
   </div>
@@ -34,12 +34,11 @@ let sizer: HTMLDivElement | undefined
 watchEffect(() => {
   sizer = heightRef.value
   const wrapper = listRef.value
-
+  let animationFrame: any
   if (sizer && wrapper) {
     observer = new ResizeObserver((entries) => {
-      nextTick(() => {
+      animationFrame = requestAnimationFrame(() => {
         const height = sizer?.offsetHeight
-
         wrapper?.style.setProperty(
           '--command-list-height',
           `${height?.toFixed(1)}px`
@@ -48,6 +47,11 @@ watchEffect(() => {
       })
     })
     observer.observe(sizer)
+
+    return () => {
+      cancelAnimationFrame(animationFrame)
+      observer?.unobserve(sizer!)
+    }
   }
 })
 

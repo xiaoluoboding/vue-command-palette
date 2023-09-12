@@ -8,7 +8,7 @@
         </div>
         <div class="flex-center gap-4">
           <button
-            class="opacity-50 hover:opacity-100 transition"
+            class="bg-transparent opacity-50 hover:opacity-100 transition"
             @click="(e) => toggleDarkmode()"
           >
             <MoonIcon class="w-6 h-6" v-if="isDark" />
