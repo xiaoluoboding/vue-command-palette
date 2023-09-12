@@ -48,21 +48,13 @@ const emit = defineEmits<{
   (e: 'select-item', item: ItemInfo): void
 }>()
 
-const { search, filtered } = useCommandState()
+const { resetStore } = useCommandState()
 const { emitter } = useCommandEvent()
 const dialogRef = ref<HTMLDivElement>()
 
 emitter.on('selectItem', (item) => {
   emit('select-item', item)
 })
-
-const resetStore = () => {
-  // reset the command state
-  search.value = ''
-  filtered.value.count = 0
-  filtered.value.items = new Map()
-  filtered.value.groups = new Set()
-}
 
 whenever(() => props.visible, resetStore)
 
