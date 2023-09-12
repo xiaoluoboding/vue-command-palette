@@ -60,7 +60,7 @@ const emit = defineEmits<{
 }>()
 
 provide('theme', props.theme || 'default')
-const { selectedNode, search, filtered } = useCommandState()
+const { selectedNode, search, filtered, shouldRerender } = useCommandState()
 const { emitter } = useCommandEvent()
 
 const commandRef = ref<HTMLDivElement>()
@@ -355,6 +355,7 @@ watch(
 watch(
   () => search.value,
   () => {
+    if (shouldRerender.value) return
     filterItems()
     nextTick(selectedFirstItem)
   }
@@ -364,12 +365,14 @@ emitter.on('selectItem', (item) => {
   emit('select-item', item)
 })
 
-const debouncedEmit = useDebounceFn((isRerender: Boolean) => {
+const debouncedEmit = useDebounceFn((isRerender: boolean) => {
   if (isRerender) {
+    shouldRerender.value = isRerender
     initStore()
     nextTick(() => {
       filterItems()
       selectedFirstItem()
+      shouldRerender.value = false
     })
   }
 }, 100)
