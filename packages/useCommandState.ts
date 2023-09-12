@@ -10,6 +10,7 @@ type State = {
   // Event State
   selectedNode: string
   selectedGroup: string
+  shouldRerender: boolean
   // Input State
   search: string
   filtered: FilteredItem
@@ -18,6 +19,7 @@ type State = {
 const state = reactive<State>({
   selectedNode: '',
   selectedGroup: '',
+  shouldRerender: false,
   /** Value of the search query. */
   search: '',
   filtered: {
