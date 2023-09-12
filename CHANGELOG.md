@@ -1,3 +1,12 @@
+## [0.2.2](https://github.com/xiaoluoboding/vue-command-palette/compare/v0.2.1...v0.2.2) (2023-09-12)
+
+
+### Bug Fixes
+
+* fixed blank when filter text ([08da9ef](https://github.com/xiaoluoboding/vue-command-palette/commit/08da9ef7d1c28fcd411dfabde40c56485a55ac9b))
+
+
+
 ## [0.2.1](https://github.com/xiaoluoboding/vue-command-palette/compare/v0.2.0...v0.2.1) (2023-09-12)
 
 
