@@ -1,3 +1,19 @@
+## [0.2.1](https://github.com/xiaoluoboding/vue-command-palette/compare/v0.2.0...v0.2.1) (2023-09-12)
+
+
+### Bug Fixes
+
+* filter the item when rerender ([f26308f](https://github.com/xiaoluoboding/vue-command-palette/commit/f26308f964b5ec50f767bac98e0f833a5eae6d44))
+* fixed the bug [#14](https://github.com/xiaoluoboding/vue-command-palette/issues/14) ([f8e4ac8](https://github.com/xiaoluoboding/vue-command-palette/commit/f8e4ac86b3d1074bbe0ea78de259b26f2372b1ea))
+* fixed the bug of [#14](https://github.com/xiaoluoboding/vue-command-palette/issues/14) ([9df6def](https://github.com/xiaoluoboding/vue-command-palette/commit/9df6def24bd0414232ae7f1bd0aef0d46277aac0))
+
+
+### Features
+
+* allow user reset or update the search value ([5f140ed](https://github.com/xiaoluoboding/vue-command-palette/commit/5f140edfabc776571d2b67270ab3cdc84eafea59))
+
+
+
 # [0.2.0](https://github.com/xiaoluoboding/vue-command-palette/compare/v0.1.4...v0.2.0) (2023-08-22)
 
 
