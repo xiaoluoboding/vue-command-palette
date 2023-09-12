@@ -12,7 +12,6 @@ type State = {
   selectedGroup: string
   // Input State
   search: string
-  dataValue: string
   filtered: FilteredItem
 }
 
@@ -21,7 +20,6 @@ const state = reactive<State>({
   selectedGroup: '',
   /** Value of the search query. */
   search: '',
-  dataValue: '',
   filtered: {
     /** The count of all visible items. */
     count: 0,

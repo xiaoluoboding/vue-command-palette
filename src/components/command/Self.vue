@@ -151,7 +151,6 @@ import VercelIcon from '~/components/icons/VercelIcon.vue'
 import SunIcon from '~/components/icons/SunIcon.vue'
 import MoonIcon from '~/components/icons/MoonIcon.vue'
 import Logo from '~/components/icons/Logo.vue'
-import { ItemInfo } from '@/types'
 
 defineProps<{
   visible: boolean
