@@ -367,7 +367,10 @@ emitter.on('selectItem', (item) => {
 const debouncedEmit = useDebounceFn((isRerender: Boolean) => {
   if (isRerender) {
     initStore()
-    nextTick(selectedFirstItem)
+    nextTick(() => {
+      filterItems()
+      selectedFirstItem()
+    })
   }
 }, 100)
 
