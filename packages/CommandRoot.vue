@@ -21,7 +21,7 @@ export default defineComponent({
 
 <script lang="ts" setup>
 import { provide, ref, onMounted, watch, nextTick, computed } from 'vue'
-import { refDebounced, useDebounceFn } from '@vueuse/core'
+import { refDebounced } from '@vueuse/core'
 import Fuse from 'fuse.js'
 
 import { useCommandState } from './useCommandState'
@@ -365,7 +365,7 @@ emitter.on('selectItem', (item) => {
   emit('select-item', item)
 })
 
-const debouncedEmit = useDebounceFn((isRerender: boolean) => {
+const rerenderMenuList = (isRerender: boolean) => {
   if (isRerender) {
     shouldRerender.value = isRerender
     initStore()
@@ -375,9 +375,9 @@ const debouncedEmit = useDebounceFn((isRerender: boolean) => {
       shouldRerender.value = false
     })
   }
-}, 100)
+}
 
-emitter.on('rerenderList', debouncedEmit)
+emitter.on('rerenderList', rerenderMenuList)
 
 onMounted(() => {
   initStore()
