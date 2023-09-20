@@ -1,3 +1,12 @@
+## [0.2.3](https://github.com/xiaoluoboding/vue-command-palette/compare/v0.2.2...v0.2.3) (2023-09-20)
+
+
+### Bug Fixes
+
+* fixed the debounce search bug [#18](https://github.com/xiaoluoboding/vue-command-palette/issues/18) ([5d72166](https://github.com/xiaoluoboding/vue-command-palette/commit/5d72166779778a88df790b6dc7175319918e2a2f))
+
+
+
 ## [0.2.2](https://github.com/xiaoluoboding/vue-command-palette/compare/v0.2.1...v0.2.2) (2023-09-12)
 
 
