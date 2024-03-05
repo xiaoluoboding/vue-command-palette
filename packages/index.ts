@@ -1,4 +1,4 @@
-import { defineComponent, h, computed } from 'vue'
+import { computed, defineComponent, h } from 'vue'
 import Root from './CommandRoot.vue'
 import Dialog from './CommandDialog.vue'
 import Group from './CommandGroup.vue'
@@ -18,23 +18,23 @@ const Empty = defineComponent({
     return () =>
       isRender.value
         ? h(
-            'div',
-            {
-              'command-empty': '',
-              role: 'presentation',
-              ...attrs
-            },
-            slots
-          )
+          'div',
+          {
+            'command-empty': '',
+            'role': 'presentation',
+            ...attrs,
+          },
+          slots,
+        )
         : h('div', {
-            'command-empty': 'hidden',
-            role: 'presentation',
-            style: {
-              display: 'none'
-            },
-            ...attrs
-          })
-  }
+          'command-empty': 'hidden',
+          'role': 'presentation',
+          'style': {
+            display: 'none',
+          },
+          ...attrs,
+        })
+  },
 })
 
 /**
@@ -48,12 +48,12 @@ const Loading = defineComponent({
         'div',
         {
           'command-loading': '',
-          role: 'progressbar',
-          ...attrs
+          'role': 'progressbar',
+          ...attrs,
         },
-        slots
+        slots,
       )
-  }
+  },
 })
 
 /**
@@ -65,10 +65,10 @@ const Separator = defineComponent({
     return () =>
       h('div', {
         'command-separator': '',
-        role: 'separator',
-        ...attrs
+        'role': 'separator',
+        ...attrs,
       })
-  }
+  },
 })
 
 const Command = Object.assign(Root, {
@@ -80,7 +80,7 @@ const Command = Object.assign(Root, {
   Item,
   List,
   Loading,
-  Separator
+  Separator,
 }) as typeof Root & {
   readonly Root: typeof Root
   readonly Dialog: typeof Dialog
@@ -94,3 +94,4 @@ const Command = Object.assign(Root, {
 }
 
 export { Command, useCommandState }
+export type { CommandGroupProps, CommandInputEmits, CommandInputProps, CommandItemEmits, CommandItemProps, CommandRootEmits, CommandRootProps } from './types'

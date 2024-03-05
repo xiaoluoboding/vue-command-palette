@@ -1,7 +1,45 @@
+<script lang="ts" setup>
+import { onBeforeUnmount, ref, watch } from 'vue'
+import { whenever } from '@vueuse/core'
+
+import Command from './CommandRoot.vue'
+import { useCommandState } from './useCommandState'
+import { useCommandEvent } from './useCommandEvent'
+import type { ItemInfo } from './types'
+
+defineOptions({
+  name: 'Command.Dialog',
+})
+
+const props = defineProps<{
+  visible: boolean
+  theme: string
+}>()
+
+const emit = defineEmits<{
+  (e: 'selectItem', item: ItemInfo): void
+}>()
+
+const { resetStore } = useCommandState()
+const { itemInfo } = useCommandEvent()
+const dialogRef = ref<HTMLDivElement>()
+
+watch(
+  () => itemInfo.value,
+  (item) => {
+    emit('selectItem', item!)
+  },
+)
+
+whenever(() => props.visible, resetStore)
+
+onBeforeUnmount(resetStore)
+</script>
+
 <template>
-  <Teleport to="body" ref="dialogRef">
+  <Teleport ref="dialogRef" to="body">
     <Transition name="command-dialog" appear>
-      <Command :theme="theme" v-if="visible">
+      <Command v-if="visible" :theme="theme">
         <div command-dialog>
           <div command-dialog-mask>
             <div command-dialog-wrapper>
@@ -11,7 +49,7 @@
               <div command-dialog-body>
                 <slot name="body" />
               </div>
-              <div command-dialog-footer v-if="$slots.footer">
+              <div v-if="$slots.footer" command-dialog-footer>
                 <slot name="footer" />
               </div>
             </div>
@@ -21,42 +59,3 @@
     </Transition>
   </Teleport>
 </template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'Command.Dialog'
-})
-</script>
-
-<script lang="ts" setup>
-import { onBeforeUnmount, ref } from 'vue'
-import { whenever } from '@vueuse/core'
-
-import Command from './CommandRoot.vue'
-import { useCommandState } from './useCommandState'
-import { useCommandEvent } from './useCommandEvent'
-import type { ItemInfo } from './types'
-
-const props = defineProps<{
-  visible: boolean
-  theme: string
-}>()
-
-const emit = defineEmits<{
-  (e: 'select-item', item: ItemInfo): void
-}>()
-
-const { resetStore } = useCommandState()
-const { emitter } = useCommandEvent()
-const dialogRef = ref<HTMLDivElement>()
-
-emitter.on('selectItem', (item) => {
-  emit('select-item', item)
-})
-
-whenever(() => props.visible, resetStore)
-
-onBeforeUnmount(resetStore)
-</script>

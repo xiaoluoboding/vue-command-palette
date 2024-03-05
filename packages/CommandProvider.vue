@@ -1,3 +1,3 @@
 <template>
-  <div command-provider=""></div>
+  <div command-provider="" />
 </template>

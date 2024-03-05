@@ -1,16 +1,18 @@
-import mitt, { Emitter } from 'mitt'
+import { ref } from 'vue'
 import type { ItemInfo } from './types'
 
-type Events = {
+export interface Events {
   selectItem: ItemInfo
   rerenderList: boolean
 }
 
-const emitter: Emitter<Events> = mitt<Events>()
+function useCommandEvent() {
+  const itemInfo = ref<ItemInfo>()
+  const rerenderList = ref(false)
 
-const useCommandEvent = () => {
   return {
-    emitter
+    itemInfo,
+    rerenderList,
   }
 }
 

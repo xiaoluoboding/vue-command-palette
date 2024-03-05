@@ -77,6 +77,11 @@ pnpm add vue-command-palette
 Then you can import the `Command` [Compound Component](https://kentcdodds.com/blog/compound-components-with-react-hooks) in your project.
 
 ```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { Command } from 'vue-command-palette'
+</script>
+
 <template>
   <Command theme="custom">
     <Command.Input placeholder="Type a command or search..." />
@@ -95,11 +100,6 @@ Then you can import the `Command` [Compound Component](https://kentcdodds.com/bl
   </Command>
 </template>
 
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { Command } from 'vue-command-palette'
-</script>
-
 <style>
 // import your custom css
 @import '~/assets/css/custom.css';
@@ -109,6 +109,13 @@ import { Command } from 'vue-command-palette'
 or in a dialog:
 
 ```vue
+<script lang="ts" setup>
+import { ref } from 'vue'
+import { Command } from 'vue-command-palette'
+
+const visible = ref(false)
+</script>
+
 <template>
   <Command.Dialog :visible="visible" theme="custom">
     <template #header>
@@ -130,13 +137,6 @@ or in a dialog:
     </template>
   </Command.Dialog>
 </template>
-
-<script lang="ts" setup>
-import { ref } from 'vue'
-import { Command } from 'vue-command-palette'
-
-const visible = ref(false)
-</script>
 
 <style>
 // import your custom css

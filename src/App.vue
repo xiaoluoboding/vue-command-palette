@@ -1,3 +1,95 @@
+<script lang="ts" setup>
+import { computed, ref, watch } from 'vue'
+import { useMagicKeys } from '@vueuse/core'
+
+import { isDark, toggleDarkmode } from '~/composables/useDarkmode'
+import Linear from '~/components/command/Linear.vue'
+import Vercel from '~/components/command/vercel/Vercel.vue'
+import Raycast from '~/components/command/raycast/Raycast.vue'
+import Self from '~/components/command/Self.vue'
+import Logo from '~/components/icons/Logo.vue'
+import SunIcon from '~/components/icons/SunIcon.vue'
+import MoonIcon from '~/components/icons/MoonIcon.vue'
+
+const isOpenDialog = ref(false)
+const isOpenThemeDialog = ref(false)
+const selectedView = ref('')
+// const target = ref(null)
+const currentDialog = computed(() => {
+  if (selectedView.value === 'Linear')
+    return Linear
+  if (selectedView.value === 'Vercel')
+    return Vercel
+  if (selectedView.value === 'Raycast')
+    return Raycast
+  return Linear
+})
+
+const keys = useMagicKeys()
+const CmdK = keys['Meta+K']
+const Escape = keys.Escape
+
+function handleChangeDialog(view = 'self') {
+  const isSelf = view === 'self'
+  selectedView.value = view
+  isOpenDialog.value = isSelf
+  isOpenThemeDialog.value = !isSelf
+}
+function handleOpenDialog(value: any) {
+  if (value)
+    isOpenDialog.value = true
+  else
+    isOpenDialog.value = false
+}
+
+watch(CmdK, (v) => {
+  if (v) {
+    console.log('Meta + K has been pressed')
+    isOpenDialog.value = true
+  }
+})
+watch(Escape, (v) => {
+  if (v) {
+    console.log('Escape has been pressed')
+    isOpenDialog.value = false
+    isOpenThemeDialog.value = false
+  }
+})
+// onClickOutside(target, (event) => {
+//   console.log('Clicked the outside element of Command K Palette')
+//   isOpenDialog.value = false
+// })
+
+const demoCode1 = `<!-- <template> -->
+<Command.Dialog :visible="visible" theme="custom">
+  <template #header>
+    <Command.Input placeholder="Type a command or search..." />
+  </template>
+  <template #body>
+    <Command.List>
+      <Command.Empty>No results found.</Command.Empty>
+
+      <Command.Group heading="Letters">
+        <Command.Item>a</Command.Item>
+        <Command.Item>b</Command.Item>
+        <Command.Separator />
+        <Command.Item>c</Command.Item>
+      </Command.Group>
+
+      <Command.Item>Apple</Command.Item>
+    </Command.List>
+  </template>
+</Command.Dialog>
+`
+
+const demoCode2 = `// <script lang="ts" setup>
+import { ref } from 'vue'
+
+
+const visible = ref(false)
+`
+</script>
+
 <template>
   <div class="w-full h-full">
     <div class="container mx-auto max-w-5xl relative">
@@ -11,8 +103,8 @@
             class="bg-transparent opacity-50 hover:opacity-100 transition"
             @click="(e) => toggleDarkmode()"
           >
-            <MoonIcon class="w-6 h-6" v-if="isDark" />
-            <SunIcon class="w-6 h-6" v-else />
+            <MoonIcon v-if="isDark" class="w-6 h-6" />
+            <SunIcon v-else class="w-6 h-6" />
           </button>
           <a
             class="opacity-50 hover:opacity-100 transition"
@@ -25,7 +117,9 @@
       <header class="py-20">
         <div class="font-extrabold">
           <span class="text-6xl text-neon"> A Command Palette </span>
-          <div class="text-6xl text-[var(--app-text)]">for Vue</div>
+          <div class="text-6xl text-[var(--app-text)]">
+            for Vue
+          </div>
         </div>
         <div
           class="text-2xl font-semibold text-slate-700 py-4 dark:text-slate-200"
@@ -36,8 +130,7 @@
           <a
             class="bg-gray-200 hover:bg-gray-300 transition rounded-full text-lg font-semibold py-3 px-6 w-full sm:w-auto text-center"
             href="https://github.com/xiaoluoboding/vue-command-palette"
-            >Documentation</a
-          >
+          >Documentation</a>
           <button
             class="bg-emerald-400 hover:bg-emerald-500 flex items-center justify-center space-x-3 transition rounded-full text-white text-lg font-semibold py-3 px-6 w-full sm:w-auto cursor-pointer"
             @click="isOpenDialog = true"
@@ -128,93 +221,3 @@
     </div>
   </div>
 </template>
-
-<script lang="ts" setup>
-import { ref, watch, computed } from 'vue'
-import { useMagicKeys, onClickOutside } from '@vueuse/core'
-
-import { isDark, toggleDarkmode } from '~/composables/useDarkmode'
-import Linear from '~/components/command/Linear.vue'
-import Vercel from '~/components/command/vercel/Vercel.vue'
-import Raycast from '~/components/command/raycast/Raycast.vue'
-import Self from '~/components/command/Self.vue'
-import Logo from '~/components/icons/Logo.vue'
-import SunIcon from '~/components/icons/SunIcon.vue'
-import MoonIcon from '~/components/icons/MoonIcon.vue'
-
-const isOpenDialog = ref(false)
-const isOpenThemeDialog = ref(false)
-const selectedView = ref('')
-// const target = ref(null)
-const currentDialog = computed(() => {
-  if (selectedView.value === 'Linear') return Linear
-  if (selectedView.value === 'Vercel') return Vercel
-  if (selectedView.value === 'Raycast') return Raycast
-  return Linear
-})
-
-const keys = useMagicKeys()
-const CmdK = keys['Meta+K']
-const Escape = keys['Escape']
-
-const handleChangeDialog = (view = 'self') => {
-  const isSelf = view === 'self'
-  selectedView.value = view
-  isOpenDialog.value = isSelf
-  isOpenThemeDialog.value = !isSelf
-}
-const handleOpenDialog = (value: any) => {
-  if (value) {
-    isOpenDialog.value = true
-  } else {
-    isOpenDialog.value = false
-  }
-}
-
-watch(CmdK, (v) => {
-  if (v) {
-    console.log('Meta + K has been pressed')
-    isOpenDialog.value = true
-  }
-})
-watch(Escape, (v) => {
-  if (v) {
-    console.log('Escape has been pressed')
-    isOpenDialog.value = false
-    isOpenThemeDialog.value = false
-  }
-})
-// onClickOutside(target, (event) => {
-//   console.log('Clicked the outside element of Command K Palette')
-//   isOpenDialog.value = false
-// })
-
-const demoCode1 = `<!-- <template> -->
-<Command.Dialog :visible="visible" theme="custom">
-  <template #header>
-    <Command.Input placeholder="Type a command or search..." />
-  </template>
-  <template #body>
-    <Command.List>
-      <Command.Empty>No results found.</Command.Empty>
-
-      <Command.Group heading="Letters">
-        <Command.Item>a</Command.Item>
-        <Command.Item>b</Command.Item>
-        <Command.Separator />
-        <Command.Item>c</Command.Item>
-      </Command.Group>
-
-      <Command.Item>Apple</Command.Item>
-    </Command.List>
-  </template>
-</Command.Dialog>
-`
-
-const demoCode2 = `// <script lang="ts" setup>
-import { ref } from 'vue'
-import { Command } from 'vue-command-palette'
-
-const visible = ref(false)
-`
-</script>

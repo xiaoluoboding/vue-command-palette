@@ -1,33 +1,28 @@
-<template>
-  <div
-    :class="theme"
-    @keydown="handleKeyDown"
-    ref="commandRef"
-    :command-theme="theme"
-  >
-    <div command-root>
-      <slot />
-    </div>
-  </div>
-</template>
-
-<script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'CommandRoot'
-})
-</script>
-
 <script lang="ts" setup>
-import { provide, ref, onMounted, watch, nextTick, computed } from 'vue'
+import { computed, nextTick, onMounted, provide, ref, watch } from 'vue'
 import { refDebounced } from '@vueuse/core'
 import Fuse from 'fuse.js'
 
 import { useCommandState } from './useCommandState'
 import { useCommandEvent } from './useCommandEvent'
 import { findNextSibling, findPreviousSibling } from './utils'
-import type { ItemInfo } from './types'
+import type { CommandRootEmits, CommandRootProps, ItemInfo } from './types'
+
+defineOptions({
+  name: 'CommandRoot',
+})
+
+const props = withDefaults(defineProps<CommandRootProps>(), {
+  theme: 'default',
+  fuseOptions() {
+    return {
+      threshold: 0.2,
+      keys: ['label'],
+    }
+  },
+})
+
+const emit = defineEmits<CommandRootEmits>()
 
 const ITEM_SELECTOR = '[command-item=""]'
 const ITEM_KEY_SELECTOR = 'command-item-key'
@@ -41,27 +36,9 @@ const SELECTED_ITEM_SELECTOR = `${ITEM_SELECTOR}[aria-selected="true"]`
 const SELECT_EVENT = `command-item-select`
 const VALUE_ATTR = `data-value`
 
-const props = defineProps({
-  theme: {
-    type: String,
-    default: 'default'
-  },
-  fuseOptions: {
-    type: Object,
-    default: () => ({
-      threshold: 0.2,
-      keys: ['label']
-    })
-  }
-})
-
-const emit = defineEmits<{
-  (e: 'select-item', item: ItemInfo): void
-}>()
-
 provide('theme', props.theme || 'default')
 const { selectedNode, search, filtered, shouldRerender } = useCommandState()
-const { emitter } = useCommandEvent()
+const { itemInfo, rerenderList } = useCommandEvent()
 
 const commandRef = ref<HTMLDivElement>()
 const commandList = refDebounced(ref(new Map()), 333)
@@ -73,7 +50,7 @@ const commandFuseList = computed(() => {
   for (const [key, label] of commandList.value.entries()) {
     fuseList.push({
       key,
-      label
+      label,
     })
   }
   return fuseList
@@ -81,13 +58,13 @@ const commandFuseList = computed(() => {
 
 const fuse = computed(() => {
   const fuseIndex = Fuse.createIndex(
-    props.fuseOptions.keys,
-    commandFuseList.value
+    props.fuseOptions.keys!,
+    commandFuseList.value,
   )
   return new Fuse(commandFuseList.value, props.fuseOptions, fuseIndex)
 })
 
-const scrollSelectedIntoView = () => {
+function scrollSelectedIntoView() {
   const item = getSelectedItem()
 
   if (item) {
@@ -106,38 +83,35 @@ const scrollSelectedIntoView = () => {
 
 /** Getters */
 
-const getSelectedItem = () => {
+function getSelectedItem() {
   return commandRef.value?.querySelector(SELECTED_ITEM_SELECTOR)
 }
 
-const getAllGroups = () => {
+function getAllGroups() {
   const allGroupEl = commandRef.value?.querySelectorAll(
-    GROUP_SELECTOR
+    GROUP_SELECTOR,
   ) as NodeListOf<HTMLElement>
   return allGroupEl ? Array.from(allGroupEl) : []
 }
 
-const getAllItems = (rootNode: HTMLElement | undefined = commandRef.value) => {
+function getAllItems(rootNode: HTMLElement | undefined = commandRef.value) {
   const allItemEl = rootNode?.querySelectorAll(
-    ITEM_SELECTOR
+    ITEM_SELECTOR,
   ) as NodeListOf<HTMLElement>
   return allItemEl ? Array.from(allItemEl) : []
 }
 
-const getValidItems = (
-  rootNode: HTMLElement | undefined = commandRef.value
-) => {
+function getValidItems(rootNode: HTMLElement | undefined = commandRef.value) {
   const allItemEl = rootNode?.querySelectorAll(
-    VALID_ITEM_SELECTOR
+    VALID_ITEM_SELECTOR,
   ) as NodeListOf<HTMLElement>
   return allItemEl ? Array.from(allItemEl) : []
 }
 
-const selectedFirstItem = () => {
+function selectedFirstItem() {
   const [firstItem] = getValidItems()
-  if (firstItem && firstItem.getAttribute(ITEM_KEY_SELECTOR)) {
+  if (firstItem && firstItem.getAttribute(ITEM_KEY_SELECTOR))
     selectedNode.value = firstItem.getAttribute(ITEM_KEY_SELECTOR) || ''
-  }
 }
 
 /** Setters */
@@ -145,24 +119,24 @@ const selectedFirstItem = () => {
 /**
  * set the selected item index by index
  */
-const updateSelectedToIndex = (index: number) => {
+function updateSelectedToIndex(index: number) {
   const items = getValidItems()
   const item = items[index]
-  if (item) {
+  if (item)
     selectedNode.value = item.getAttribute(ITEM_KEY_SELECTOR) || ''
-  }
 }
 
-const updateSelectedByChange = (change: 1 | -1) => {
+function updateSelectedByChange(change: 1 | -1) {
   const selected = getSelectedItem()
   const items = getValidItems()
-  const index = items.findIndex((item) => item === selected)
+  const index = items.findIndex(item => item === selected)
 
   // Get item at this index
   const newSelected = items[index + change]
   if (newSelected) {
     selectedNode.value = newSelected.getAttribute(ITEM_KEY_SELECTOR) || ''
-  } else {
+  }
+  else {
     // no valid idx, then go to the first/last of item
     change > 0
       ? updateSelectedToIndex(0)
@@ -170,7 +144,7 @@ const updateSelectedByChange = (change: 1 | -1) => {
   }
 }
 
-const updateSelectedToGroup = (change: 1 | -1) => {
+function updateSelectedToGroup(change: 1 | -1) {
   const selected = getSelectedItem()
   let group = selected?.closest(GROUP_SELECTOR)
   let item: HTMLElement | null | undefined = null
@@ -179,8 +153,8 @@ const updateSelectedToGroup = (change: 1 | -1) => {
   // console.log(group)
 
   while (group && !item) {
-    group =
-      change > 0
+    group
+      = change > 0
         ? findNextSibling(group, GROUP_SELECTOR)
         : findPreviousSibling(group, GROUP_SELECTOR)
     item = group?.querySelector(VALID_ITEM_SELECTOR)
@@ -189,53 +163,56 @@ const updateSelectedToGroup = (change: 1 | -1) => {
   // console.log(item)
   // console.groupEnd()
 
-  if (item) {
+  if (item)
     selectedNode.value = item.getAttribute(ITEM_KEY_SELECTOR) || ''
-  } else {
+  else
     updateSelectedByChange(change)
-  }
 }
 
 const first = () => updateSelectedToIndex(0)
 const last = () => updateSelectedToIndex(getValidItems().length - 1)
 
-const next = (e: KeyboardEvent) => {
+function next(e: KeyboardEvent) {
   e.preventDefault()
   if (e.metaKey) {
     // Last item
     last()
-  } else if (e.altKey) {
+  }
+  else if (e.altKey) {
     // Next group
     updateSelectedToGroup(1)
-  } else {
+  }
+  else {
     // Next item
     updateSelectedByChange(1)
   }
 }
 
-const prev = (e: KeyboardEvent) => {
+function prev(e: KeyboardEvent) {
   e.preventDefault()
   if (e.metaKey) {
     // First item
     first()
-  } else if (e.altKey) {
+  }
+  else if (e.altKey) {
     // Previous group
     updateSelectedToGroup(-1)
-  } else {
+  }
+  else {
     // Previous item
     updateSelectedByChange(-1)
   }
 }
 
-const handleKeyDown = (e: KeyboardEvent) => {
+function handleKeyDown(e: KeyboardEvent) {
   // console.log('keydown', e)
   switch (e.key) {
     case 'n':
     case 'j': {
       // vim keybind down
-      if (e.ctrlKey) {
+      if (e.ctrlKey)
         next(e)
-      }
+
       break
     }
     case 'ArrowDown': {
@@ -245,9 +222,9 @@ const handleKeyDown = (e: KeyboardEvent) => {
     case 'p':
     case 'k': {
       // vim keybind up
-      if (e.ctrlKey) {
+      if (e.ctrlKey)
         prev(e)
-      }
+
       break
     }
     case 'ArrowUp': {
@@ -278,7 +255,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
 /**
  * Filters the current items.
  */
-const filterItems = () => {
+function filterItems() {
   if (!search.value) {
     filtered.value.count = allItemIds.value.size
     // Do nothing, each item will know to show itself because search is empty
@@ -290,19 +267,17 @@ const filterItems = () => {
 
   const items = new Map()
 
-  const list = fuse.value.search(search.value).map((r) => r.item)
+  const list = fuse.value.search(search.value).map(r => r.item)
 
   // transform list to map
-  for (const { key, label } of list) {
+  for (const { key, label } of list)
     items.set(key, label)
-  }
 
   // Check which groups have at least 1 item shown
   for (const [groupId, itemIdsInGroup] of allGroupIds.value) {
     for (const itemId of itemIdsInGroup) {
-      if (items.get(itemId)) {
+      if (items.get(itemId))
         filtered.value.groups.add(groupId)
-      }
     }
   }
 
@@ -310,7 +285,7 @@ const filterItems = () => {
   filtered.value.items = items
 }
 
-const initStore = () => {
+function initStore() {
   const groups = getAllGroups()
   const items = getAllItems()
 
@@ -342,11 +317,10 @@ const initStore = () => {
 watch(
   () => selectedNode.value,
   (newVal) => {
-    if (newVal) {
+    if (newVal)
       nextTick(scrollSelectedIntoView)
-    }
   },
-  { deep: true }
+  { deep: true },
 )
 
 /**
@@ -355,17 +329,21 @@ watch(
 watch(
   () => search.value,
   () => {
-    if (shouldRerender.value) return
+    if (shouldRerender.value)
+      return
     filterItems()
     nextTick(selectedFirstItem)
-  }
+  },
 )
 
-emitter.on('selectItem', (item) => {
-  emit('select-item', item)
-})
+watch(
+  () => itemInfo.value,
+  (item) => {
+    emit('selectItem', item!)
+  },
+)
 
-const rerenderMenuList = (isRerender: boolean) => {
+function rerenderMenuList(isRerender: boolean) {
   if (isRerender) {
     shouldRerender.value = isRerender
     initStore()
@@ -377,10 +355,29 @@ const rerenderMenuList = (isRerender: boolean) => {
   }
 }
 
-emitter.on('rerenderList', rerenderMenuList)
+watch(
+  () => rerenderList.value,
+  (val) => {
+    if (val)
+      rerenderMenuList(val)
+  },
+)
 
 onMounted(() => {
   initStore()
   nextTick(selectedFirstItem)
 })
 </script>
+
+<template>
+  <div
+    ref="commandRef"
+    :class="theme"
+    :command-theme="theme"
+    @keydown="handleKeyDown"
+  >
+    <div command-root>
+      <slot />
+    </div>
+  </div>
+</template>
