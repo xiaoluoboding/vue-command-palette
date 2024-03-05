@@ -84,7 +84,7 @@ const demoCode1 = `<!-- <template> -->
 
 const demoCode2 = `// <script lang="ts" setup>
 import { ref } from 'vue'
-
+import { Command } from 'vue-command-palette'
 
 const visible = ref(false)
 `
