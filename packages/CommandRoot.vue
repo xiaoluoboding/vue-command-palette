@@ -9,7 +9,7 @@ import { findNextSibling, findPreviousSibling } from './utils'
 import type { CommandRootEmits, CommandRootProps, ItemInfo } from './types'
 
 defineOptions({
-  name: 'CommandRoot',
+  name: 'Command.Root',
 })
 
 const props = withDefaults(defineProps<CommandRootProps>(), {
