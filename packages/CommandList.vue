@@ -1,25 +1,15 @@
-<template>
-  <div command-list="" role="listbox" aria-label="Suggestions" ref="listRef">
-    <div command-list-sizer="" ref="heightRef">
-      <slot />
-    </div>
-  </div>
-</template>
-
 <script lang="ts">
-import { defineComponent } from 'vue'
-
-export default defineComponent({
-  name: 'Command.List'
-})
+import { onBeforeUnmount, ref, watchEffect } from 'vue'
 </script>
 
 <script lang="ts" setup>
-import { ref, watchEffect, onBeforeUnmount, nextTick } from 'vue'
-
 import { useCommandEvent } from './useCommandEvent'
 
-const { emitter } = useCommandEvent()
+defineOptions({
+  name: 'Command.List',
+})
+
+const { rerenderList } = useCommandEvent()
 
 const listRef = ref<HTMLDivElement>()
 const heightRef = ref<HTMLDivElement>()
@@ -41,9 +31,10 @@ watchEffect(() => {
         const height = sizer?.offsetHeight
         wrapper?.style.setProperty(
           '--command-list-height',
-          `${height?.toFixed(1)}px`
+          `${height?.toFixed(1)}px`,
         )
-        emitter.emit('rerenderList', true)
+
+        rerenderList.value = true
       })
     })
     observer.observe(sizer)
@@ -56,8 +47,15 @@ watchEffect(() => {
 })
 
 onBeforeUnmount(() => {
-  if (observer !== null && sizer) {
+  if (observer !== null && sizer)
     observer.unobserve(sizer)
-  }
 })
 </script>
+
+<template>
+  <div ref="listRef" command-list="" role="listbox" aria-label="Suggestions">
+    <div ref="heightRef" command-list-sizer="">
+      <slot />
+    </div>
+  </div>
+</template>

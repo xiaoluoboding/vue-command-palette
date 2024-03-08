@@ -1,23 +1,15 @@
 {
+  "extends": "@vue/tsconfig/tsconfig.dom.json",
   "compilerOptions": {
-    "target": "ESNext",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
-    "moduleResolution": "Node",
-    "strict": true,
-    "jsx": "preserve",
-    "sourceMap": true,
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "esModuleInterop": true,
-    "lib": ["ESNext", "DOM"],
-    "skipLibCheck": true,
     "baseUrl": "./",
+    "moduleResolution": "Node",
     "paths": {
       "@/*": ["packages/*"],
       "~/*": ["./src/*"]
-    }
+    },
+    "sourceMap": true,
   },
+  "references": [{ "path": "./tsconfig.node.json" }],
   "include": [
     "src/**/*.ts",
     "src/**/*.d.ts",
@@ -27,6 +19,5 @@
     "packages/**/*.d.ts",
     "packages/**/*.tsx",
     "packages/**/*.vue"
-  ],
-  "references": [{ "path": "./tsconfig.node.json" }]
+  ]
 }

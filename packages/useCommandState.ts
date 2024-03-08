@@ -1,12 +1,12 @@
-import { reactive, toRefs, computed } from 'vue'
+import { computed, reactive, toRefs } from 'vue'
 
-type FilteredItem = {
+interface FilteredItem {
   count: number
   items: Map<string, any>
   groups: Set<string>
 }
 
-type State = {
+interface State {
   // Event State
   selectedNode: string
   selectedGroup: string
@@ -28,11 +28,11 @@ const state = reactive<State>({
     /** Map from visible item id. */
     items: new Map(),
     /** Set of groups with at least one visible item. */
-    groups: new Set()
-  }
+    groups: new Set(),
+  },
 })
 
-const useCommandState = () => {
+function useCommandState() {
   const isSearching = computed(() => state.search !== '')
 
   const resetStore = () => {
@@ -46,7 +46,7 @@ const useCommandState = () => {
   return {
     isSearching,
     resetStore,
-    ...toRefs(state)
+    ...toRefs(state),
   }
 }
 

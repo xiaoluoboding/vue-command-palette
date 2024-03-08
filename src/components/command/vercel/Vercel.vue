@@ -1,44 +1,12 @@
-<template>
-  <Command.Dialog
-    :visible="true"
-    theme="vercel"
-    @select-item="handleSelectItem"
-  >
-    <template #header>
-      <div command-vercel-label>
-        <label command-vercel-badge v-for="page in pageTree">
-          {{ page }}
-        </label>
-      </div>
-      <Command.Input
-        placeholder="What do you need?"
-        v-model:value="inputValue"
-      />
-    </template>
-    <!-- <Command.Loading> Hang on... </Command.Loading> -->
-    <template #body>
-      <Command.List ref="dialogRef">
-        <Command.Empty>No results found.</Command.Empty>
-        <Transition name="pop-page">
-          <KeepAlive>
-            <component :is="currentView" :key="activePage" />
-          </KeepAlive>
-        </Transition>
-      </Command.List>
-    </template>
-  </Command.Dialog>
-</template>
-
 <script lang="ts" setup>
-import { ref, computed } from 'vue'
+import { computed, ref } from 'vue'
 import { useMagicKeys, whenever } from '@vueuse/core'
-
-import { toggleDarkmode } from '~/composables/useDarkmode'
-import { Command, useCommandState } from '@/index'
-import { ItemInfo } from '@/types'
 
 import Home from './Home.vue'
 import Projects from './Projects.vue'
+import { toggleDarkmode } from '~/composables/useDarkmode'
+import { Command, useCommandState } from '@/index'
+import type { ItemInfo } from '@/types'
 
 const { current } = useMagicKeys()
 const { search } = useCommandState()
@@ -54,38 +22,67 @@ const currentView = computed(() => {
 
 const pageTree = computed(() => {
   let pages = ['Home']
-  if (isHomePage.value) {
+  if (isHomePage.value)
     pages = ['Home']
-  } else {
+  else
     pages.push(activePage.value)
-  }
+
   return pages
 })
 
-const togglePage = () => {
+function togglePage() {
   activePage.value = isHomePage.value ? 'projects' : 'home'
   search.value = ''
 }
 
-const handleKeyDown = () => {
-  if (isHomePage.value || inputValue.value.length) {
+function handleKeyDown() {
+  if (isHomePage.value || inputValue.value.length)
     return
-  }
 
   togglePage()
 }
 
 whenever(() => current.has('backspace'), handleKeyDown)
 
-const handleSelectItem = (item: ItemInfo) => {
-  if (item.value === 'Search Projects...') {
+function handleSelectItem(item: ItemInfo) {
+  if (item.value === 'Search Projects...')
     togglePage()
-  }
-  if (item.value === 'Toggle Dark Mode') {
+
+  if (item.value === 'Toggle Dark Mode')
     toggleDarkmode()
-  }
 }
 </script>
+
+<template>
+  <Command.Dialog
+    :visible="true"
+    theme="vercel"
+    @select-item="handleSelectItem"
+  >
+    <template #header>
+      <div command-vercel-label>
+        <label v-for="page in pageTree" command-vercel-badge>
+          {{ page }}
+        </label>
+      </div>
+      <Command.Input
+        v-model:value="inputValue"
+        placeholder="What do you need?"
+      />
+    </template>
+    <!-- <Command.Loading> Hang on... </Command.Loading> -->
+    <template #body>
+      <Command.List ref="dialogRef">
+        <Command.Empty>No results found.</Command.Empty>
+        <Transition name="pop-page">
+          <KeepAlive>
+            <component :is="currentView" :key="activePage" />
+          </KeepAlive>
+        </Transition>
+      </Command.List>
+    </template>
+  </Command.Dialog>
+</template>
 
 <style lang="scss">
 @import '~/assets/scss/vercel.scss';

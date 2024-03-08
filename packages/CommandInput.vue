@@ -1,3 +1,36 @@
+<script lang="ts">
+import { computed, ref, watchEffect } from 'vue'
+</script>
+
+<script lang="ts" setup>
+import type { CommandInputEmits, CommandInputProps } from './types';
+import { useCommandState } from './useCommandState'
+
+defineOptions({
+  name: 'Command.Input',
+})
+
+defineProps<CommandInputProps>()
+
+const emit = defineEmits<CommandInputEmits>()
+
+const inputRef = ref<HTMLInputElement | null>(null)
+const { search } = useCommandState()
+const localSearch = computed(() => search.value)
+
+function handleInput(e: Event) {
+  const event = e as InputEvent
+  const input = e.target as HTMLInputElement
+  search.value = input?.value
+  emit('input', event)
+  emit('update:value', search.value)
+}
+
+watchEffect(() => {
+  inputRef.value?.focus()
+})
+</script>
+
 <template>
   <input
     ref="inputRef"
@@ -12,44 +45,5 @@
     :placeholder="placeholder"
     :value="localSearch"
     @input="handleInput"
-  />
+  >
 </template>
-
-<script lang="ts">
-import { defineComponent, ref, watchEffect } from 'vue'
-
-export default defineComponent({
-  name: 'Command.Input'
-})
-</script>
-
-<script lang="ts" setup>
-import { computed } from 'vue'
-import { useCommandState } from './useCommandState'
-
-defineProps<{
-  placeholder: string
-  value?: string
-}>()
-
-const emit = defineEmits<{
-  (e: 'input', ie: InputEvent): void
-  (e: 'update:value', val: any): void
-}>()
-
-const inputRef = ref<HTMLInputElement | null>(null)
-const { search } = useCommandState()
-const localSearch = computed(() => search.value)
-
-const handleInput = (e: Event) => {
-  const event = e as InputEvent
-  const input = e.target as HTMLInputElement
-  search.value = input?.value
-  emit('input', event)
-  emit('update:value', search.value)
-}
-
-watchEffect(() => {
-  inputRef.value?.focus()
-})
-</script>

@@ -7,9 +7,6 @@ export {}
 
 declare module 'vue' {
   export interface GlobalComponents {
-    'Carbon:cafe': typeof import('~icons/carbon/cafe')['default']
-    'Carbon:logoGithub': typeof import('~icons/carbon/logo-github')['default']
-    'Carbon:logoTwitter': typeof import('~icons/carbon/logo-twitter')['default']
     CmdkPlaceholder: typeof import('./src/components/common/CmdkPlaceholder.vue')['default']
     FigmaIcon: typeof import('./src/components/icons/FigmaIcon.vue')['default']
     Home: typeof import('./src/components/command/raycast/Home.vue')['default']
@@ -24,7 +21,6 @@ declare module 'vue' {
     LinearRemoveLabelIcon: typeof import('./src/components/icons/LinearRemoveLabelIcon.vue')['default']
     LinearSetDueDateIcon: typeof import('./src/components/icons/LinearSetDueDateIcon.vue')['default']
     Logo: typeof import('./src/components/icons/Logo.vue')['default']
-    'Mdi:heart': typeof import('~icons/mdi/heart')['default']
     MoonIcon: typeof import('./src/components/icons/MoonIcon.vue')['default']
     Projects: typeof import('./src/components/command/vercel/Projects.vue')['default']
     Raycast: typeof import('./src/components/command/raycast/Raycast.vue')['default']

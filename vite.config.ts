@@ -1,7 +1,8 @@
-import { defineConfig, UserConfig } from 'vite'
-import { resolve } from 'path'
+import { URL, fileURLToPath } from 'node:url'
+import { resolve } from 'node:path'
+import type { UserConfig } from 'vite'
+import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
-import dts from 'vite-plugin-dts'
 import UnoCSS from 'unocss/vite'
 import Icons from 'unplugin-icons/vite'
 import IconsResolver from 'unplugin-icons/resolver'
@@ -9,7 +10,7 @@ import Components from 'unplugin-vue-components/vite'
 
 // https://vitejs.dev/config/
 export default defineConfig(({ command, mode }) => {
-  let userConfig: UserConfig = {}
+  const userConfig: UserConfig = {}
 
   console.log(command)
   console.log(mode)
@@ -19,44 +20,47 @@ export default defineConfig(({ command, mode }) => {
       lib: {
         entry: resolve(__dirname, 'packages/index.ts'),
         name: 'VueCommandPalette',
-        fileName: 'vue-command-palette'
+        fileName: 'vue-command-palette',
       },
       outDir: 'lib',
       emptyOutDir: true,
-      sourcemap: false,
+      sourcemap: true,
       rollupOptions: {
-        external: ['vue'],
-        output: {
-          globals: {
-            vue: 'Vue'
+        external: ['vue', 'fuse.js'],
+        output: [
+          {
+            format: 'cjs',
+            entryFileNames: 'vue-command-palette.cjs'
+          },
+          {
+            format: 'es',
+            entryFileNames: 'vue-command-palette.js',
+            preserveModules: false
           }
-        }
-      }
+        ],
+      },
     }
   }
 
   return {
     resolve: {
       alias: {
-        '@': resolve(__dirname, '/packages'),
-        '~': resolve(__dirname, '/src')
-      }
+        '@': fileURLToPath(new URL('./packages', import.meta.url)),
+        '~': fileURLToPath(new URL('./src', import.meta.url)),
+      },
     },
     plugins: [
       vue(),
-      dts({
-        include: './packages'
-      }),
       UnoCSS(),
       Components({
         resolvers: [
           IconsResolver({
-            prefix: ''
-          })
-        ]
+            prefix: '',
+          }),
+        ],
       }),
-      Icons()
+      Icons(),
     ],
-    ...userConfig
+    ...userConfig,
   }
 })

@@ -1,3 +1,62 @@
+<script lang="ts" setup>
+import Item from './Item.vue'
+import { Command } from '@/index'
+import FigmaIcon from '~/components/icons/FigmaIcon.vue'
+import RaycastIcon from '~/components/icons/RaycastIcon.vue'
+import YouTubeIcon from '~/components/icons/YouTubeIcon.vue'
+import SlackIcon from '~/components/icons/SlackIcon.vue'
+import LinearIcon from '~/components/icons/LinearIcon.vue'
+
+import ClipboardIcon from '~/components/icons/RaycastClipboardIcon.vue'
+import HammerIcon from '~/components/icons/RaycastHammerIcon.vue'
+
+const items1 = [
+  {
+    icon: LinearIcon,
+    label: 'Linear',
+    isCommand: false,
+  },
+  {
+    icon: FigmaIcon,
+    label: 'Figma',
+    isCommand: false,
+  },
+  {
+    icon: SlackIcon,
+    label: 'Slack',
+    isCommand: false,
+  },
+  {
+    icon: YouTubeIcon,
+    label: 'YouTube',
+    isCommand: false,
+  },
+  {
+    icon: RaycastIcon,
+    label: 'Raycast',
+    isCommand: false,
+  },
+]
+
+const items2 = [
+  {
+    icon: ClipboardIcon,
+    label: 'Clipboard History',
+    isCommand: true,
+  },
+  {
+    icon: HammerIcon,
+    label: 'Import Extension',
+    isCommand: true,
+  },
+  {
+    icon: HammerIcon,
+    label: 'Manage Extensions',
+    isCommand: true,
+  },
+]
+</script>
+
 <template>
   <Command.Group heading="Suggestions">
     <Item
@@ -7,8 +66,10 @@
       :data-value="item.label"
     >
       <div class="icon_blur-logo">
-        <div class="icon_bg"></div>
-        <div class="icon_inner"><component :is="item.icon" /></div>
+        <div class="icon_bg" />
+        <div class="icon_inner">
+          <component :is="item.icon" />
+        </div>
       </div>
       {{ item.label }}
     </Item>
@@ -25,65 +86,6 @@
     </Item>
   </Command.Group>
 </template>
-
-<script lang="ts" setup>
-import { Command } from '@/index'
-import Item from './Item.vue'
-import FigmaIcon from '~/components/icons/FigmaIcon.vue'
-import RaycastIcon from '~/components/icons/RaycastIcon.vue'
-import YouTubeIcon from '~/components/icons/YouTubeIcon.vue'
-import SlackIcon from '~/components/icons/SlackIcon.vue'
-import LinearIcon from '~/components/icons/LinearIcon.vue'
-
-import ClipboardIcon from '~/components/icons/RaycastClipboardIcon.vue'
-import HammerIcon from '~/components/icons/RaycastHammerIcon.vue'
-
-const items1 = [
-  {
-    icon: LinearIcon,
-    label: 'Linear',
-    isCommand: false
-  },
-  {
-    icon: FigmaIcon,
-    label: 'Figma',
-    isCommand: false
-  },
-  {
-    icon: SlackIcon,
-    label: 'Slack',
-    isCommand: false
-  },
-  {
-    icon: YouTubeIcon,
-    label: 'YouTube',
-    isCommand: false
-  },
-  {
-    icon: RaycastIcon,
-    label: 'Raycast',
-    isCommand: false
-  }
-]
-
-const items2 = [
-  {
-    icon: ClipboardIcon,
-    label: 'Clipboard History',
-    isCommand: true
-  },
-  {
-    icon: HammerIcon,
-    label: 'Import Extension',
-    isCommand: true
-  },
-  {
-    icon: HammerIcon,
-    label: 'Manage Extensions',
-    isCommand: true
-  }
-]
-</script>
 
 <style scoped>
 .icon_blur-logo {
