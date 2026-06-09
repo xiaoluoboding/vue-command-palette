@@ -33,6 +33,9 @@
     "fuse.js": "^7.0.0",
     "nanoid": "^5.0.6"
   },
+  "peerDependencies": {
+    "vue": "^3.4.0"
+  },
   "devDependencies": {
     "@iconify/json": "^2.2.189",
     "@microsoft/api-extractor": "^7.42.3",
